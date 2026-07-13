@@ -1,22 +1,26 @@
+export type Metric = { value: string; label: string };
+
 export type Project = {
   slug: string;
   title: string;
+  category: string;
   tagline: string;
   description: string;
   problem: string;
   approach: string;
   highlights: string[];
+  metrics: Metric[];
   stack: string[];
   live?: string;
   github?: string;
   screenshot?: string;
-  comingSoon?: boolean;
 };
 
 export const projects: Project[] = [
   {
     slug: "debt-covenant-surveillance",
     title: "Dynamic Debt Covenant Surveillance Engine",
+    category: "Credit",
     tagline:
       "Translating credit agreements into programmatic surveillance models for private credit.",
     description:
@@ -31,6 +35,11 @@ export const projects: Project[] = [
       "Cross-default cascade simulation via breadth-first search over guarantee networks",
       "Macro shock sensitivity matrix and covenant-headroom erosion trend detection",
     ],
+    metrics: [
+      { value: "$263B", label: "debt monitored" },
+      { value: "9", label: "issuers tracked live" },
+      { value: "5", label: "covenants in breach" },
+    ],
     stack: ["Python", "NetworkX", "yfinance", "SEC EDGAR", "React"],
     live: "https://dynamic-debt-covenant-surveillance.vercel.app/",
     screenshot: "/screenshots/debt-covenant-surveillance.png",
@@ -38,6 +47,7 @@ export const projects: Project[] = [
   {
     slug: "sellside-research-engine",
     title: "Sellside Research Engine",
+    category: "Equities",
     tagline:
       "An institutional-grade equity research dashboard — DCF to NLP tone scoring in one screen.",
     description:
@@ -52,6 +62,11 @@ export const projects: Project[] = [
       "NLP management-commentary scoring: tone, guidance extraction, key themes, risk flags",
       "Football-field valuation chart and multi-factor composite rating out of 100",
     ],
+    metrics: [
+      { value: "5", label: "factor pillars in composite" },
+      { value: "8", label: "risk metrics computed" },
+      { value: "8.4%", label: "implied growth vs 11.2% consensus" },
+    ],
     stack: ["SEC EDGAR", "Yahoo Finance", "OpenAI NLP", "React", "Recharts"],
     live: "https://sellside-research-engine.vercel.app/",
     screenshot: "/screenshots/sellside-research-engine.png",
@@ -59,6 +74,7 @@ export const projects: Project[] = [
   {
     slug: "capital-markets-intelligence",
     title: "Capital Markets Intelligence Platform",
+    category: "Macro & Markets",
     tagline:
       "IPO event studies, sovereign risk scoring, M&A screening, and yield-curve decomposition — zero API keys.",
     description:
@@ -73,34 +89,46 @@ export const projects: Project[] = [
       "$483.5B M&A pipeline screened, 25 IPOs event-studied (avg day-1 pop 15.15%)",
       "Sovereign risk tiers across 20 countries from growth, inflation and debt/GDP data",
     ],
+    metrics: [
+      { value: "$483.5B", label: "M&A pipeline screened" },
+      { value: "25", label: "IPOs event-studied" },
+      { value: "20", label: "sovereigns risk-scored" },
+    ],
     stack: ["Open market data", "React", "Recharts", "Event-study models"],
     live: "https://capital-markets-intelligence.vercel.app/",
     screenshot: "/screenshots/capital-markets-intelligence.png",
   },
   {
-    slug: "sustainable-finance-india",
-    title: "India Sustainable Finance — Transition Dashboard",
+    slug: "enso-macro-risk-desk",
+    title: "ENSO Macro Risk Desk",
+    category: "Climate Macro",
     tagline:
-      "Green bonds, SEBI/RBI frameworks, and transition finance for India's hard-to-abate sectors.",
+      "When the ENSO cycle shifts, which commodity exposures are causally real — and which are spurious?",
     description:
-      "A research dashboard mapping India's sustainable-finance transition: ₹65,100Cr of cumulative green bond issuance, a $118B annual capital need across six priority sectors, and the policy architecture (SEBI, RBI, NDC pathway) that shapes it.",
+      "A live commodity risk desk built around the El Niño–Southern Oscillation: Niño-3.4 ONI tracking with a SARIMA+LSTM forecast cone, country-level exposure indices, and — the core idea — Granger + CCM causal testing of every headline ENSO→commodity trade.",
     problem:
-      "India's net-zero-2070 pathway needs roughly $118B of annual transition capital, but the data on green bond issuance, ESG product flows, and policy frameworks is scattered across regulator PDFs and press releases.",
+      "Every El Niño advisory triggers the same headline trades — long palm oil, long cocoa, short wheat. Most of those links never survive causal testing; desks reposition on correlations that are confounded or spurious.",
     approach:
-      "Issuance timelines (sovereign, PSU, corporate, bank tranches), sector capital-need estimates, and SEBI/RBI policy frameworks are consolidated into one navigable dashboard — with an explicit synthetic-data disclosure and a versioned research roadmap tracked as open issues.",
+      "NOAA CPC ONI data feeds a live desk: a 24-month ONI trajectory with a 12-month ensemble forecast cone (SARIMA+LSTM, 90% band), an ENSO exposure index across producing countries, and an in-repo Granger + CCM engine that stress-tests each ONI→commodity-price link on linearly-detrended series — a misattribution guard flagging which trades are MODERATE, WEAK, or confounded.",
     highlights: [
-      "₹65,100Cr cumulative green bond issuance mapped 2015–2024 by issuer type",
-      "Capital-need view: $118B/year across six hard-to-abate priority sectors",
-      "Policy layer: SEBI disclosure regimes, RBI climate-risk guidance, India NDC pathway",
-      "500 GW renewable target and 2070 net-zero scenario framing",
+      "Causal verdict: of six headline ENSO→price links, none test strongly causal (max CCM ρ 0.32)",
+      "Live Niño-3.4 ONI gauge with NOAA CPC advisory status and 12-month forecast cone",
+      "Exposure leaderboard: Indonesia palm oil, Côte d'Ivoire cocoa, Australia wheat and more",
+      "Region deep-dives where the clean ENSO signal actually lives: climate & production data",
     ],
-    stack: ["React", "Recharts", "Policy research", "Synthetic data"],
-    live: "https://sustainable-finance-india-transitio.vercel.app/",
-    screenshot: "/screenshots/sustainable-finance-india.png",
+    metrics: [
+      { value: "6", label: "headline links causal-tested" },
+      { value: "11", label: "exposed regions ranked" },
+      { value: "90%", label: "forecast cone band (SARIMA+LSTM)" },
+    ],
+    stack: ["Python", "Granger / CCM", "SARIMA + LSTM", "NOAA CPC data", "Docker"],
+    live: "https://doginfantry-enso-macro-risk-desk.hf.space/",
+    screenshot: "/screenshots/enso-macro-risk-desk.png",
   },
   {
     slug: "india-lbo-screener",
     title: "India LBO Take-Private Screener",
+    category: "Private Equity",
     tagline:
       "The only public LBO screener for Indian take-privates — built the month the rules changed.",
     description:
@@ -115,21 +143,42 @@ export const projects: Project[] = [
       "Built within weeks of the February 2026 regulatory unlock",
       "Open source on GitHub",
     ],
+    metrics: [
+      { value: "Every", label: "NSE mid-cap screened" },
+      { value: "3", label: "scenarios per target" },
+      { value: "Feb '26", label: "regulatory unlock covered" },
+    ],
     stack: ["Python", "NSE data", "LBO modeling"],
     github: "https://github.com/DogInfantry/India-LBO-Take-Pv-Screener",
     screenshot:
       "https://opengraph.githubassets.com/1/DogInfantry/India-LBO-Take-Pv-Screener",
   },
   {
-    slug: "el-nino",
-    title: "El Niño",
-    tagline: "Deployment being finalized — public link coming soon.",
-    description: "",
-    problem: "",
-    approach: "",
-    highlights: [],
-    stack: [],
-    comingSoon: true,
+    slug: "sustainable-finance-india",
+    title: "India Sustainable Finance — Transition Dashboard",
+    category: "Sustainable Finance",
+    tagline:
+      "Green bonds, SEBI/RBI frameworks, and transition finance for India's hard-to-abate sectors.",
+    description:
+      "A research dashboard mapping India's sustainable-finance transition: ₹65,100Cr of cumulative green bond issuance, a $118B annual capital need across six priority sectors, and the policy architecture (SEBI, RBI, NDC pathway) that shapes it.",
+    problem:
+      "India's net-zero-2070 pathway needs roughly $118B of annual transition capital, but the data on green bond issuance, ESG product flows, and policy frameworks is scattered across regulator PDFs and press releases.",
+    approach:
+      "Issuance timelines (sovereign, PSU, corporate, bank tranches), sector capital-need estimates, and SEBI/RBI policy frameworks are consolidated into one navigable dashboard — with an explicit synthetic-data disclosure and a versioned research roadmap tracked as open issues.",
+    highlights: [
+      "₹65,100Cr cumulative green bond issuance mapped 2015–2024 by issuer type",
+      "Capital-need view: $118B/year across six hard-to-abate priority sectors",
+      "Policy layer: SEBI disclosure regimes, RBI climate-risk guidance, India NDC pathway",
+      "500 GW renewable target and 2070 net-zero scenario framing",
+    ],
+    metrics: [
+      { value: "₹65,100Cr", label: "green bond issuance mapped" },
+      { value: "$118B", label: "annual capital need" },
+      { value: "6", label: "priority sectors" },
+    ],
+    stack: ["React", "Recharts", "Policy research", "Synthetic data"],
+    live: "https://sustainable-finance-india-transitio.vercel.app/",
+    screenshot: "/screenshots/sustainable-finance-india.png",
   },
 ];
 

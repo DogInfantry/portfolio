@@ -2,11 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProject, projects } from "@/data/projects";
+import BrowserFrame from "@/components/BrowserFrame";
 
 export function generateStaticParams() {
-  return projects
-    .filter((p) => !p.comingSoon)
-    .map((p) => ({ slug: p.slug }));
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -27,23 +26,30 @@ export default async function ProjectPage({
 }) {
   const { slug } = await params;
   const project = getProject(slug);
-  if (!project || project.comingSoon) notFound();
+  if (!project) notFound();
+
+  const idx = projects.findIndex((p) => p.slug === slug);
+  const prev = projects[(idx - 1 + projects.length) % projects.length];
+  const next = projects[(idx + 1) % projects.length];
+  const externalHref = project.live ?? project.github;
 
   return (
     <article className="mx-auto max-w-3xl px-5 py-16">
-      <Link
-        href="/#projects"
-        className="text-sm text-muted transition-colors hover:text-accent"
-      >
+      <Link href="/#projects" className="lk text-sm text-muted">
         ← All projects
       </Link>
 
-      <header className="mt-6">
-        <h1 className="font-serif text-4xl leading-tight tracking-tight">
+      <header className="mt-8">
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent">
+          {String(idx + 1).padStart(2, "0")} · {project.category}
+        </p>
+        <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight sm:text-5xl">
           {project.title}
         </h1>
-        <p className="mt-3 text-lg text-muted">{project.tagline}</p>
-        <div className="mt-5 flex flex-wrap gap-3">
+        <p className="mt-4 text-lg leading-relaxed text-muted">
+          {project.tagline}
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
           {project.live && (
             <a
               href={project.live}
@@ -68,22 +74,31 @@ export default async function ProjectPage({
       </header>
 
       {project.screenshot && (
-        <a
-          href={project.live ?? project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-10 block overflow-hidden rounded-xl border border-line shadow-sm"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="mt-12">
+          <BrowserFrame
             src={project.screenshot}
             alt={`${project.title} screenshot`}
-            className="w-full"
+            url={externalHref}
+            href={externalHref}
           />
-        </a>
+        </div>
       )}
 
-      <section className="mt-12 space-y-10 leading-relaxed">
+      {/* Key metrics */}
+      <div className="mt-12 grid grid-cols-3 gap-4 border-y border-line py-8">
+        {project.metrics.map((m) => (
+          <div key={m.label}>
+            <p className="font-serif text-2xl tracking-tight text-accent sm:text-3xl">
+              {m.value}
+            </p>
+            <p className="mt-1 text-xs leading-snug text-muted sm:text-sm">
+              {m.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <section className="mt-12 space-y-12 leading-relaxed">
         <div>
           <h2 className="font-serif text-2xl">Overview</h2>
           <p className="mt-3 text-muted">{project.description}</p>
@@ -98,7 +113,7 @@ export default async function ProjectPage({
         </div>
         <div>
           <h2 className="font-serif text-2xl">Highlights</h2>
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-4 space-y-3">
             {project.highlights.map((h) => (
               <li key={h} className="flex gap-3 text-muted">
                 <span className="mt-0.5 text-accent">▪</span>
@@ -121,6 +136,32 @@ export default async function ProjectPage({
           </div>
         </div>
       </section>
+
+      {/* Prev / next */}
+      <nav className="mt-16 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
+        <Link
+          href={`/projects/${prev.slug}`}
+          className="group rounded-xl border border-line bg-card p-5 transition-colors hover:border-accent"
+        >
+          <p className="text-xs uppercase tracking-[0.15em] text-muted">
+            ← Previous
+          </p>
+          <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
+            {prev.title}
+          </p>
+        </Link>
+        <Link
+          href={`/projects/${next.slug}`}
+          className="group rounded-xl border border-line bg-card p-5 text-right transition-colors hover:border-accent"
+        >
+          <p className="text-xs uppercase tracking-[0.15em] text-muted">
+            Next →
+          </p>
+          <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
+            {next.title}
+          </p>
+        </Link>
+      </nav>
     </article>
   );
 }
