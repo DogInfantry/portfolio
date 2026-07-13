@@ -10,13 +10,13 @@ export default function BrowserFrame({
   href?: string;
 }) {
   const frame = (
-    <figure className="overflow-hidden rounded-xl border border-line bg-card shadow-[0_2px_20px_rgba(28,37,48,0.08)] transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_16px_40px_rgba(28,37,48,0.14)]">
+    <figure className="overflow-hidden rounded-sm border border-line bg-card shadow-[0_1px_2px_rgba(28,37,48,0.06)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_12px_32px_rgba(28,37,48,0.12)]">
       <div className="flex items-center gap-2 border-b border-line bg-[#f2f0ea] px-3.5 py-2">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#f4623a]/70" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#e8b93c]/70" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#2fa66a]/70" />
+        <span className="h-2 w-2 rounded-full bg-[#c9c4b8]" />
+        <span className="h-2 w-2 rounded-full bg-[#c9c4b8]" />
+        <span className="h-2 w-2 rounded-full bg-[#c9c4b8]" />
         {url && (
-          <span className="ml-2 hidden truncate rounded-md bg-white px-2.5 py-0.5 font-mono text-[11px] text-muted sm:block">
+          <span className="tnum ml-2 hidden truncate rounded-sm bg-white px-2.5 py-0.5 font-mono text-[11px] text-muted sm:block">
             {url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
           </span>
         )}

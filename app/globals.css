@@ -34,6 +34,17 @@ body {
   color: #fff;
 }
 
+/* journal system: small-caps label + tabular figures */
+.sc {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
 /* animated link underline */
 .lk {
   position: relative;

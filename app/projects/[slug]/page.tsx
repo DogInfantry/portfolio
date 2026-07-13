@@ -55,7 +55,7 @@ export default async function ProjectPage({
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
               Open live app ↗
             </a>
@@ -65,7 +65,7 @@ export default async function ProjectPage({
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-line px-5 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+              className="rounded-sm border border-line px-5 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
             >
               View on GitHub ↗
             </a>
@@ -124,16 +124,9 @@ export default async function ProjectPage({
         </div>
         <div>
           <h2 className="font-serif text-2xl">Stack</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {project.stack.map((s) => (
-              <span
-                key={s}
-                className="rounded-full bg-accent-soft px-3 py-1 text-sm text-accent"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
+          <p className="sc mt-3 leading-relaxed text-muted">
+            {project.stack.join(" · ")}
+          </p>
         </div>
       </section>
 
@@ -141,7 +134,7 @@ export default async function ProjectPage({
       <nav className="mt-16 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
         <Link
           href={`/projects/${prev.slug}`}
-          className="group rounded-xl border border-line bg-card p-5 transition-colors hover:border-accent"
+          className="group rounded-sm border border-line bg-card p-5 transition-colors hover:border-accent"
         >
           <p className="text-xs uppercase tracking-[0.15em] text-muted">
             ← Previous
@@ -152,7 +145,7 @@ export default async function ProjectPage({
         </Link>
         <Link
           href={`/projects/${next.slug}`}
-          className="group rounded-xl border border-line bg-card p-5 text-right transition-colors hover:border-accent"
+          className="group rounded-sm border border-line bg-card p-5 text-right transition-colors hover:border-accent"
         >
           <p className="text-xs uppercase tracking-[0.15em] text-muted">
             Next →

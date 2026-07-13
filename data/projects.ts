@@ -4,6 +4,8 @@ export type Project = {
   slug: string;
   title: string;
   category: string;
+  /** one contextualized coverage fact, phrased as what the tool does */
+  fact: string;
   tagline: string;
   description: string;
   problem: string;
@@ -19,6 +21,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "debt-covenant-surveillance",
+    fact: "monitors $263B of issuer debt",
     title: "Dynamic Debt Covenant Surveillance Engine",
     category: "Credit",
     tagline:
@@ -46,6 +49,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sellside-research-engine",
+    fact: "computes 8 risk metrics per ticker",
     title: "Sellside Research Engine",
     category: "Equities",
     tagline:
@@ -73,6 +77,7 @@ export const projects: Project[] = [
   },
   {
     slug: "capital-markets-intelligence",
+    fact: "event-studies 25 IPOs on open data",
     title: "Capital Markets Intelligence Platform",
     category: "Macro & Markets",
     tagline:
@@ -100,6 +105,7 @@ export const projects: Project[] = [
   },
   {
     slug: "enso-macro-risk-desk",
+    fact: "causal-tests 6 headline ENSO trades",
     title: "ENSO Macro Risk Desk",
     category: "Climate Macro",
     tagline:
@@ -127,6 +133,7 @@ export const projects: Project[] = [
   },
   {
     slug: "india-lbo-screener",
+    fact: "screens every NSE mid-cap",
     title: "India LBO Take-Private Screener",
     category: "Private Equity",
     tagline:
@@ -155,6 +162,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sustainable-finance-india",
+    fact: "maps ₹65,100Cr of green issuance",
     title: "India Sustainable Finance — Transition Dashboard",
     category: "Sustainable Finance",
     tagline:
