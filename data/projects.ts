@@ -20,46 +20,18 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "debt-covenant-surveillance",
-    fact: "monitors $263B of issuer debt",
-    title: "Dynamic Debt Covenant Surveillance Engine",
-    category: "Credit",
-    tagline:
-      "Translating credit agreements into programmatic surveillance models for private credit.",
-    description:
-      "An AST-safe covenant monitoring engine that flags leverage breaches, runs macro shock sensitivity matrices, and simulates cross-default cascade propagation before technical default — using live SEC 10-K/10-Q financials across a $263B monitored debt portfolio.",
-    problem:
-      "Private credit teams monitor covenants manually, spreadsheet by spreadsheet. Breaches surface after the fact, and cross-default clauses mean one breach can cascade through a capital structure before anyone models it.",
-    approach:
-      "Covenant formulas from real credit agreements are parsed into an AST-safe evaluator (no eval, no injection surface) and re-computed against live SEC 10-K/10-Q financials. A BFS pass over the intercompany guarantee graph simulates cross-default cascades, while a macro shock matrix stress-tests net leverage under rate and EBITDA scenarios.",
-    highlights: [
-      "9 issuers monitored across $263B of total debt — Charter, Walgreens, Altice, Bausch, Lumen and more",
-      "AST-safe covenant evaluator: credit-agreement math as code, without eval() risk",
-      "Cross-default cascade simulation via breadth-first search over guarantee networks",
-      "Macro shock sensitivity matrix and covenant-headroom erosion trend detection",
-    ],
-    metrics: [
-      { value: "$263B", label: "debt monitored" },
-      { value: "9", label: "issuers tracked live" },
-      { value: "5", label: "covenants in breach" },
-    ],
-    stack: ["Python", "NetworkX", "yfinance", "SEC EDGAR", "React"],
-    live: "https://dynamic-debt-covenant-surveillance.vercel.app/",
-    screenshot: "/screenshots/debt-covenant-surveillance.png",
-  },
-  {
     slug: "sellside-research-engine",
     fact: "computes 8 risk metrics per ticker",
     title: "Sellside Research Engine",
     category: "Equities",
     tagline:
-      "An institutional-grade equity research dashboard — DCF to NLP tone scoring in one screen.",
+      "An institutional-grade equity research dashboard: DCF to NLP tone scoring in one screen.",
     description:
       "A single-screen research terminal covering DCF and reverse-DCF valuation, football-field charts, multi-factor composite scoring, full risk metrics (VaR, Sharpe, Sortino, drawdown), and NLP-scored management commentary from earnings calls.",
     problem:
       "A sell-side initiation note takes days of fragmented work: valuation in Excel, comps in another tab, risk metrics somewhere else, and management tone read by gut feel.",
     approach:
-      "SEC EDGAR fundamentals and Yahoo Finance market data feed a DCF engine with an inverted reverse-DCF layer — solving for the growth the market is pricing in and comparing it to consensus. A five-pillar composite (valuation, growth, quality, momentum, consensus) rolls up to a rating, and OpenAI-powered NLP scores management commentary tone, themes, and risk flags.",
+      "SEC EDGAR fundamentals and Yahoo Finance market data feed a DCF engine with an inverted reverse-DCF layer that solves for the growth the market is pricing in and compares it to consensus. A five-pillar composite (valuation, growth, quality, momentum, consensus) rolls up to a rating, and OpenAI-powered NLP scores management commentary tone, themes, and risk flags.",
     highlights: [
       "Reverse DCF implied-growth sensitivity grid: implied 8.4% vs consensus 11.2% → mispricing flag",
       "Full risk suite: VaR 95%, CVaR, beta, Sharpe, Sortino, max drawdown, vol regime detection",
@@ -81,11 +53,11 @@ export const projects: Project[] = [
     title: "Capital Markets Intelligence Platform",
     category: "Macro & Markets",
     tagline:
-      "IPO event studies, sovereign risk scoring, M&A screening, and yield-curve decomposition — zero API keys.",
+      "IPO event studies, sovereign risk scoring, M&A screening, and yield-curve decomposition, with zero API keys.",
     description:
       "A production-grade market intelligence platform modeled on Goldman Sachs GIR, J.P. Morgan, D.E. Shaw and PwC Deals workflows: six proprietary models across 501 trading days of open data, with cross-asset regime detection on top.",
     problem:
-      "Institutional market intelligence is locked behind terminals and paid data feeds. The analytical frameworks themselves — regime scoring, curve decomposition, event studies — are reproducible with open data.",
+      "Institutional market intelligence is locked behind terminals and paid data feeds. The analytical frameworks themselves (regime scoring, curve decomposition, event studies) are reproducible with open data.",
     approach:
       "Six models built entirely on open data (no API keys): a cross-asset market regime score, yield-curve regime classification with slope decomposition, IPO day-1 event studies across 25 offerings, a 20-deal M&A pipeline screen, and macro-based sovereign risk scoring for 20 sovereigns and $326B of issuance.",
     highlights: [
@@ -109,13 +81,13 @@ export const projects: Project[] = [
     title: "ENSO Macro Risk Desk",
     category: "Climate Macro",
     tagline:
-      "When the ENSO cycle shifts, which commodity exposures are causally real — and which are spurious?",
+      "When the ENSO cycle shifts, which commodity exposures are causally real, and which are spurious?",
     description:
-      "A live commodity risk desk built around the El Niño–Southern Oscillation: Niño-3.4 ONI tracking with a SARIMA+LSTM forecast cone, country-level exposure indices, and — the core idea — Granger + CCM causal testing of every headline ENSO→commodity trade.",
+      "A live commodity risk desk built around the El Niño–Southern Oscillation: Niño-3.4 ONI tracking with a SARIMA+LSTM forecast cone, country-level exposure indices, and, the core idea, Granger + CCM causal testing of every headline ENSO→commodity trade.",
     problem:
-      "Every El Niño advisory triggers the same headline trades — long palm oil, long cocoa, short wheat. Most of those links never survive causal testing; desks reposition on correlations that are confounded or spurious.",
+      "Every El Niño advisory triggers the same headline trades: long palm oil, long cocoa, short wheat. Most of those links never survive causal testing; desks reposition on correlations that are confounded or spurious.",
     approach:
-      "NOAA CPC ONI data feeds a live desk: a 24-month ONI trajectory with a 12-month ensemble forecast cone (SARIMA+LSTM, 90% band), an ENSO exposure index across producing countries, and an in-repo Granger + CCM engine that stress-tests each ONI→commodity-price link on linearly-detrended series — a misattribution guard flagging which trades are MODERATE, WEAK, or confounded.",
+      "NOAA CPC ONI data feeds a live desk: a 24-month ONI trajectory with a 12-month ensemble forecast cone (SARIMA+LSTM, 90% band), an ENSO exposure index across producing countries, and an in-repo Granger + CCM engine that stress-tests each ONI→commodity-price link on linearly-detrended series. A misattribution guard flags which trades are MODERATE, WEAK, or confounded.",
     highlights: [
       "Causal verdict: of six headline ENSO→price links, none test strongly causal (max CCM ρ 0.32)",
       "Live Niño-3.4 ONI gauge with NOAA CPC advisory status and 12-month forecast cone",
@@ -132,38 +104,37 @@ export const projects: Project[] = [
     screenshot: "/screenshots/enso-macro-risk-desk.png",
   },
   {
-    slug: "india-lbo-screener",
-    fact: "screens every NSE mid-cap",
-    title: "India LBO Take-Private Screener",
-    category: "Private Equity",
+    slug: "debt-covenant-surveillance",
+    fact: "monitors $263B of issuer debt",
+    title: "Dynamic Debt Covenant Surveillance Engine",
+    category: "Credit",
     tagline:
-      "The only public LBO screener for Indian take-privates — built the month the rules changed.",
+      "Translating credit agreements into programmatic surveillance models for private credit.",
     description:
-      "India unlocked onshore leveraged buyouts in February 2026. This screener runs a full paper LBO on every NSE mid-cap with unused debt capacity, complete with Bull/Base/Bear scenario war rooms per target.",
+      "An AST-safe covenant monitoring engine that flags leverage breaches, runs macro shock sensitivity matrices, and simulates cross-default cascade propagation before technical default, using live SEC 10-K/10-Q financials across a $263B monitored debt portfolio.",
     problem:
-      "When India permitted onshore LBO financing in Feb 2026, no public tooling existed to screen which NSE mid-caps could actually support a leveraged take-private.",
+      "Private credit teams monitor covenants manually, spreadsheet by spreadsheet. Breaches surface after the fact, and cross-default clauses mean one breach can cascade through a capital structure before anyone models it.",
     approach:
-      "Every NSE mid-cap is put through a standardized paper LBO: debt capacity from existing leverage, entry/exit multiple assumptions, and IRR decomposition — then stress-tested through Bull/Base/Bear scenario war rooms to show which deals survive downside cases.",
+      "Covenant formulas from real credit agreements are parsed into an AST-safe evaluator (no eval, no injection surface) and re-computed against live SEC 10-K/10-Q financials. A BFS pass over the intercompany guarantee graph simulates cross-default cascades, while a macro shock matrix stress-tests net leverage under rate and EBITDA scenarios.",
     highlights: [
-      "Full paper LBO on every NSE mid-cap with unused debt capacity",
-      "Bull/Base/Bear scenario war rooms per target",
-      "Built within weeks of the February 2026 regulatory unlock",
-      "Open source on GitHub",
+      "9 issuers monitored across $263B of total debt: Charter, Walgreens, Altice, Bausch, Lumen and more",
+      "AST-safe covenant evaluator: credit-agreement math as code, without eval() risk",
+      "Cross-default cascade simulation via breadth-first search over guarantee networks",
+      "Macro shock sensitivity matrix and covenant-headroom erosion trend detection",
     ],
     metrics: [
-      { value: "Every", label: "NSE mid-cap screened" },
-      { value: "3", label: "scenarios per target" },
-      { value: "Feb '26", label: "regulatory unlock covered" },
+      { value: "$263B", label: "debt monitored" },
+      { value: "9", label: "issuers tracked live" },
+      { value: "5", label: "covenants in breach" },
     ],
-    stack: ["Python", "NSE data", "LBO modeling"],
-    github: "https://github.com/DogInfantry/India-LBO-Take-Pv-Screener",
-    screenshot:
-      "https://opengraph.githubassets.com/1/DogInfantry/India-LBO-Take-Pv-Screener",
+    stack: ["Python", "NetworkX", "yfinance", "SEC EDGAR", "React"],
+    live: "https://dynamic-debt-covenant-surveillance.vercel.app/",
+    screenshot: "/screenshots/debt-covenant-surveillance.png",
   },
   {
     slug: "sustainable-finance-india",
     fact: "maps ₹65,100Cr of green issuance",
-    title: "India Sustainable Finance — Transition Dashboard",
+    title: "India Sustainable Finance: Transition Dashboard",
     category: "Sustainable Finance",
     tagline:
       "Green bonds, SEBI/RBI frameworks, and transition finance for India's hard-to-abate sectors.",
@@ -172,7 +143,7 @@ export const projects: Project[] = [
     problem:
       "India's net-zero-2070 pathway needs roughly $118B of annual transition capital, but the data on green bond issuance, ESG product flows, and policy frameworks is scattered across regulator PDFs and press releases.",
     approach:
-      "Issuance timelines (sovereign, PSU, corporate, bank tranches), sector capital-need estimates, and SEBI/RBI policy frameworks are consolidated into one navigable dashboard — with an explicit synthetic-data disclosure and a versioned research roadmap tracked as open issues.",
+      "Issuance timelines (sovereign, PSU, corporate, bank tranches), sector capital-need estimates, and SEBI/RBI policy frameworks are consolidated into one navigable dashboard, with an explicit synthetic-data disclosure and a versioned research roadmap tracked as open issues.",
     highlights: [
       "₹65,100Cr cumulative green bond issuance mapped 2015–2024 by issuer type",
       "Capital-need view: $118B/year across six hard-to-abate priority sectors",

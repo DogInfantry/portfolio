@@ -4,7 +4,7 @@ import { research } from "@/data/research";
 export const metadata: Metadata = {
   title: "Research",
   description:
-    "Selected research by Anklesh Rawat — strategic metals, MSME credit, and ESG value creation.",
+    "Selected research by Anklesh Rawat: strategic metals, MSME credit, ESG value creation, and market analysis.",
 };
 
 export default function ResearchPage() {
@@ -15,8 +15,8 @@ export default function ResearchPage() {
         Research
       </h1>
       <p className="mt-4 max-w-xl leading-relaxed text-muted">
-        Longer-form work — strategy roadmaps, policy proposals, and company
-        deep-dives. Each opens as a PDF in your browser.
+        Longer-form work: strategy roadmaps, policy proposals, market analysis,
+        and company deep-dives. Each opens as a PDF in your browser.
       </p>
 
       <div className="mt-14">
@@ -35,7 +35,7 @@ export default function ResearchPage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={doc.cover}
-                  alt={`${doc.title} — first page`}
+                  alt={`${doc.title}, first page`}
                   loading="lazy"
                   className="aspect-[16/9] w-full object-cover object-top"
                 />

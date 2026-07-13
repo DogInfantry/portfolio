@@ -17,7 +17,7 @@ export default function FeatureRow({
       {/* index rule */}
       <div className="mb-8 flex items-baseline justify-between gap-4 border-t border-line pt-3">
         <p className="sc tnum text-muted">
-          No. {String(index + 1).padStart(2, "0")} — {project.category}
+          No. {String(index + 1).padStart(2, "0")} · {project.category}
         </p>
         <p className="sc tnum hidden text-muted/70 sm:block">{project.fact}</p>
       </div>

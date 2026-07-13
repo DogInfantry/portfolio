@@ -23,15 +23,15 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL("https://anklesh-portfolio.vercel.app"),
   title: {
-    default: "Anklesh Rawat — Investment Research, Strategy & Financial Analysis",
+    default: "Anklesh Rawat · Investment Research, Strategy & Financial Analysis",
     template: "%s · Anklesh Rawat",
   },
   description:
-    "Portfolio of Anklesh Rawat (MBA, IIM Bodh Gaya): investment research, strategy, and financial analysis — covenant surveillance, equity research engines, capital markets intelligence, LBO screening, and sustainable finance strategy.",
+    "Portfolio of Anklesh Rawat (MBA, IIM Bodh Gaya): investment research, strategy, and financial analysis. Covenant surveillance, equity research engines, capital markets intelligence, and sustainable finance strategy.",
   openGraph: {
-    title: "Anklesh Rawat — Investment Research, Strategy & Financial Analysis",
+    title: "Anklesh Rawat · Investment Research, Strategy & Financial Analysis",
     description:
-      "Covenant surveillance, equity research engines, capital markets intelligence, LBO screening, and sustainable finance research.",
+      "Covenant surveillance, equity research engines, capital markets intelligence, and sustainable finance research.",
     type: "website",
   },
 };

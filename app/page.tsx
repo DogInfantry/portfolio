@@ -89,7 +89,7 @@ export default function Home() {
           <div>
             <Reveal>
               <p className="sc text-accent">
-                Portfolio — Anklesh Rawat · MBA, IIM Bodh Gaya
+                Portfolio · Anklesh Rawat · MBA, IIM Bodh Gaya
               </p>
             </Reveal>
             <Reveal delay={100}>
@@ -100,9 +100,10 @@ export default function Home() {
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-                Covenant surveillance, equity research, LBO screening, climate
-                macro — analysis that usually stays locked in terminals and
-                spreadsheets, published as live dashboards anyone can open.
+                Covenant surveillance, equity research, capital-markets
+                intelligence, climate macro: analysis that usually stays locked
+                in terminals and spreadsheets, published as live dashboards
+                anyone can open.
               </p>
             </Reveal>
             <Reveal delay={300}>
@@ -185,7 +186,7 @@ export default function Home() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={doc.cover}
-                    alt={`${doc.title} — first page`}
+                    alt={`${doc.title}, first page`}
                     loading="lazy"
                     className="aspect-[16/9] w-full object-cover object-top"
                   />
@@ -209,19 +210,19 @@ export default function Home() {
           <h2 className="mt-2 font-serif text-4xl tracking-tight">About</h2>
           <div className="mt-8 max-w-2xl space-y-4 leading-relaxed text-muted">
             <p>
-              I&apos;m a finance and strategy generalist — MBA from IIM Bodh
-              Gaya — working across investment research, management-consulting
-              style problem-solving, and financial analysis. My work spans
-              credit, equities, macro, private equity, and sustainable finance.
+              I&apos;m a finance and strategy generalist (MBA, IIM Bodh Gaya)
+              working across investment research, management-consulting-style
+              problem-solving, and financial analysis. My work spans credit,
+              equities, macro, private equity, and sustainable finance.
             </p>
             <p>
               The difference is that it doesn&apos;t stop at a memo or a deck.
               Each analysis becomes something you can open: a covenant monitor
               reading SEC filings, a research terminal with reverse-DCF pricing,
-              a causal-tested ENSO commodity desk, an LBO screener built the
-              month India unlocked onshore leveraged buyouts — alongside
-              strategy work like the green-steel transition roadmap and MSME
-              credit case in the research section.
+              a causal-tested ENSO commodity desk, a capital-markets
+              intelligence platform. Alongside that sits strategy work like the
+              green-steel transition roadmap and MSME credit case in the
+              research section.
             </p>
           </div>
 

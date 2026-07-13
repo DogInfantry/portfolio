@@ -1,39 +1,57 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const links = [
+  { href: "/#projects", label: "Projects", active: (p: string) => p === "/" },
+  { href: "/research", label: "Research", active: (p: string) => p.startsWith("/research") },
+  { href: "/#contact", label: "Contact", active: () => false },
+];
 
 export default function Nav() {
+  const pathname = usePathname();
+
   return (
     <header className="sticky top-0 z-50 bg-background/90 backdrop-blur">
       <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5">
-        <Link
-          href="/"
-          className="flex items-baseline gap-3 whitespace-nowrap font-serif text-lg tracking-tight"
-        >
-          Anklesh Rawat
-          <span className="sc hidden text-muted lg:inline">
+        {/* wordmark (home link) + static caption, visually separated */}
+        <div className="flex items-baseline gap-3 whitespace-nowrap">
+          <Link href="/" className="font-serif text-lg tracking-tight hover:text-accent">
+            Anklesh Rawat
+          </Link>
+          <span className="sc hidden border-l border-line pl-3 text-muted lg:inline">
             Investment Research · Strategy · Financial Analysis
           </span>
-        </Link>
-        <div className="sc flex items-center gap-3 whitespace-nowrap text-muted sm:gap-7">
-          <Link href="/#projects" className="transition-colors hover:text-accent">
-            Projects
-          </Link>
-          <Link href="/research" className="transition-colors hover:text-accent">
-            Research
-          </Link>
-          <Link href="/#contact" className="transition-colors hover:text-accent">
-            Contact
-          </Link>
+        </div>
+        {/* interactive nav row: stronger than the caption, active item underlined */}
+        <div className="sc flex items-center gap-3 whitespace-nowrap font-medium text-foreground sm:gap-7">
+          {links.map((l) => {
+            const isActive = l.active(pathname);
+            return (
+              <Link
+                key={l.label}
+                href={l.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`border-b-2 pb-0.5 transition-colors hover:text-accent ${
+                  isActive ? "border-accent text-accent" : "border-transparent"
+                }`}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
           <a
             href="https://github.com/DogInfantry"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden transition-colors hover:text-accent sm:block"
+            className="hidden border-b-2 border-transparent pb-0.5 transition-colors hover:text-accent sm:block"
           >
             GitHub ↗
           </a>
         </div>
       </nav>
-      {/* double rule — masthead */}
+      {/* double rule: masthead */}
       <div className="border-b border-line" />
       <div className="mx-auto max-w-5xl px-5">
         <div className="border-b border-line" />
