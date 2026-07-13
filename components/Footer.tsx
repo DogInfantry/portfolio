@@ -30,8 +30,8 @@ export default function Footer() {
           </div>
         </div>
         <p className="mt-6 border-t border-line pt-4 text-xs text-muted/80">
-          © {new Date().getFullYear()} Anklesh Rawat · MBA, IIM Bodh Gaya · Set
-          in Fraunces &amp; Geist · Built with Next.js
+          © {new Date().getFullYear()} Anklesh Rawat · MBA, IIM Bodh Gaya ·
+          Investment Research &amp; Quantitative Tools
         </p>
       </div>
     </footer>

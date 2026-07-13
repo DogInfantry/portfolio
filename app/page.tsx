@@ -20,7 +20,6 @@ const skills = [
   "Causal Inference (Granger / CCM)",
   "Risk Metrics (VaR / Sharpe)",
   "Python",
-  "React",
   "SEC EDGAR",
   "NLP for Finance",
   "Sustainable Finance",
@@ -74,15 +73,15 @@ export default function Home() {
             </Reveal>
             <Reveal delay={100}>
               <h1 className="mt-5 max-w-3xl font-serif text-5xl leading-[1.06] tracking-tight sm:text-7xl">
-                Institutional workflows,{" "}
-                <em className="text-accent">rebuilt as open software.</em>
+                Investment research,{" "}
+                <em className="text-accent">live and explorable.</em>
               </h1>
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
                 Covenant surveillance, equity research, LBO screening, climate
-                macro — work that usually lives inside terminals and
-                spreadsheets, shipped as live platforms anyone can open.
+                macro — analysis that usually stays locked in terminals and
+                spreadsheets, published as live dashboards anyone can open.
               </p>
             </Reveal>
             <Reveal delay={300}>
@@ -190,16 +189,18 @@ export default function Home() {
           <div className="mt-8 grid gap-10 md:grid-cols-[2fr_1fr]">
             <div className="space-y-4 leading-relaxed text-muted">
               <p>
-                I work at the intersection of investment research and software.
-                Rather than writing about frameworks, I ship them: a covenant
-                surveillance engine reading live SEC filings, a sell-side
-                research terminal with reverse-DCF pricing, a causal-tested
-                ENSO commodity risk desk, an LBO screener built the month India
-                unlocked onshore leveraged buyouts.
+                I&apos;m an investment research generalist — MBA from IIM Bodh
+                Gaya, with work spanning credit, equities, macro, and
+                sustainable finance. The difference: my analysis doesn&apos;t
+                stop at a memo. Each framework becomes a live dashboard — a
+                covenant monitor reading SEC filings, a research terminal with
+                reverse-DCF pricing, a causal-tested ENSO commodity desk, an
+                LBO screener built the month India unlocked onshore leveraged
+                buyouts.
               </p>
               <p>
-                The common thread — institutional workflows made transparent,
-                reproducible, and open.
+                The common thread — institutional analysis made transparent,
+                reproducible, and open to anyone.
               </p>
             </div>
             <div>
