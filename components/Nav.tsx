@@ -9,8 +9,8 @@ export default function Nav() {
           className="flex items-baseline gap-3 whitespace-nowrap font-serif text-lg tracking-tight"
         >
           Anklesh Rawat
-          <span className="sc hidden text-muted md:inline">
-            Investment Research & Quantitative Tools
+          <span className="sc hidden text-muted lg:inline">
+            Investment Research · Strategy · Financial Analysis
           </span>
         </Link>
         <div className="sc flex items-center gap-3 whitespace-nowrap text-muted sm:gap-7">

@@ -13,16 +13,37 @@ const domains = [
   "Sustainable Finance",
 ];
 
-const skills = [
-  "DCF & Reverse DCF",
-  "LBO Modeling",
-  "Credit & Covenant Analysis",
-  "Causal Inference (Granger / CCM)",
-  "Risk Metrics (VaR / Sharpe)",
-  "Python",
-  "SEC EDGAR",
-  "NLP for Finance",
-  "Sustainable Finance",
+const capabilities = [
+  {
+    label: "Strategy & Consulting",
+    items: [
+      "Market Sizing & TAM",
+      "Industry & Competitive Analysis",
+      "Financial Modeling",
+      "Structured Problem-Solving",
+      "Policy & RegTech Analysis",
+    ],
+  },
+  {
+    label: "Investment & Valuation",
+    items: [
+      "DCF & Reverse DCF",
+      "LBO Modeling",
+      "Credit & Covenant Analysis",
+      "Comparable Analysis",
+      "Risk Metrics (VaR / Sharpe)",
+    ],
+  },
+  {
+    label: "Quantitative & Technical",
+    items: [
+      "Python",
+      "Causal Inference (Granger / CCM)",
+      "NLP for Finance",
+      "SEC EDGAR / Data Pipelines",
+      "Sustainable Finance",
+    ],
+  },
 ];
 
 function HeroMotif() {
@@ -186,33 +207,38 @@ export default function Home() {
         <Reveal>
           <p className="sc text-accent">Background</p>
           <h2 className="mt-2 font-serif text-4xl tracking-tight">About</h2>
-          <div className="mt-8 grid gap-10 md:grid-cols-[2fr_1fr]">
-            <div className="space-y-4 leading-relaxed text-muted">
-              <p>
-                I&apos;m an investment research generalist — MBA from IIM Bodh
-                Gaya, with work spanning credit, equities, macro, and
-                sustainable finance. The difference: my analysis doesn&apos;t
-                stop at a memo. Each framework becomes a live dashboard — a
-                covenant monitor reading SEC filings, a research terminal with
-                reverse-DCF pricing, a causal-tested ENSO commodity desk, an
-                LBO screener built the month India unlocked onshore leveraged
-                buyouts.
-              </p>
-              <p>
-                The common thread — institutional analysis made transparent,
-                reproducible, and open to anyone.
-              </p>
-            </div>
-            <div>
-              <h3 className="sc text-accent">Toolkit</h3>
-              <ul className="mt-4 space-y-2 text-sm text-muted">
-                {skills.map((s) => (
-                  <li key={s} className="border-b border-line pb-2">
-                    {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="mt-8 max-w-2xl space-y-4 leading-relaxed text-muted">
+            <p>
+              I&apos;m a finance and strategy generalist — MBA from IIM Bodh
+              Gaya — working across investment research, management-consulting
+              style problem-solving, and financial analysis. My work spans
+              credit, equities, macro, private equity, and sustainable finance.
+            </p>
+            <p>
+              The difference is that it doesn&apos;t stop at a memo or a deck.
+              Each analysis becomes something you can open: a covenant monitor
+              reading SEC filings, a research terminal with reverse-DCF pricing,
+              a causal-tested ENSO commodity desk, an LBO screener built the
+              month India unlocked onshore leveraged buyouts — alongside
+              strategy work like the green-steel transition roadmap and MSME
+              credit case in the research section.
+            </p>
+          </div>
+
+          {/* capability matrix */}
+          <div className="mt-12 grid gap-8 border-t border-line pt-10 sm:grid-cols-3">
+            {capabilities.map((group) => (
+              <div key={group.label}>
+                <h3 className="sc text-accent">{group.label}</h3>
+                <ul className="mt-4 space-y-2 text-sm text-muted">
+                  {group.items.map((s) => (
+                    <li key={s} className="border-b border-line pb-2">
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </Reveal>
       </section>
