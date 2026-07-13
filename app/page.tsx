@@ -83,7 +83,7 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-5xl px-5">
       {/* Hero */}
-      <section className="relative py-20 sm:py-28">
+      <section className="relative py-14 sm:py-20">
         <HeroMotif />
         <div className="grid gap-10 md:grid-cols-[1fr_240px]">
           <div>
@@ -144,29 +144,85 @@ export default function Home() {
         </div>
         {/* domain index strip */}
         <Reveal delay={350}>
-          <p className="sc mt-14 border-t border-line pt-4 leading-relaxed text-muted">
+          <p className="sc mt-10 border-t border-line pt-4 leading-relaxed text-muted">
             {domains.join("  ·  ")}
           </p>
         </Reveal>
       </section>
 
       {/* Projects */}
-      <section id="projects" className="scroll-mt-24 py-16">
+      <section id="projects" className="scroll-mt-24 py-12">
         <Reveal>
           <p className="sc kicker">Selected work</p>
           <h2 className="mt-2 font-serif text-4xl tracking-tight">Projects</h2>
         </Reveal>
-        <div className="mt-12 flex flex-col gap-20">
-          {projects.map((p, i) => (
+        <div className="mt-10 flex flex-col gap-14">
+          {projects.slice(0, 3).map((p, i) => (
             <Reveal key={p.slug}>
               <FeatureRow project={p} index={i} />
             </Reveal>
           ))}
         </div>
+        {/* compact index for the remaining projects */}
+        <Reveal>
+          <div className="mt-14">
+            {projects.slice(3).map((p, i) => {
+              const n = i + 4;
+              const externalHref = p.live ?? p.github;
+              return (
+                <div
+                  key={p.slug}
+                  className="grid items-baseline gap-2 border-t border-line py-5 md:grid-cols-[150px_1fr_auto] md:gap-6"
+                >
+                  <p className="sc tnum flex items-center gap-2 text-muted">
+                    No. {String(n).padStart(2, "0")}
+                    <span
+                      aria-hidden="true"
+                      className="inline-block h-1.5 w-1.5 rounded-full bg-accent"
+                    />
+                    <span className="text-accent">{p.category}</span>
+                  </p>
+                  <div>
+                    <h3 className="font-serif text-xl leading-snug tracking-tight">
+                      <Link
+                        href={`/projects/${p.slug}`}
+                        className="transition-colors hover:text-accent"
+                      >
+                        {p.title}
+                      </Link>
+                    </h3>
+                    <p className="sc mt-1 hidden text-muted/70 sm:block">
+                      {p.fact}
+                    </p>
+                  </div>
+                  <div className="flex gap-5 text-sm font-medium">
+                    <Link
+                      href={`/projects/${p.slug}`}
+                      className="lk text-accent"
+                    >
+                      Case study →
+                    </Link>
+                    {externalHref && (
+                      <a
+                        href={externalHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="lk text-muted"
+                      >
+                        {p.live ? "Live ↗" : "GitHub ↗"}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+            <div className="border-t border-line" />
+          </div>
+        </Reveal>
       </section>
 
       {/* Research strip */}
-      <section className="scroll-mt-24 py-16">
+      <section className="scroll-mt-24 py-12">
         <Reveal>
           <div className="flex items-baseline justify-between border-t border-line pt-3">
             <p className="sc text-muted">Selected research</p>
@@ -175,7 +231,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="mt-8 grid gap-8 md:grid-cols-3">
-            {research.map((doc) => (
+            {research.slice(-3).map((doc) => (
               <a
                 key={doc.slug}
                 href={doc.file}
@@ -205,7 +261,7 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="scroll-mt-24 border-t border-line py-16">
+      <section id="about" className="scroll-mt-24 border-t border-line py-12">
         <Reveal>
           <p className="sc kicker">Background</p>
           <h2 className="mt-2 font-serif text-4xl tracking-tight">About</h2>
@@ -228,7 +284,7 @@ export default function Home() {
           </div>
 
           {/* capability matrix */}
-          <div className="mt-12 grid gap-8 border-t border-line pt-10 sm:grid-cols-3">
+          <div className="mt-8 grid gap-8 border-t border-line pt-8 sm:grid-cols-3">
             {capabilities.map((group) => (
               <div key={group.label}>
                 <h3 className="sc text-accent">{group.label}</h3>
@@ -246,7 +302,7 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="scroll-mt-24 py-16 pb-28">
+      <section id="contact" className="scroll-mt-24 py-12 pb-16">
         <Reveal>
           <div className="rounded-md border border-line bg-accent-soft/60 px-6 py-14 text-center">
             <p className="sc kicker">Contact</p>
