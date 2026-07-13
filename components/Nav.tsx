@@ -4,9 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/#projects", label: "Projects", active: (p: string) => p === "/" },
-  { href: "/research", label: "Research", active: (p: string) => p.startsWith("/research") },
-  { href: "/#contact", label: "Contact", active: () => false },
+  {
+    href: "/#projects",
+    label: "Projects",
+    sub: "live dashboards",
+    active: (p: string) => p === "/",
+  },
+  {
+    href: "/research",
+    label: "Research",
+    sub: "PDF library",
+    active: (p: string) => p.startsWith("/research"),
+  },
+  { href: "/#contact", label: "Contact", sub: null, active: () => false },
 ];
 
 export default function Nav() {
@@ -33,11 +43,20 @@ export default function Nav() {
                 key={l.label}
                 href={l.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`border-b-2 pb-0.5 transition-colors hover:text-accent ${
+                className={`group flex flex-col items-center border-b-2 pb-0.5 transition-colors hover:text-accent ${
                   isActive ? "border-accent text-accent" : "border-transparent"
                 }`}
               >
-                {l.label}
+                <span>{l.label}</span>
+                {l.sub && (
+                  <span
+                    className={`hidden text-[9px] normal-case tracking-normal md:block ${
+                      isActive ? "text-accent/70" : "text-muted/70"
+                    } transition-colors group-hover:text-accent/70`}
+                  >
+                    {l.sub}
+                  </span>
+                )}
               </Link>
             );
           })}

@@ -127,7 +127,7 @@ export default function Home() {
           <Reveal delay={200}>
             <dl className="hidden self-center text-sm md:block">
               {[
-                ["Focus", "Investment research"],
+                ["Focus", "Research · Valuation · Strategy"],
                 ["Education", "MBA, IIM Bodh Gaya"],
                 ["Contact", "ankleshrawat5@duck.com"],
                 ["Code", "github.com/DogInfantry"],
