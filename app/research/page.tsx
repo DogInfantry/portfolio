@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ResearchPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 py-16">
-      <p className="sc text-accent">Selected research</p>
+      <p className="sc kicker">Selected research</p>
       <h1 className="mt-2 font-serif text-4xl tracking-tight sm:text-5xl">
         Research
       </h1>

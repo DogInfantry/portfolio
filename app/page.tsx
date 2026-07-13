@@ -131,6 +131,7 @@ export default function Home() {
                 ["Education", "MBA, IIM Bodh Gaya"],
                 ["Contact", "ankleshrawat5@duck.com"],
                 ["Code", "github.com/DogInfantry"],
+                ["LinkedIn", "in/anklesh-rawat-00508a1aa"],
               ].map(([k, v]) => (
                 <div key={k} className="border-t border-line py-3">
                   <dt className="sc text-muted">{k}</dt>
@@ -152,7 +153,7 @@ export default function Home() {
       {/* Projects */}
       <section id="projects" className="scroll-mt-24 py-16">
         <Reveal>
-          <p className="sc text-accent">Selected work</p>
+          <p className="sc kicker">Selected work</p>
           <h2 className="mt-2 font-serif text-4xl tracking-tight">Projects</h2>
         </Reveal>
         <div className="mt-12 flex flex-col gap-20">
@@ -206,7 +207,7 @@ export default function Home() {
       {/* About */}
       <section id="about" className="scroll-mt-24 border-t border-line py-16">
         <Reveal>
-          <p className="sc text-accent">Background</p>
+          <p className="sc kicker">Background</p>
           <h2 className="mt-2 font-serif text-4xl tracking-tight">About</h2>
           <div className="mt-8 max-w-2xl space-y-4 leading-relaxed text-muted">
             <p>
@@ -247,8 +248,8 @@ export default function Home() {
       {/* Contact */}
       <section id="contact" className="scroll-mt-24 py-16 pb-28">
         <Reveal>
-          <div className="border-y border-line py-14 text-center">
-            <p className="sc text-accent">Contact</p>
+          <div className="rounded-md border border-line bg-accent-soft/60 px-6 py-14 text-center">
+            <p className="sc kicker">Contact</p>
             <h2 className="mt-3 font-serif text-4xl tracking-tight">
               Let&apos;s talk
             </h2>
@@ -264,10 +265,18 @@ export default function Home() {
                 ankleshrawat5@duck.com
               </a>
               <a
+                href="https://www.linkedin.com/in/anklesh-rawat-00508a1aa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-sm border border-line bg-card px-6 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+              >
+                LinkedIn ↗
+              </a>
+              <a
                 href="https://github.com/DogInfantry"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-sm border border-line px-6 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+                className="rounded-sm border border-line bg-card px-6 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
               >
                 GitHub ↗
               </a>

@@ -16,8 +16,13 @@ export default function FeatureRow({
     <div>
       {/* index rule */}
       <div className="mb-8 flex items-baseline justify-between gap-4 border-t border-line pt-3">
-        <p className="sc tnum text-muted">
-          No. {String(index + 1).padStart(2, "0")} · {project.category}
+        <p className="sc tnum flex items-center gap-2 text-muted">
+          No. {String(index + 1).padStart(2, "0")}
+          <span
+            aria-hidden="true"
+            className="inline-block h-1.5 w-1.5 rounded-full bg-accent"
+          />
+          <span className="text-accent">{project.category}</span>
         </p>
         <p className="sc tnum hidden text-muted/70 sm:block">{project.fact}</p>
       </div>

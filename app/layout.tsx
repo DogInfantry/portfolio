@@ -33,6 +33,11 @@ export const metadata: Metadata = {
     description:
       "Covenant surveillance, equity research engines, capital markets intelligence, and sustainable finance research.",
     type: "website",
+    images: ["/og.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og.png"],
   },
 };
 

@@ -20,6 +20,14 @@ export default function Footer() {
               Email
             </a>
             <a
+              href="https://www.linkedin.com/in/anklesh-rawat-00508a1aa/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-accent"
+            >
+              LinkedIn
+            </a>
+            <a
               href="https://github.com/DogInfantry"
               target="_blank"
               rel="noopener noreferrer"
