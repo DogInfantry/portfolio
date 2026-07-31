@@ -50,10 +50,20 @@ export default function FeatureRow({
                 rel="noopener noreferrer"
                 className="block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_28px_rgba(28,37,48,0.12)]"
               >
-                <DocCover
-                  title={project.title}
-                  kind={project.docLabel ?? "Case deck"}
-                />
+                {project.cover ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={project.cover}
+                    alt={`${project.title}, opening slide`}
+                    loading="lazy"
+                    className="w-full"
+                  />
+                ) : (
+                  <DocCover
+                    title={project.title}
+                    kind={project.docLabel ?? "Case deck"}
+                  />
+                )}
               </a>
             )
           )}

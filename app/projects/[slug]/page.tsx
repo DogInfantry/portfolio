@@ -157,19 +157,33 @@ export default async function ProjectPage({
         </div>
       ) : (
         project.doc && (
-          <a
-            href={project.doc}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-12 block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_28px_rgba(28,37,48,0.12)]"
-          >
-            {/* Title is already in the header above, so the card is a call to
-                action rather than a repeat of it. */}
-            <DocCover
-              title="Read the full case deck ↗"
-              kind={`${project.category} · ${project.docLabel ?? "Case deck"}`}
-            />
-          </a>
+          <figure className="mt-12">
+            <a
+              href={project.doc}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_28px_rgba(28,37,48,0.12)]"
+            >
+              {project.cover ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={project.cover}
+                  alt={`${project.title}, opening slide`}
+                  className="w-full"
+                />
+              ) : (
+                /* Title is already in the header above, so the fallback card is
+                   a call to action rather than a repeat of it. */
+                <DocCover
+                  title="Read the full case deck ↗"
+                  kind={`${project.category} · ${project.docLabel ?? "Case deck"}`}
+                />
+              )}
+            </a>
+            <figcaption className="sc mt-3 text-muted">
+              {project.docLabel ?? "Case deck"} · opens as a PDF
+            </figcaption>
+          </figure>
         )
       )}
 

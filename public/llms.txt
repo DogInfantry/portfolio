@@ -38,8 +38,10 @@ Site: https://portfolio-five-rouge-90.vercel.app
   Green bond issuance, SEBI and RBI frameworks, and transition finance for
   India's hard-to-abate sectors.
 - [IndusInd Protect: Bancassurance Product Case Study](https://portfolio-five-rouge-90.vercel.app/projects/indusind-protect):
-  Product case study for an in-app insurance layer: research, personas, RICE
-  prioritization, four user journeys, prototype, and a 42-month go-to-market plan.
+  Product case study for an in-app insurance layer: 60-respondent survey and
+  interviews, a benchmark of five competitors (PolicyBazaar, Acko, Digit, ICICI
+  Lombard, SBI General), three personas, RICE-scored feature ranking, wireframes
+  and prototype, and a 42-month go-to-market plan.
 
 ## Research reports
 

@@ -19,6 +19,8 @@ export type Project = {
   /** PDF path, for case studies whose artefact is a deck rather than an app */
   doc?: string;
   docLabel?: string;
+  /** preview image for doc-backed work; rendered plain, without browser chrome */
+  cover?: string;
 };
 
 export const projects: Project[] = [
@@ -164,29 +166,30 @@ export const projects: Project[] = [
   },
   {
     slug: "indusind-protect",
-    fact: "maps 4 user journeys end to end",
+    fact: "RICE-ranks 5 features against 5 competitors",
     title: "IndusInd Protect: Bancassurance Product Case Study",
     category: "Product & Strategy",
     tagline:
       "Turning insurance inside a bank's app from a one-time transaction into an ongoing protection service.",
     description:
-      "A product case study for IndusInd Protect, an in-app insurance layer covering discovery and comparison, unified policy management, digital claims, and AI-assisted support. Built from primary and secondary research through personas, prioritization, user flows, a clickable prototype, and a phased go-to-market plan.",
+      "A product case study for IndusInd Protect, an in-app insurance layer covering discovery and comparison, unified policy management, digital claims, and AI-assisted support. Built from primary and secondary research through personas, RICE prioritization, user flows, a clickable prototype, and a phased go-to-market plan.",
     problem:
       "The retail insurance experience is fragmented. Customers struggle to understand what they are covered for, manage policies scattered across channels, track renewals, and navigate claims. Engagement effectively stops at purchase, so insurance feels like a one-time transaction rather than an ongoing protection service.",
     approach:
-      "Primary survey work and secondary research framed the gap, then a competitor benchmark across the three routes customers actually use (bank branch and agent, direct insurer app, aggregator app) located the white space: a bank sits on the trust and the relationship manager that digital-only insurers lack. Personas and problem statements set the brief, a RICE-style matrix ranked the feature set, and four user journeys were mapped end to end into wireframes and a clickable prototype. A go-to-market plan sequences the rollout along the technology adoption lifecycle.",
+      "In-depth interviews and a 60-respondent survey across age, income, and digital-savviness segments mapped the friction, and a benchmark of five competitors (PolicyBazaar, Acko, Digit, ICICI Lombard, SBI General) located the white space: none pairs banking data with insurance in one view, and post-purchase trust weakens at exactly the moment claims begin. Three personas set the brief, RICE scoring replaced gut feeling in ranking the feature set, and the winning journeys were mapped into wireframes and a clickable prototype. A go-to-market plan sequences the rollout along the technology adoption lifecycle.",
     highlights: [
+      "Product vision: make protection something customers feel every month, not something they buy once and forget, by turning the bank's existing knowledge of their life into proactive coverage",
       "Positioning built on the asset digital-only insurers cannot copy: branch relationship managers reframed as a named claims concierge tied to the existing banking relationship",
-      "Life-event triggers (vehicle loan, home purchase, upcoming travel) generate pre-filled recommendations and quotes, removing the search and form-filling steps entirely",
-      "Gamified Policy Health Check and Protection Score surface coverage gaps rather than waiting for the customer to discover them",
-      "Unified Policies tab consolidates sum insured, premium, claim settlement ratio, renewal alerts, and one-click renewal across health, motor, and home",
-      "Omnichannel claims: AI assistant for routine queries, escalation to a relationship manager for the final mile, with real-time status tracking",
+      "RICE ranking put a centralized policy repository with 1-click renewals first at 15.0, well ahead of the conversational AI assistant at 1.40, inverting the obvious AI-first instinct",
+      "Life-event triggers (vehicle loan, home purchase, upcoming travel) generate pre-filled quotes, removing the search and form-filling steps entirely",
+      "Gamified Protection Score and Policy Health Check surface coverage gaps rather than waiting for the customer to discover them",
+      "Omnichannel claims: AI assistant for routine queries, escalation to a named relationship manager for the final mile, with real-time status tracking",
       "42-month go-to-market split into an initiation stage (launch, validate, build trust) and an expansion stage (scale markets, strengthen distribution, drive mass adoption)",
     ],
     metrics: [
-      { value: "4", label: "user journeys mapped end to end" },
-      { value: "3", label: "competing channels benchmarked" },
-      { value: "42", label: "month go-to-market roadmap" },
+      { value: "5", label: "competitors benchmarked" },
+      { value: "3", label: "personas from 60+ survey responses" },
+      { value: "15.0", label: "top RICE score: 1-click renewals" },
     ],
     stack: [
       "Primary & secondary research",
@@ -197,6 +200,7 @@ export const projects: Project[] = [
     ],
     doc: "/research/indusind-protect-case-study.pdf",
     docLabel: "Case deck (12 pp)",
+    cover: "/research/covers/indusind-protect-case-study.png",
   },
 ];
 
