@@ -37,6 +37,11 @@ Site: https://portfolio-five-rouge-90.vercel.app
 - [India Sustainable Finance Transition Dashboard](https://portfolio-five-rouge-90.vercel.app/projects/sustainable-finance-india):
   Green bond issuance, SEBI and RBI frameworks, and transition finance for
   India's hard-to-abate sectors.
+- [Signals Before Storms](https://portfolio-five-rouge-90.vercel.app/projects/signals-before-storms):
+  HMM regime overlay for tactical asset allocation, graded on 1,814 out-of-sample
+  days across India and the US. Published as a negative result with a diagnosis:
+  the states order volatility and not return, so no book separates from 60/40 or
+  equal weight on Sharpe, though max drawdown falls to -6.2% from -23.7%.
 - [IndusInd Protect: Bancassurance Product Case Study](https://portfolio-five-rouge-90.vercel.app/projects/indusind-protect):
   Product case study for an in-app insurance layer: 60-respondent survey and
   interviews, a benchmark of five competitors (PolicyBazaar, Acko, Digit, ICICI
