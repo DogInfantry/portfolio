@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { research } from "@/data/research";
+import { site } from "@/data/site";
 import FeatureRow from "@/components/FeatureRow";
 import Reveal from "@/components/Reveal";
 
@@ -8,10 +9,15 @@ const domains = [
   "Credit",
   "Equities",
   "Macro & Markets",
+  "Market Structure",
   "Private Equity",
   "Climate Macro",
   "Sustainable Finance",
+  "Product & Strategy",
 ];
+
+const papers = research.filter((d) => d.publication);
+const reports = research.filter((d) => !d.publication);
 
 const capabilities = [
   {
@@ -21,7 +27,8 @@ const capabilities = [
       "Industry & Competitive Analysis",
       "Financial Modeling",
       "Structured Problem-Solving",
-      "Policy & RegTech Analysis",
+      "Product Strategy & Roadmapping",
+      "User Research & Personas",
     ],
   },
   {
@@ -38,10 +45,11 @@ const capabilities = [
     label: "Quantitative & Technical",
     items: [
       "Python",
+      "Causal Inference (DiD / Event Study)",
       "Causal Inference (Granger / CCM)",
       "NLP for Finance",
       "SEC EDGAR / Data Pipelines",
-      "Sustainable Finance",
+      "Policy & RegTech Analysis",
     ],
   },
 ];
@@ -127,15 +135,37 @@ export default function Home() {
           <Reveal delay={200}>
             <dl className="hidden self-center text-sm md:block">
               {[
-                ["Focus", "Research · Valuation · Strategy"],
-                ["Education", "MBA, IIM Bodh Gaya"],
-                ["Contact", "ankleshrawat5@duck.com"],
-                ["Code", "github.com/DogInfantry"],
-                ["LinkedIn", "in/anklesh-rawat-00508a1aa"],
-              ].map(([k, v]) => (
+                { k: "Focus", v: "Research · Valuation · Product Strategy" },
+                { k: "Education", v: site.education },
+                {
+                  k: "Published",
+                  v: "SSRN working paper, 2026",
+                  href: site.ssrn,
+                },
+                { k: "Contact", v: site.email, href: `mailto:${site.email}` },
+                { k: "Code", v: "github.com/DogInfantry", href: site.github },
+                {
+                  k: "LinkedIn",
+                  v: "in/anklesh-rawat-00508a1aa",
+                  href: site.linkedin,
+                },
+              ].map(({ k, v, href }) => (
                 <div key={k} className="border-t border-line py-3">
                   <dt className="sc text-muted">{k}</dt>
-                  <dd className="mt-1 break-words text-foreground">{v}</dd>
+                  <dd className="mt-1 break-words text-foreground">
+                    {href ? (
+                      <a
+                        href={href}
+                        target={href.startsWith("mailto:") ? undefined : "_blank"}
+                        rel="noopener noreferrer"
+                        className="lk transition-colors hover:text-accent"
+                      >
+                        {v}
+                      </a>
+                    ) : (
+                      v
+                    )}
+                  </dd>
                 </div>
               ))}
               <div className="border-t border-line" />
@@ -168,7 +198,7 @@ export default function Home() {
           <div className="mt-14">
             {projects.slice(3).map((p, i) => {
               const n = i + 4;
-              const externalHref = p.live ?? p.github;
+              const externalHref = p.live ?? p.github ?? p.doc;
               return (
                 <div
                   key={p.slug}
@@ -209,7 +239,7 @@ export default function Home() {
                         rel="noopener noreferrer"
                         className="lk text-muted"
                       >
-                        {p.live ? "Live ↗" : "GitHub ↗"}
+                        {p.live ? "Live ↗" : p.github ? "GitHub ↗" : "Deck ↗"}
                       </a>
                     )}
                   </div>
@@ -221,6 +251,78 @@ export default function Home() {
         </Reveal>
       </section>
 
+      {/* Publications */}
+      {papers.length > 0 && (
+        <section id="publications" className="scroll-mt-24 py-12">
+          <Reveal>
+            <p className="sc kicker">Peer-facing work</p>
+            <h2 className="mt-2 font-serif text-4xl tracking-tight">
+              Publications
+            </h2>
+          </Reveal>
+          <div className="mt-10 flex flex-col gap-10">
+            {papers.map((doc) => {
+              const pub = doc.publication!;
+              return (
+                <Reveal key={doc.slug}>
+                  <article className="rounded-md border border-line bg-card px-6 py-7 sm:px-8 sm:py-9">
+                    <p className="sc tnum flex flex-wrap items-center gap-x-2 text-muted">
+                      <span className="kicker">SSRN</span>
+                      <span>{pub.date}</span>
+                      <span>·</span>
+                      <span>{doc.pages} pp</span>
+                      <span>·</span>
+                      <span>JEL {pub.jel.join(" · ")}</span>
+                    </p>
+                    <h3 className="mt-4 font-serif text-2xl leading-snug tracking-tight sm:text-3xl">
+                      <Link
+                        href={`/research/${doc.slug}`}
+                        className="transition-colors hover:text-accent"
+                      >
+                        {doc.title}
+                      </Link>
+                    </h3>
+                    <p className="mt-2 font-serif italic leading-relaxed text-muted">
+                      {doc.subtitle}
+                    </p>
+                    <p className="mt-3 text-sm text-muted">
+                      {pub.authors.join(" · ")}
+                    </p>
+                    <p className="mt-5 max-w-2xl leading-relaxed text-muted">
+                      {doc.summary}
+                    </p>
+                    <div className="mt-7 flex flex-wrap gap-6 text-sm font-medium">
+                      <Link
+                        href={`/research/${doc.slug}`}
+                        className="lk text-accent"
+                      >
+                        Abstract &amp; findings →
+                      </Link>
+                      <a
+                        href={pub.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="lk text-muted"
+                      >
+                        SSRN ↗
+                      </a>
+                      <a
+                        href={doc.file}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="lk text-muted"
+                      >
+                        PDF ↗
+                      </a>
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Research strip */}
       <section className="scroll-mt-24 py-12">
         <Reveal>
@@ -231,12 +333,10 @@ export default function Home() {
             </Link>
           </div>
           <div className="mt-8 grid gap-8 md:grid-cols-3">
-            {research.slice(-3).map((doc) => (
-              <a
+            {reports.slice(-3).map((doc) => (
+              <Link
                 key={doc.slug}
-                href={doc.file}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/research/${doc.slug}`}
                 className="group block"
               >
                 <figure className="overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_10px_28px_rgba(28,37,48,0.12)]">
@@ -254,7 +354,7 @@ export default function Home() {
                 <h3 className="mt-1 font-serif text-lg leading-snug tracking-tight transition-colors group-hover:text-accent">
                   {doc.title}
                 </h3>
-              </a>
+              </Link>
             ))}
           </div>
         </Reveal>
@@ -280,6 +380,13 @@ export default function Home() {
               intelligence platform. Alongside that sits strategy work like the
               green-steel transition roadmap and MSME credit case in the
               research section.
+            </p>
+            <p>
+              The same instinct runs through the written work: a working paper
+              on SSRN estimating what SEBI&apos;s 2024–25 index derivatives
+              curbs actually did to retail participation, and a bancassurance
+              product case study taking IndusInd Protect from user research to
+              prioritization, flows, and go-to-market.
             </p>
           </div>
 
@@ -315,13 +422,13 @@ export default function Home() {
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-4">
               <a
-                href="mailto:ankleshrawat5@duck.com"
+                href={`mailto:${site.email}`}
                 className="rounded-sm bg-accent px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
               >
-                ankleshrawat5@duck.com
+                {site.email}
               </a>
               <a
-                href="https://www.linkedin.com/in/anklesh-rawat-00508a1aa/"
+                href={site.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-sm border border-line bg-card px-6 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
@@ -329,7 +436,15 @@ export default function Home() {
                 LinkedIn ↗
               </a>
               <a
-                href="https://github.com/DogInfantry"
+                href={site.ssrn}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-sm border border-line bg-card px-6 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+              >
+                SSRN ↗
+              </a>
+              <a
+                href={site.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-sm border border-line bg-card px-6 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"

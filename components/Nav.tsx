@@ -13,7 +13,7 @@ const links = [
   {
     href: "/research",
     label: "Research",
-    sub: "PDF library",
+    sub: "papers & reports",
     active: (p: string) => p.startsWith("/research"),
   },
   { href: "/#contact", label: "Contact", sub: null, active: () => false },

@@ -1,0 +1,63 @@
+# Anklesh Rawat
+
+> Investment research, strategy, and financial analysis. MBA, IIM Bodh Gaya.
+> Work spans credit, equities, macro, market structure, climate macro,
+> sustainable finance, and product strategy. Each analysis is published as
+> something openly inspectable: a live dashboard, a working paper, or a case
+> study. Contact: anklesh.r@merinth.in
+
+Site: https://portfolio-five-rouge-90.vercel.app
+
+## Publications
+
+- [Regulating the Retail Options Boom](https://portfolio-five-rouge-90.vercel.app/research/regulating-retail-options-boom):
+  SSRN working paper (July 2026), with Shreshtha Rawat. Difference-in-differences
+  evaluation of SEBI's 2024-25 equity index derivatives reforms using untargeted
+  stock options as a within-market control over a 48-month NSE and BSE panel.
+  Index-options notional turnover fell 37-43% below counterfactual, premium
+  turnover fell only ~13%, unique individual traders fell 20% with the steepest
+  declines in the smallest turnover cohorts, and no substitution into the cash
+  market was detected. JEL G14, G18, G28, G12, G41.
+  SSRN: https://papers.ssrn.com/abstract=7135161
+
+## Projects
+
+- [Sellside Research Engine](https://portfolio-five-rouge-90.vercel.app/projects/sellside-research-engine):
+  Equity research terminal with DCF and reverse-DCF valuation, a five-pillar
+  composite rating, eight risk metrics, and NLP scoring of management commentary.
+- [Capital Markets Intelligence Platform](https://portfolio-five-rouge-90.vercel.app/projects/capital-markets-intelligence):
+  Six open-data models: cross-asset regime scoring, yield-curve decomposition,
+  IPO event studies across 25 offerings, M&A pipeline screening, sovereign risk.
+- [ENSO Macro Risk Desk](https://portfolio-five-rouge-90.vercel.app/projects/enso-macro-risk-desk):
+  Commodity risk desk built on the El Nino-Southern Oscillation, with Granger and
+  CCM causal testing of every headline ENSO-to-commodity trade.
+- [Dynamic Debt Covenant Surveillance Engine](https://portfolio-five-rouge-90.vercel.app/projects/debt-covenant-surveillance):
+  AST-safe covenant monitoring over live SEC filings across $263B of issuer debt,
+  with cross-default cascade simulation and macro shock sensitivity.
+- [India Sustainable Finance Transition Dashboard](https://portfolio-five-rouge-90.vercel.app/projects/sustainable-finance-india):
+  Green bond issuance, SEBI and RBI frameworks, and transition finance for
+  India's hard-to-abate sectors.
+- [IndusInd Protect: Bancassurance Product Case Study](https://portfolio-five-rouge-90.vercel.app/projects/indusind-protect):
+  Product case study for an in-app insurance layer: research, personas, RICE
+  prioritization, four user journeys, prototype, and a 42-month go-to-market plan.
+
+## Research reports
+
+- [India's Critical Minerals & Green Steel Transition](https://portfolio-five-rouge-90.vercel.app/research/india-strategic-metals-transition):
+  Strategic roadmap for the energy-transition value chain and mid-market steel.
+- [Bridging India's MSME Credit Gap](https://portfolio-five-rouge-90.vercel.app/research/msme-credit):
+  Account Aggregator rails and a DPI-native RegTech execution layer.
+- [The ESG Advantage](https://portfolio-five-rouge-90.vercel.app/research/esg-value-and-resilience):
+  ESG value case on RPG Life Sciences, quantifying carbon-tax exposure.
+- [River-as-a-Service](https://portfolio-five-rouge-90.vercel.app/research/river-as-a-service):
+  Shifting river management from a hardware-centric vendor model to a
+  software-driven ecosystem.
+- [EUR/USD: Reading the Majors](https://portfolio-five-rouge-90.vercel.app/research/eurusd-currency-analysis):
+  Currency movements, trading patterns, and signals in the euro/dollar pair.
+
+## Links
+
+- SSRN paper: https://papers.ssrn.com/abstract=7135161
+- ORCID: https://orcid.org/0009-0001-2399-8032
+- LinkedIn: https://www.linkedin.com/in/anklesh-rawat-00508a1aa/
+- GitHub: https://github.com/DogInfantry

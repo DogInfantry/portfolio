@@ -2,7 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProject, projects } from "@/data/projects";
+import { site } from "@/data/site";
 import BrowserFrame from "@/components/BrowserFrame";
+import DocCover from "@/components/DocCover";
+import JsonLd from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -16,7 +19,20 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
-  return { title: project.title, description: project.tagline };
+  return {
+    title: project.title,
+    description: project.tagline,
+    keywords: [project.category, ...project.stack],
+    alternates: { canonical: `/projects/${project.slug}` },
+    openGraph: {
+      title: project.title,
+      description: project.tagline,
+      type: "article",
+      url: `${site.url}/projects/${project.slug}`,
+      // declaring openGraph here replaces the layout's, so images must repeat
+      images: ["/og.png"],
+    },
+  };
 }
 
 export default async function ProjectPage({
@@ -31,10 +47,57 @@ export default async function ProjectPage({
   const idx = projects.findIndex((p) => p.slug === slug);
   const prev = projects[(idx - 1 + projects.length) % projects.length];
   const next = projects[(idx + 1) % projects.length];
-  const externalHref = project.live ?? project.github;
+  const externalHref = project.live ?? project.github ?? project.doc;
+  const url = `${site.url}/projects/${project.slug}`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": project.live ? "SoftwareApplication" : "CreativeWork",
+    name: project.title,
+    headline: project.tagline,
+    description: project.description,
+    about: project.category,
+    keywords: project.stack.join(", "),
+    author: { "@type": "Person", name: site.name, url: site.url },
+    inLanguage: "en",
+    url,
+    ...(project.live
+      ? {
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web",
+          sameAs: project.live,
+        }
+      : {}),
+    ...(project.doc
+      ? {
+          associatedMedia: {
+            "@type": "MediaObject",
+            encodingFormat: "application/pdf",
+            contentUrl: `${site.url}${project.doc}`,
+          },
+        }
+      : {}),
+  };
+
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: `${site.url}/#projects`,
+      },
+      { "@type": "ListItem", position: 3, name: project.title, item: url },
+    ],
+  };
 
   return (
     <article className="mx-auto max-w-3xl px-5 py-16">
+      <JsonLd data={jsonLd} />
+      <JsonLd data={breadcrumbs} />
       <Link href="/#projects" className="lk text-sm text-muted">
         ← All projects
       </Link>
@@ -70,10 +133,20 @@ export default async function ProjectPage({
               View on GitHub ↗
             </a>
           )}
+          {project.doc && (
+            <a
+              href={project.doc}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            >
+              Open the deck ↗
+            </a>
+          )}
         </div>
       </header>
 
-      {project.screenshot && (
+      {project.screenshot ? (
         <div className="mt-12">
           <BrowserFrame
             src={project.screenshot}
@@ -82,6 +155,22 @@ export default async function ProjectPage({
             href={externalHref}
           />
         </div>
+      ) : (
+        project.doc && (
+          <a
+            href={project.doc}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-12 block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_28px_rgba(28,37,48,0.12)]"
+          >
+            {/* Title is already in the header above, so the card is a call to
+                action rather than a repeat of it. */}
+            <DocCover
+              title="Read the full case deck ↗"
+              kind={`${project.category} · ${project.docLabel ?? "Case deck"}`}
+            />
+          </a>
+        )
       )}
 
       {/* Key metrics */}

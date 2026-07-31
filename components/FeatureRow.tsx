@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Project } from "@/data/projects";
 import BrowserFrame from "@/components/BrowserFrame";
+import DocCover from "@/components/DocCover";
 
 export default function FeatureRow({
   project,
@@ -10,7 +11,12 @@ export default function FeatureRow({
   index: number;
 }) {
   const flip = index % 2 === 1;
-  const externalHref = project.live ?? project.github;
+  const externalHref = project.live ?? project.github ?? project.doc;
+  const externalLabel = project.live
+    ? "Live ↗"
+    : project.github
+      ? "GitHub ↗"
+      : "Deck ↗";
 
   return (
     <div>
@@ -29,13 +35,27 @@ export default function FeatureRow({
 
       <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
         <div className={flip ? "md:order-2" : ""}>
-          {project.screenshot && (
+          {project.screenshot ? (
             <BrowserFrame
               src={project.screenshot}
               alt={`${project.title} screenshot`}
               url={externalHref}
               href={externalHref}
             />
+          ) : (
+            project.doc && (
+              <a
+                href={project.doc}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_28px_rgba(28,37,48,0.12)]"
+              >
+                <DocCover
+                  title={project.title}
+                  kind={project.docLabel ?? "Case deck"}
+                />
+              </a>
+            )
           )}
         </div>
         <div className={flip ? "md:order-1" : ""}>
@@ -60,7 +80,7 @@ export default function FeatureRow({
                 rel="noopener noreferrer"
                 className="lk text-muted"
               >
-                {project.live ? "Live ↗" : "GitHub ↗"}
+                {externalLabel}
               </a>
             )}
           </div>

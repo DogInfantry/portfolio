@@ -16,6 +16,9 @@ export type Project = {
   live?: string;
   github?: string;
   screenshot?: string;
+  /** PDF path, for case studies whose artefact is a deck rather than an app */
+  doc?: string;
+  docLabel?: string;
 };
 
 export const projects: Project[] = [
@@ -158,6 +161,42 @@ export const projects: Project[] = [
     stack: ["React", "Recharts", "Policy research", "Synthetic data"],
     live: "https://sustainable-finance-india-transitio.vercel.app/",
     screenshot: "/screenshots/sustainable-finance-india.png",
+  },
+  {
+    slug: "indusind-protect",
+    fact: "maps 4 user journeys end to end",
+    title: "IndusInd Protect: Bancassurance Product Case Study",
+    category: "Product & Strategy",
+    tagline:
+      "Turning insurance inside a bank's app from a one-time transaction into an ongoing protection service.",
+    description:
+      "A product case study for IndusInd Protect, an in-app insurance layer covering discovery and comparison, unified policy management, digital claims, and AI-assisted support. Built from primary and secondary research through personas, prioritization, user flows, a clickable prototype, and a phased go-to-market plan.",
+    problem:
+      "The retail insurance experience is fragmented. Customers struggle to understand what they are covered for, manage policies scattered across channels, track renewals, and navigate claims. Engagement effectively stops at purchase, so insurance feels like a one-time transaction rather than an ongoing protection service.",
+    approach:
+      "Primary survey work and secondary research framed the gap, then a competitor benchmark across the three routes customers actually use (bank branch and agent, direct insurer app, aggregator app) located the white space: a bank sits on the trust and the relationship manager that digital-only insurers lack. Personas and problem statements set the brief, a RICE-style matrix ranked the feature set, and four user journeys were mapped end to end into wireframes and a clickable prototype. A go-to-market plan sequences the rollout along the technology adoption lifecycle.",
+    highlights: [
+      "Positioning built on the asset digital-only insurers cannot copy: branch relationship managers reframed as a named claims concierge tied to the existing banking relationship",
+      "Life-event triggers (vehicle loan, home purchase, upcoming travel) generate pre-filled recommendations and quotes, removing the search and form-filling steps entirely",
+      "Gamified Policy Health Check and Protection Score surface coverage gaps rather than waiting for the customer to discover them",
+      "Unified Policies tab consolidates sum insured, premium, claim settlement ratio, renewal alerts, and one-click renewal across health, motor, and home",
+      "Omnichannel claims: AI assistant for routine queries, escalation to a relationship manager for the final mile, with real-time status tracking",
+      "42-month go-to-market split into an initiation stage (launch, validate, build trust) and an expansion stage (scale markets, strengthen distribution, drive mass adoption)",
+    ],
+    metrics: [
+      { value: "4", label: "user journeys mapped end to end" },
+      { value: "3", label: "competing channels benchmarked" },
+      { value: "42", label: "month go-to-market roadmap" },
+    ],
+    stack: [
+      "Primary & secondary research",
+      "Personas & problem statements",
+      "RICE prioritization",
+      "Wireframes & prototype",
+      "GTM strategy",
+    ],
+    doc: "/research/indusind-protect-case-study.pdf",
+    docLabel: "Case deck (12 pp)",
   },
 ];
 
