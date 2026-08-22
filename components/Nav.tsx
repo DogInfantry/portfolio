@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
+import { site } from "@/data/site";
 
 const links = [
   {
-    href: "/#projects",
-    label: "Projects",
-    sub: "live dashboards",
-    active: (p: string) => p === "/",
+    href: "/work",
+    label: "Work",
+    sub: "apps, papers, decks",
+    active: (p: string) => p === "/work" || p.startsWith("/projects"),
   },
   {
     href: "/research",
@@ -16,6 +18,7 @@ const links = [
     sub: "papers & reports",
     active: (p: string) => p.startsWith("/research"),
   },
+  { href: "/#about", label: "About", sub: null, active: () => false },
   { href: "/#contact", label: "Contact", sub: null, active: () => false },
 ];
 
@@ -24,10 +27,13 @@ export default function Nav() {
 
   return (
     <header className="sticky top-0 z-50 bg-background/90 backdrop-blur">
-      <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5">
+      <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-5">
         {/* wordmark (home link) + static caption, visually separated */}
         <div className="flex items-baseline gap-3 whitespace-nowrap">
-          <Link href="/" className="font-serif text-lg tracking-tight hover:text-accent">
+          <Link
+            href="/"
+            className="font-serif text-lg tracking-tight hover:text-accent"
+          >
             Anklesh Rawat
           </Link>
           <span className="sc hidden border-l border-line pl-3 text-muted lg:inline">
@@ -35,7 +41,7 @@ export default function Nav() {
           </span>
         </div>
         {/* interactive nav row: stronger than the caption, active item underlined */}
-        <div className="sc flex items-center gap-3 whitespace-nowrap font-medium text-foreground sm:gap-7">
+        <div className="sc flex items-center gap-3 whitespace-nowrap font-medium text-foreground sm:gap-6">
           {links.map((l) => {
             const isActive = l.active(pathname);
             return (
@@ -43,7 +49,7 @@ export default function Nav() {
                 key={l.label}
                 href={l.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`group flex flex-col items-center border-b-2 pb-0.5 transition-colors hover:text-accent ${
+                className={`group hidden flex-col items-center border-b-2 pb-0.5 transition-colors hover:text-accent sm:flex ${
                   isActive ? "border-accent text-accent" : "border-transparent"
                 }`}
               >
@@ -51,7 +57,7 @@ export default function Nav() {
                 {l.sub && (
                   <span
                     className={`hidden text-[9px] normal-case tracking-normal md:block ${
-                      isActive ? "text-accent/70" : "text-muted/70"
+                      isActive ? "text-accent/70" : "text-muted-2"
                     } transition-colors group-hover:text-accent/70`}
                   >
                     {l.sub}
@@ -60,19 +66,28 @@ export default function Nav() {
               </Link>
             );
           })}
+          {/* below sm the row collapses to the one destination that contains
+              everything else, rather than wrapping onto a second line */}
+          <Link
+            href="/work"
+            className="border-b-2 border-transparent pb-0.5 transition-colors hover:text-accent sm:hidden"
+          >
+            Work
+          </Link>
           <a
-            href="https://github.com/DogInfantry"
+            href={site.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden border-b-2 border-transparent pb-0.5 transition-colors hover:text-accent sm:block"
+            className="hidden border-b-2 border-transparent pb-0.5 transition-colors hover:text-accent lg:block"
           >
             GitHub ↗
           </a>
+          <ThemeToggle />
         </div>
       </nav>
       {/* double rule: masthead */}
       <div className="border-b border-line" />
-      <div className="mx-auto max-w-5xl px-5">
+      <div className="mx-auto max-w-6xl px-5">
         <div className="border-b border-line" />
       </div>
     </header>

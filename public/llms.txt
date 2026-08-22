@@ -8,6 +8,13 @@
 
 Site: https://portfolio-five-rouge-90.vercel.app
 
+Everything below is also browsable as one filterable index at
+https://portfolio-five-rouge-90.vercel.app/work, narrowable by subject
+(?domain=credit, equities, macro, product, quant, sustainable, climate,
+market-structure, policy) and by artefact type (?type=app, paper, deck, code).
+The index is grouped: decks and case studies, published research, then live
+apps and code.
+
 ## Publications
 
 - [Regulating the Retail Options Boom](https://portfolio-five-rouge-90.vercel.app/research/regulating-retail-options-boom):
@@ -20,8 +27,38 @@ Site: https://portfolio-five-rouge-90.vercel.app
   market was detected. JEL G14, G18, G28, G12, G41.
   SSRN: https://papers.ssrn.com/abstract=7135161
 
+- [Awareness Without Uptake](https://portfolio-five-rouge-90.vercel.app/research/awareness-without-uptake):
+  SSRN working paper (August 2026). Administrative burden and delivery
+  architecture across four co-located social protection schemes in rural Bihar,
+  measured in the same 51 households in one round so poverty, literacy and
+  distance are held constant by construction. Awareness was high and flat
+  (64.7% PDS to 100% JEEViKA); entitlement conversion varied far more. The three
+  schemes obtainable inside the village converted at 0.79 to 0.98, AB-PM-JAY,
+  which requires documented enrolment outside it, at 0.42 despite being better
+  known than PDS. Among households receiving nothing, procedural complexity
+  (69.2%) and administrative distance (57.7%) outranked lack of information
+  (30.8%). SSRN: https://papers.ssrn.com/abstract=7239538
+
 ## Projects
 
+- [India's Wide-Body Window](https://portfolio-five-rouge-90.vercel.app/projects/india-widebody-window):
+  Commercial aviation market-entry case. Where 60 A350-900s on firm order and 40
+  unconverted purchase rights should be deployed through 2030. The answer is to
+  compete with the Gulf hubs rather than fly more aircraft to them: the Gulf
+  carries 50.9% of India's international traffic yet is the only corridor with
+  negative yield headroom (-4.3% against Europe +21.3% and North America
+  +31.5%), 8.5M of its passengers a year are only connecting through it, and
+  remaining treaty room would absorb about 4% of the order book. Computed from
+  DGCA, Eurostat, IATA and World Bank data; the opposite recommendation was
+  overturned mid-case and documented in a pivot log.
+- [India FS Pulse](https://portfolio-five-rouge-90.vercel.app/projects/india-fs-pulse):
+  Who captures the value in India's UPI when the busiest half of the network is
+  priced at zero. In 2026 Q2 merchant payments were 63.9% of transactions but
+  23.0% of value and earned Rs 0 under zero-MDR, where 30bps would have been
+  Rs 3,144 crore a quarter. PhonePe (45.9%) and Google Pay (32.3%) both sit above
+  the 30% NPCI cap. Private against public bank margin gap of 114 bps. Seven
+  public sources, refreshed monthly by CI, every figure traced to a committed
+  dataset.
 - [Sellside Research Engine](https://portfolio-five-rouge-90.vercel.app/projects/sellside-research-engine):
   Equity research terminal with DCF and reverse-DCF valuation, a five-pillar
   composite rating, eight risk metrics, and NLP scoring of management commentary.

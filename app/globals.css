@@ -1,23 +1,142 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Theme tokens.
+
+   Every colour in the site resolves through one of these variables, so the dark
+   theme is a redefinition of this block rather than a `dark:` variant on each
+   component. Two scopes carry the dark values: the media query follows the OS
+   setting, the [data-theme] scope follows the in-page toggle. The :not() guard
+   lets an explicit light choice beat OS dark, so the toggle wins both ways.
+--------------------------------------------------------------------------- */
 :root {
+  color-scheme: light;
+
   --background: #faf9f6;
   --foreground: #1c2530;
   --muted: #5b6673;
+  /* secondary ink: the old text-muted/70 and /80 fell under 4.5:1, this does not */
+  --muted-2: #68717d;
   --accent: #14665a;
   --accent-soft: #e7f0ee;
+  --on-accent: #ffffff;
   --line: #e4e1da;
   --card: #ffffff;
+
+  /* browser-frame chrome, previously hardcoded inside the component */
+  --frame-chrome: #f2f0ea;
+  --frame-dot: #c9c4b8;
+
+  --shadow-sm: 0 1px 2px rgba(28, 37, 48, 0.06);
+  --shadow-lift: 0 12px 32px rgba(28, 37, 48, 0.12);
+
+  /* Categorical palette for domains and chart marks, in validated slot order.
+     Light steps: lightness band, chroma floor, adjacent CVD separation (worst
+     10.3), normal-vision separation (worst 18.6) and 3:1 contrast against
+     #faf9f6 all pass. Do not reorder or re-step without re-validating. */
+  --domain-credit: #00856e;
+  --domain-macro: #b4531f;
+  --domain-equities: #3550a8;
+  --domain-product: #9a7000;
+  --domain-quant: #9c3f6d;
+  --domain-sustainable: #5d7519;
+  --domain-climate: #0f7fa8;
+  --domain-market-structure: #b03636;
+  --domain-policy: #7a3d9e;
+
+  /* chart chrome */
+  --grid: #e8e5de;
+  --axis: #cdc8bd;
+  --mark-neutral: #a9a294;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --background: #0f1216;
+    --foreground: #e9e7e2;
+    --muted: #a3acb8;
+    --muted-2: #8d97a4;
+    --accent: #3fae97;
+    --accent-soft: #12302b;
+    --on-accent: #0f1216;
+    --line: #272e37;
+    --card: #161a20;
+
+    --frame-chrome: #1d232b;
+    --frame-dot: #39424e;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-lift: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+    /* Dark steps: same eight hues re-stepped for the dark surface (#161a20),
+       validated as their own set. Worst adjacent CVD 10.8, normal-vision 19.5. */
+    --domain-credit: #279680;
+    --domain-macro: #cc6832;
+    --domain-equities: #7a8fe0;
+    --domain-product: #b4870a;
+    --domain-quant: #c86392;
+    --domain-sustainable: #7fa032;
+    --domain-climate: #2d94ba;
+    --domain-market-structure: #e06a6a;
+  --domain-policy: #a06fd0;
+    --domain-policy: #a06fd0;
+
+    --grid: #232a32;
+    --axis: #333c47;
+    --mark-neutral: #5c6672;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: #0f1216;
+  --foreground: #e9e7e2;
+  --muted: #a3acb8;
+  --muted-2: #8d97a4;
+  --accent: #3fae97;
+  --accent-soft: #12302b;
+  --on-accent: #0f1216;
+  --line: #272e37;
+  --card: #161a20;
+
+  --frame-chrome: #1d232b;
+  --frame-dot: #39424e;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-lift: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+  --domain-credit: #279680;
+  --domain-macro: #cc6832;
+  --domain-equities: #7a8fe0;
+  --domain-product: #b4870a;
+  --domain-quant: #c86392;
+  --domain-sustainable: #7fa032;
+  --domain-climate: #2d94ba;
+  --domain-market-structure: #e06a6a;
+
+  --grid: #232a32;
+  --axis: #333c47;
+  --mark-neutral: #5c6672;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
   --color-line: var(--line);
   --color-card: var(--card);
+  --color-frame-chrome: var(--frame-chrome);
+  --color-frame-dot: var(--frame-dot);
+  --color-grid: var(--grid);
+  --color-axis: var(--axis);
+  --color-mark-neutral: var(--mark-neutral);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-fraunces);
   --font-mono: var(--font-geist-mono);
@@ -40,7 +159,12 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
+}
+
+/* cross-document transitions, native; no library, no client JS */
+@view-transition {
+  navigation: auto;
 }
 
 /* journal system: small-caps label + tabular figures */
@@ -84,31 +208,9 @@ body {
   transform-origin: left;
 }
 
-/* hero chart motif: draw-in strokes */
-.motif path {
-  stroke-dasharray: 1600;
-  stroke-dashoffset: 1600;
-  animation: draw 2.4s ease-out forwards;
-}
-.motif path:nth-child(2) {
-  animation-delay: 0.4s;
-}
-.motif path:nth-child(3) {
-  animation-delay: 0.8s;
-}
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .motif path {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
-}
-
-/* scroll-reveal: elements start hidden, .is-visible added by Reveal component */
+/* scroll-reveal: elements start hidden, .is-visible added by Reveal component.
+   Applied to section headers and the first screen only; blanket-fading every
+   block read as sluggish rather than considered. */
 .reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -118,10 +220,80 @@ body {
   opacity: 1;
   transform: none;
 }
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .reveal {
     opacity: 1;
     transform: none;
     transition: none;
   }
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Print: the site doubles as a dossier. Drop navigation and interactive chrome,
+   flatten to ink on white, and keep link targets visible.
+--------------------------------------------------------------------------- */
+@media print {
+  :root {
+    --background: #ffffff;
+    --card: #ffffff;
+    --foreground: #000000;
+    --muted: #333333;
+    --muted-2: #444444;
+    --line: #bbbbbb;
+  }
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 10px;
+    color: #555555;
+  }
+  section,
+  article {
+    break-inside: avoid;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Theme toggle icon state.
+
+   Which icon shows is driven entirely by the data-theme attribute the inline
+   script stamps on <html> before first paint, so the button holds no React
+   state and there is nothing for hydration to disagree about. Absent attribute
+   means "follow the system".
+--------------------------------------------------------------------------- */
+.theme-face {
+  display: none;
+}
+:root:not([data-theme]) .theme-face-system,
+:root[data-theme="light"] .theme-face-light,
+:root[data-theme="dark"] .theme-face-dark {
+  display: inline-flex;
+}
+
+/* visually hidden, still announced */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

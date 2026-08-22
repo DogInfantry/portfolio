@@ -50,6 +50,7 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   alternates: { canonical: "/" },
+  other: { "color-scheme": "light dark" },
   openGraph: {
     title: `${site.name} · ${site.role}`,
     description:
@@ -92,6 +93,9 @@ const personJsonLd = {
   ],
 };
 
+const THEME_SCRIPT =
+  `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -101,7 +105,22 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Runs synchronously during HTML parsing, so the stored theme is
+            applied before the first paint. No attribute means follow the OS.
+            The type flips to text/plain on the client because React warns when
+            a component renders a script tag, and a script inserted by a DOM
+            update would never execute anyway. */}
+        <script
+          type={
+            typeof window === "undefined" ? "text/javascript" : "text/plain"
+          }
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
+        />
+      </head>
       <body className="flex min-h-full flex-col">
         <JsonLd data={personJsonLd} />
         <Nav />

@@ -1,9 +1,13 @@
+import type { DomainKey } from "./domains";
+import type { Figure } from "./figures";
+
 export type Metric = { value: string; label: string };
 
 export type Project = {
   slug: string;
   title: string;
-  category: string;
+  /** subject area; the human label and the colour both come from data/domains.ts */
+  domain: DomainKey;
   /** one contextualized coverage fact, phrased as what the tool does */
   fact: string;
   tagline: string;
@@ -21,14 +25,134 @@ export type Project = {
   docLabel?: string;
   /** preview image for doc-backed work; rendered plain, without browser chrome */
   cover?: string;
+  /**
+   * Charts for the case-study page. Every figure plots numbers already stated
+   * in this file, and its required source field names the statement it came
+   * from. Work whose copy states only counts carries no figure and leans on
+   * metrics instead, rather than inventing a series to fill the space.
+   */
+  figures?: Figure[];
 };
 
 export const projects: Project[] = [
   {
+    slug: "india-widebody-window",
+    domain: "product",
+    fact: "sizes a 100-aircraft deployment decision",
+    title: "India's Wide-Body Window",
+    tagline:
+      "Where should Indian carriers deploy their next 100 long-haul aircraft, and can the India-Gulf corridor absorb them?",
+    description:
+      "A commercial aviation market-entry case built for a network and fleet strategy decision: where 60 A350-900s on firm order go first, and what to do with 40 unconverted purchase rights, against Air India's 80 wide-bodies, on a horizon through 2030. Evidence from DGCA, Eurostat, IATA and World Bank, every figure computed in the repository and none typed by hand, with no PowerPoint and no Excel anywhere in the pipeline.",
+    problem:
+      "The India-Gulf corridor carries half of India's international traffic and is four times the size of the entire direct Europe market, which makes it the obvious place to put a wide-body. The obvious answer turns out to be wrong, and the reasons only surface once the corridor's yield, its remaining treaty room and its sector lengths are computed rather than assumed.",
+    approach:
+      "Traffic, capacity and yield are rebuilt from DGCA sector data, then set against the firm order book to ask what the fleet can actually be deployed on. Yield headroom is computed per corridor against IndiGo's achieved revenue per RPK, remaining bilateral entitlement is measured against the aircraft on order, and 2030 demand is projected three separate ways and reported as a band rather than an average. The case ran on the opposite recommendation until three independent lines of evidence overturned it, and that reversal is written up in a pivot log rather than quietly amended.",
+    highlights: [
+      "The answer: compete with the Gulf hubs, do not fly more aircraft to them. Europe first, North America second, Gulf capacity roughly flat",
+      "Yield headroom by corridor, 2025: North America +31.5%, Oceania +29.5%, Europe +21.3%, Africa +16.9%, Southeast Asia +11.2%, East Asia +8.9%, South Asia -1.9%, Gulf -4.3%. The Gulf is the only corridor that cannot cover its own cost at IndiGo's achieved 5.06 INR per RPK",
+      "About 8.5M passengers a year are not going to the Gulf at all, they are connecting through Dubai, Doha or Abu Dhabi to somewhere else, a figure bounded below at 7.84M by IATA",
+      "The remaining treaty room at the two Gulf points with a published entitlement would absorb about 4% of the aircraft on firm order, against an order book that adds 78% to Indian carrier international capacity",
+      "IndiGo's average international stage length is 2,643 km against Air India's 5,316 km, so the fleet has to fly longer sectors before the wide-body economics work at all",
+      "India international passengers in 2030 projected at 96M to 109M by three methods, reported as a band and never as an average",
+      "The opening view was reclaim the Gulf corridor first. It was overturned by the evidence, and that reversal plus nine others is documented in a pivot log rather than quietly amended",
+    ],
+    metrics: [
+      { value: "78.0M", label: "India international sector passengers, 2025" },
+      { value: "8.5M", label: "a year connecting through a Gulf hub to elsewhere" },
+      { value: "4%", label: "of the order book Gulf treaty room could absorb" },
+    ],
+    stack: ["Python", "DGCA / Eurostat / IATA data", "Next.js", "Scrollytelling", "GitHub Actions"],
+    live: "https://india-widebody-window.vercel.app",
+    github: "https://github.com/DogInfantry/india-widebody-window",
+    cover: "/screenshots/india-widebody-window.png",
+    figures: [
+      {
+        kind: "diverging",
+        unit: "%",
+        caption:
+          "Yield headroom by corridor against IndiGo's achieved 5.06 INR per RPK, 2025. The Gulf carries 50.9% of India's international traffic and is the only corridor in the book with negative headroom, which is what turns the obvious deployment into the wrong one.",
+        source:
+          "Highlight 2 above, computed in the repository from DGCA sector data",
+        data: [
+          { label: "North America", value: 31.5, display: "+31.5%" },
+          { label: "Oceania", value: 29.5, display: "+29.5%" },
+          { label: "Europe", value: 21.3, display: "+21.3%" },
+          { label: "Africa", value: 16.9, display: "+16.9%" },
+          { label: "Southeast Asia", value: 11.2, display: "+11.2%" },
+          { label: "East Asia", value: 8.9, display: "+8.9%" },
+          { label: "South Asia", value: -1.9, display: "-1.9%" },
+          { label: "Gulf", value: -4.3, display: "-4.3%", emphasis: true },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "india-fs-pulse",
+    domain: "market-structure",
+    fact: "traces every figure to a committed dataset",
+    title: "India FS Pulse",
+    tagline:
+      "Who captures the value in India's UPI, when the busiest half of the network is priced at zero?",
+    description:
+      "A reproducible research portfolio on Indian financial services: payments economics, bank margins, market structure and wealth. A Python pipeline over seven public sources feeds seven analysis modules and a static site, refreshed monthly by CI. Every figure, every exhibit and the machine-readable summary trace to a committed dataset and a dated source, and none of it is typed in by hand.",
+    problem:
+      "India built the world's largest real-time payments network and priced the busy half of it at zero. Who actually captures the value is asserted constantly and computed rarely, because the answer needs payments data, bank financials, market-share filings and fund data joined together and kept current.",
+    approach:
+      "Seven public sources, PhonePe Pulse, NPCI, Yahoo Finance, AMFI and the World Bank among them, are pulled into a committed dataset and rebuilt monthly by GitHub Actions. Modules compute the merchant against person-to-person split, the growth bridge back to 2018, app concentration against the NPCI cap, a private against public bank margin decomposition, and a state-level merchant map. The site is generated from the same pipeline, so a claim on the page and the number behind it cannot drift apart.",
+    highlights: [
+      "The finding: in 2026 Q2 merchant payments were 63.9% of all UPI transactions but only 23.0% of the rupees moved. Person to person is the mirror image at 30.8% of transactions and 71.2% of value",
+      "The merchant leg is the only one a merchant discount rate could ever be charged on, and under zero-MDR it earns nothing: 50.7 million merchants, 487 transactions each per quarter, and Rs 0 of payment revenue. At 30bps the same leg would have been worth Rs 3,144 crore a quarter",
+      "Merchant payments account for 64% of all volume growth since 2018 Q1, so the unmonetised leg is also the one carrying the network's expansion",
+      "App concentration against policy: PhonePe holds 45.9% of national UPI volume and Google Pay 32.3%, both above the 30% cap, and roughly 4.3 billion transactions a month would have to change app for that cap to bind",
+      "Private against public bank net interest margin gap of 114 bps, decomposed into 59 bps of pricing and 56 bps of funding, against a five year price return of +293% for public banks and +18% for private on median",
+      "The fund shelf carries 14,288 schemes against 3,353 distinct strategies, a 4.3x wrapper ratio",
+      "UPI transactions per banked adult per month reached 14.9, up from 4.0 in 2021",
+    ],
+    metrics: [
+      { value: "63.9% / 23.0%", label: "merchant share of UPI transactions against value" },
+      { value: "Rs 3,144 Cr", label: "a quarter that 30bps would have earned on that leg" },
+      { value: "114 bps", label: "private against public bank margin gap" },
+    ],
+    stack: ["Python", "PhonePe Pulse / NPCI / AMFI", "DuckDB", "GitHub Actions", "Static site"],
+    live: "https://india-fs-pulse.vercel.app",
+    github: "https://github.com/DogInfantry/india-fs-pulse",
+    screenshot: "/screenshots/india-fs-pulse.png",
+    figures: [
+      {
+        kind: "bars",
+        unit: "%",
+        caption:
+          "The monetisation gap, 2026 Q2. The merchant leg is the only one a merchant discount rate could be charged on, and it carries most of the transactions and little of the value. Person to person is the mirror image, and it is the leg nobody could charge for anyway.",
+        source:
+          "Highlight 1 above: merchant 63.9% of transactions and 23.0% of value, person to person 30.8% and 71.2%",
+        data: [
+          { label: "Merchant, share of transactions", value: 63.9, display: "63.9%", emphasis: true },
+          { label: "Merchant, share of value", value: 23, display: "23.0%", emphasis: true },
+          { label: "Person to person, transactions", value: 30.8, display: "30.8%" },
+          { label: "Person to person, value", value: 71.2, display: "71.2%" },
+        ],
+      },
+      {
+        kind: "bars",
+        unit: "%",
+        caption:
+          "Both leading apps sit above the 30% share cap NPCI set for UPI. The cap has been deferred rather than enforced, and the gap between the rule and the market is what makes it hard to enforce.",
+        source:
+          "Highlight 4 above: PhonePe 45.9%, Google Pay 32.3%, against the 30% cap",
+        data: [
+          { label: "PhonePe", value: 45.9, display: "45.9%", emphasis: true },
+          { label: "Google Pay", value: 32.3, display: "32.3%", emphasis: true },
+          { label: "NPCI share cap", value: 30, display: "30%" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "sellside-research-engine",
     fact: "computes 8 risk metrics per ticker",
     title: "Sellside Research Engine",
-    category: "Equities",
+    domain: "equities",
     tagline:
       "An institutional-grade equity research dashboard: DCF to NLP tone scoring in one screen.",
     description:
@@ -48,6 +172,25 @@ export const projects: Project[] = [
       { value: "8", label: "risk metrics computed" },
       { value: "8.4%", label: "implied growth vs 11.2% consensus" },
     ],
+    figures: [
+      {
+        kind: "bars",
+        unit: "%",
+        caption:
+          "Reverse DCF inverts the valuation: instead of discounting a growth assumption, it solves for the growth rate the current price already implies, then sets that against sell-side consensus. The gap is what raises the mispricing flag.",
+        source:
+          "Highlight 1 above: reverse DCF implied growth 8.4% against consensus 11.2%",
+        data: [
+          { label: "Consensus growth", value: 11.2, display: "11.2%" },
+          {
+            label: "Market-implied growth",
+            value: 8.4,
+            display: "8.4%",
+            emphasis: true,
+          },
+        ],
+      },
+    ],
     stack: ["SEC EDGAR", "Yahoo Finance", "OpenAI NLP", "React", "Recharts"],
     live: "https://sellside-research-engine.vercel.app/",
     screenshot: "/screenshots/sellside-research-engine.png",
@@ -56,7 +199,7 @@ export const projects: Project[] = [
     slug: "capital-markets-intelligence",
     fact: "event-studies 25 IPOs on open data",
     title: "Capital Markets Intelligence Platform",
-    category: "Macro & Markets",
+    domain: "macro",
     tagline:
       "IPO event studies, sovereign risk scoring, M&A screening, and yield-curve decomposition, with zero API keys.",
     description:
@@ -84,7 +227,7 @@ export const projects: Project[] = [
     slug: "enso-macro-risk-desk",
     fact: "causal-tests 6 headline ENSO trades",
     title: "ENSO Macro Risk Desk",
-    category: "Climate Macro",
+    domain: "climate",
     tagline:
       "When the ENSO cycle shifts, which commodity exposures are causally real, and which are spurious?",
     description:
@@ -104,6 +247,19 @@ export const projects: Project[] = [
       { value: "11", label: "exposed regions ranked" },
       { value: "90%", label: "forecast cone band (SARIMA+LSTM)" },
     ],
+    figures: [
+      {
+        kind: "meter",
+        value: 0.32,
+        max: 1,
+        display: "0.32",
+        scaleNote: "strongest of six tested links",
+        caption:
+          "Convergent cross-mapping strength for the strongest of the six headline ENSO to commodity-price links. Cross-map skill runs from 0 to 1 by construction, and none of the six clears the bar for a strong causal reading, so the desk fails its own headline trades rather than repeating them.",
+        source:
+          "Highlight 1 above: of six headline links, none test strongly causal, max CCM rho 0.32",
+      },
+    ],
     stack: ["Python", "Granger / CCM", "SARIMA + LSTM", "NOAA CPC data", "Docker"],
     live: "https://doginfantry-enso-macro-risk-desk.hf.space/",
     screenshot: "/screenshots/enso-macro-risk-desk.png",
@@ -112,7 +268,7 @@ export const projects: Project[] = [
     slug: "debt-covenant-surveillance",
     fact: "monitors $263B of issuer debt",
     title: "Dynamic Debt Covenant Surveillance Engine",
-    category: "Credit",
+    domain: "credit",
     tagline:
       "Translating credit agreements into programmatic surveillance models for private credit.",
     description:
@@ -140,7 +296,7 @@ export const projects: Project[] = [
     slug: "sustainable-finance-india",
     fact: "maps ₹65,100Cr of green issuance",
     title: "India Sustainable Finance: Transition Dashboard",
-    category: "Sustainable Finance",
+    domain: "sustainable",
     tagline:
       "Green bonds, SEBI/RBI frameworks, and transition finance for India's hard-to-abate sectors.",
     description:
@@ -168,7 +324,7 @@ export const projects: Project[] = [
     slug: "signals-before-storms",
     fact: "grades 8 books over 1,814 out-of-sample days",
     title: "Signals Before Storms",
-    category: "Quant Research",
+    domain: "quant",
     tagline:
       "An HMM regime overlay, graded honestly: the model worked, the strategy did not.",
     description:
@@ -190,6 +346,37 @@ export const projects: Project[] = [
       { value: "-6.2%", label: "max drawdown vs -23.7% for 60/40" },
       { value: "11 of 11", label: "markets ordered by volatility, 2 by return" },
     ],
+    figures: [
+      {
+        kind: "bars",
+        unit: "%",
+        caption:
+          "Annualized return by regime label. Volatility orders the states correctly, return orders them backwards, so de-risking on the crisis label sells the rebound about as reliably as it dodges the crash. This is the finding, and it is the reason the project is published as a negative result.",
+        source:
+          "Highlight 1 above: crisis-labelled days annualize +18.4% against bull at +10.2%",
+        data: [
+          {
+            label: "Crisis-labelled days",
+            value: 18.4,
+            display: "+18.4%",
+            emphasis: true,
+          },
+          { label: "Bull-labelled days", value: 10.2, display: "+10.2%" },
+        ],
+      },
+      {
+        kind: "matrix",
+        total: 11,
+        rows: [
+          { label: "Volatility orders the regime states", hit: 11 },
+          { label: "Return orders the regime states", hit: 2 },
+        ],
+        caption:
+          "Extending detection to 11 markets sharpens the negative result rather than rescuing it. The regime label is a volatility detector; it is not a return predictor.",
+        source:
+          "Highlight 5 above: volatility ranks the states in 11 of 11 markets, return in 2 of 11",
+      },
+    ],
     stack: [
       "Python",
       "hmmlearn",
@@ -205,7 +392,7 @@ export const projects: Project[] = [
     slug: "indusind-protect",
     fact: "RICE-ranks 5 features against 5 competitors",
     title: "IndusInd Protect: Bancassurance Product Case Study",
-    category: "Product & Strategy",
+    domain: "product",
     tagline:
       "Turning insurance inside a bank's app from a one-time transaction into an ongoing protection service.",
     description:
@@ -227,6 +414,24 @@ export const projects: Project[] = [
       { value: "5", label: "competitors benchmarked" },
       { value: "3", label: "personas from 60+ survey responses" },
       { value: "15.0", label: "top RICE score: 1-click renewals" },
+    ],
+    figures: [
+      {
+        kind: "bars",
+        caption:
+          "RICE scoring inverted the obvious AI-first instinct. A centralized policy repository with 1-click renewals outranked the conversational assistant by an order of magnitude, which is why the roadmap leads with plumbing rather than with the feature that demos well.",
+        source:
+          "Highlight 3 above: 1-click renewals scored 15.0, the conversational AI assistant 1.40",
+        data: [
+          {
+            label: "Policy repository, 1-click renewals",
+            value: 15,
+            display: "15.0",
+            emphasis: true,
+          },
+          { label: "Conversational AI assistant", value: 1.4, display: "1.40" },
+        ],
+      },
     ],
     stack: [
       "Primary & secondary research",

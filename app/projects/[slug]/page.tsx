@@ -1,11 +1,15 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProject, projects } from "@/data/projects";
+import { getDomain, domainVar } from "@/data/domains";
 import { site } from "@/data/site";
 import BrowserFrame from "@/components/BrowserFrame";
 import DocCover from "@/components/DocCover";
+import Figure from "@/components/Figure";
 import JsonLd from "@/components/JsonLd";
+import StatTiles from "@/components/charts/StatTiles";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -22,7 +26,7 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.tagline,
-    keywords: [project.category, ...project.stack],
+    keywords: [getDomain(project.domain).label, ...project.stack],
     alternates: { canonical: `/projects/${project.slug}` },
     openGraph: {
       title: project.title,
@@ -49,6 +53,8 @@ export default async function ProjectPage({
   const next = projects[(idx + 1) % projects.length];
   const externalHref = project.live ?? project.github ?? project.doc;
   const url = `${site.url}/projects/${project.slug}`;
+  const domain = getDomain(project.domain);
+  const hue = domainVar(project.domain);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -56,7 +62,7 @@ export default async function ProjectPage({
     name: project.title,
     headline: project.tagline,
     description: project.description,
-    about: project.category,
+    about: domain.label,
     keywords: project.stack.join(", "),
     author: { "@type": "Person", name: site.name, url: site.url },
     inLanguage: "en",
@@ -87,24 +93,35 @@ export default async function ProjectPage({
       {
         "@type": "ListItem",
         position: 2,
-        name: "Projects",
-        item: `${site.url}/#projects`,
+        name: "Work",
+        item: `${site.url}/work`,
       },
       { "@type": "ListItem", position: 3, name: project.title, item: url },
     ],
   };
 
   return (
-    <article className="mx-auto max-w-3xl px-5 py-16">
+    <article className="mx-auto max-w-3xl px-5 py-14">
       <JsonLd data={jsonLd} />
       <JsonLd data={breadcrumbs} />
-      <Link href="/#projects" className="lk text-sm text-muted">
-        ← All projects
+      <Link href="/work" className="lk text-sm text-muted">
+        ← All work
       </Link>
 
       <header className="mt-8">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent">
-          {String(idx + 1).padStart(2, "0")} · {project.category}
+        <p className="sc tnum flex flex-wrap items-center gap-2 text-muted">
+          <span>{String(idx + 1).padStart(2, "0")}</span>
+          <span
+            aria-hidden="true"
+            className="inline-block h-1.5 w-1.5 rounded-full"
+            style={{ background: hue }}
+          />
+          <Link
+            href={`/work?domain=${project.domain}`}
+            className="lk transition-colors hover:text-accent"
+          >
+            {domain.label}
+          </Link>
         </p>
         <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight sm:text-5xl">
           {project.title}
@@ -118,7 +135,7 @@ export default async function ProjectPage({
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
             >
               Open live app ↗
             </a>
@@ -138,7 +155,7 @@ export default async function ProjectPage({
               href={project.doc}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
             >
               Open the deck ↗
             </a>
@@ -146,60 +163,68 @@ export default async function ProjectPage({
         </div>
       </header>
 
+      {/* The result comes first. A reader who stops after one screen should
+          still leave with the numbers, not with a paragraph of setup. */}
+      <section className="mt-12 border-y border-line py-8">
+        <h2 className="sc kicker">What it produced</h2>
+        <StatTiles
+          metrics={project.metrics}
+          domain={project.domain}
+          className="mt-6"
+        />
+      </section>
+
+      {project.figures && project.figures.length > 0 && (
+        <div className="mt-10 flex flex-col gap-8">
+          {project.figures.map((f) => (
+            <Figure key={f.caption} figure={f} domain={project.domain} />
+          ))}
+        </div>
+      )}
+
       {project.screenshot ? (
-        <div className="mt-12">
+        <div className="mt-10">
           <BrowserFrame
             src={project.screenshot}
-            alt={`${project.title} screenshot`}
+            alt={`${project.title}, application screenshot`}
             url={externalHref}
             href={externalHref}
+            sizes="(min-width: 768px) 768px, 100vw"
           />
         </div>
       ) : (
         project.doc && (
-          <figure className="mt-12">
+          <figure className="mt-10">
             <a
               href={project.doc}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_28px_rgba(28,37,48,0.12)]"
+              className="group block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
             >
               {project.cover ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={project.cover}
                   alt={`${project.title}, opening slide`}
-                  className="w-full"
+                  width={1200}
+                  height={675}
+                  sizes="(min-width: 768px) 768px, 100vw"
+                  className="h-auto w-full"
                 />
               ) : (
                 /* Title is already in the header above, so the fallback card is
                    a call to action rather than a repeat of it. */
                 <DocCover
                   title="Read the full case deck ↗"
-                  kind={`${project.category} · ${project.docLabel ?? "Case deck"}`}
+                  kind={`${domain.label} · ${project.docLabel ?? "Case deck"}`}
                 />
               )}
             </a>
-            <figcaption className="sc mt-3 text-muted">
+            <figcaption className="sc mt-3 text-muted-2">
               {project.docLabel ?? "Case deck"} · opens as a PDF
             </figcaption>
           </figure>
         )
       )}
-
-      {/* Key metrics */}
-      <div className="mt-12 grid grid-cols-3 gap-4 border-y border-line py-8">
-        {project.metrics.map((m) => (
-          <div key={m.label}>
-            <p className="font-serif text-2xl tracking-tight text-accent sm:text-3xl">
-              {m.value}
-            </p>
-            <p className="mt-1 text-xs leading-snug text-muted sm:text-sm">
-              {m.label}
-            </p>
-          </div>
-        ))}
-      </div>
 
       <section className="mt-12 space-y-12 leading-relaxed">
         <div>
@@ -215,21 +240,35 @@ export default async function ProjectPage({
           <p className="mt-3 text-muted">{project.approach}</p>
         </div>
         <div>
-          <h2 className="font-serif text-2xl">Highlights</h2>
-          <ul className="mt-4 space-y-3">
+          <h2 className="font-serif text-2xl">What it found</h2>
+          <ul className="mt-5 space-y-3">
             {project.highlights.map((h) => (
-              <li key={h} className="flex gap-3 text-muted">
-                <span className="mt-0.5 text-accent">▪</span>
-                <span>{h}</span>
+              <li
+                key={h}
+                className="rounded-sm border border-line bg-card px-5 py-4 leading-relaxed text-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  className="mb-3 block h-0.5 w-6 rounded-full"
+                  style={{ background: hue }}
+                />
+                {h}
               </li>
             ))}
           </ul>
         </div>
         <div>
           <h2 className="font-serif text-2xl">Stack</h2>
-          <p className="sc mt-3 leading-relaxed text-muted">
-            {project.stack.join(" · ")}
-          </p>
+          <ul className="mt-4 flex flex-wrap gap-1.5">
+            {project.stack.map((s) => (
+              <li
+                key={s}
+                className="rounded-sm border border-line bg-card px-2.5 py-1 text-xs text-muted"
+              >
+                {s}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -239,9 +278,7 @@ export default async function ProjectPage({
           href={`/projects/${prev.slug}`}
           className="group rounded-sm border border-line bg-card p-5 transition-colors hover:border-accent"
         >
-          <p className="text-xs uppercase tracking-[0.15em] text-muted">
-            ← Previous
-          </p>
+          <p className="sc text-muted-2">← Previous</p>
           <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
             {prev.title}
           </p>
@@ -250,9 +287,7 @@ export default async function ProjectPage({
           href={`/projects/${next.slug}`}
           className="group rounded-sm border border-line bg-card p-5 text-right transition-colors hover:border-accent"
         >
-          <p className="text-xs uppercase tracking-[0.15em] text-muted">
-            Next →
-          </p>
+          <p className="sc text-muted-2">Next →</p>
           <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
             {next.title}
           </p>

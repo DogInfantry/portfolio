@@ -1,9 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getResearchDoc, research } from "@/data/research";
+import { getDomain, domainVar } from "@/data/domains";
 import { site } from "@/data/site";
+import Figure from "@/components/Figure";
 import JsonLd from "@/components/JsonLd";
+import StatTiles from "@/components/charts/StatTiles";
 
 export function generateStaticParams() {
   return research.map((d) => ({ slug: d.slug }));
@@ -50,6 +54,8 @@ export default async function ResearchDocPage({
   const next = research[(idx + 1) % research.length];
   const pub = doc.publication;
   const url = `${site.url}/research/${doc.slug}`;
+  const domain = getDomain(doc.domain);
+  const hue = domainVar(doc.domain);
 
   const jsonLd = pub
     ? {
@@ -107,7 +113,7 @@ export default async function ResearchDocPage({
   };
 
   return (
-    <article className="mx-auto max-w-3xl px-5 py-16">
+    <article className="mx-auto max-w-3xl px-5 py-14">
       <JsonLd data={jsonLd} />
       <JsonLd data={breadcrumbs} />
 
@@ -116,8 +122,24 @@ export default async function ResearchDocPage({
       </Link>
 
       <header className="mt-8">
-        <p className="sc tnum text-accent">
-          {doc.kind} · {doc.pages} pp · PDF, {doc.sizeMB}
+        <p className="sc tnum flex flex-wrap items-center gap-2 text-muted">
+          <span
+            aria-hidden="true"
+            className="inline-block h-1.5 w-1.5 rounded-full"
+            style={{ background: hue }}
+          />
+          <Link
+            href={`/work?domain=${doc.domain}`}
+            className="lk transition-colors hover:text-accent"
+          >
+            {domain.label}
+          </Link>
+          <span aria-hidden="true" className="text-line">
+            |
+          </span>
+          <span className="text-muted-2">
+            {doc.kind} · {doc.pages} pp · PDF, {doc.sizeMB}
+          </span>
         </p>
         <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight sm:text-5xl">
           {doc.title}
@@ -130,6 +152,13 @@ export default async function ResearchDocPage({
             {pub.authors.join(" · ")}
             <span className="mx-2 text-line">|</span>
             {pub.venue}, {pub.date}
+            {/* not every venue assigns JEL codes; say nothing rather than an empty label */}
+            {pub.jel && pub.jel.length > 0 && (
+              <>
+                <span className="mx-2 text-line">|</span>
+                JEL {pub.jel.join(" · ")}
+              </>
+            )}
           </p>
         )}
         <div className="mt-6 flex flex-wrap gap-3">
@@ -137,7 +166,7 @@ export default async function ResearchDocPage({
             href={doc.file}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
           >
             Read the PDF ↗
           </a>
@@ -161,15 +190,38 @@ export default async function ResearchDocPage({
         </div>
       </header>
 
+      {/* Headline numbers before the prose, for the same reason as on a project
+          page: a reader who stops early should still leave with the result. */}
+      {doc.metrics && doc.metrics.length > 0 && (
+        <section className="mt-12 border-y border-line py-8">
+          <h2 className="sc kicker">What it found</h2>
+          <StatTiles
+            metrics={doc.metrics}
+            domain={doc.domain}
+            className="mt-6"
+          />
+        </section>
+      )}
+
+      {doc.figures && doc.figures.length > 0 && (
+        <div className="mt-10 flex flex-col gap-8">
+          {doc.figures.map((f) => (
+            <Figure key={f.caption} figure={f} domain={doc.domain} />
+          ))}
+        </div>
+      )}
+
       {/* The header already carries the title, so a coverless doc shows nothing
           here rather than a DocCover repeating it. */}
       {doc.cover && (
-        <figure className="mt-12 overflow-hidden rounded-sm border border-line bg-card">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <figure className="mt-10 overflow-hidden rounded-sm border border-line bg-card">
+          <Image
             src={doc.cover}
             alt={`${doc.title}, first page`}
-            className="aspect-[16/9] w-full object-cover object-top"
+            width={1200}
+            height={675}
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="h-auto w-full"
           />
         </figure>
       )}
@@ -190,28 +242,36 @@ export default async function ResearchDocPage({
         {doc.findings && (
           <div>
             <h2 className="font-serif text-2xl">Findings</h2>
-            <ul className="mt-4 space-y-3">
+            <ul className="mt-5 space-y-3">
               {doc.findings.map((f) => (
-                <li key={f} className="flex gap-3 text-muted">
-                  <span className="mt-0.5 text-accent">▪</span>
-                  <span>{f}</span>
+                <li
+                  key={f}
+                  className="rounded-sm border border-line bg-card px-5 py-4 leading-relaxed text-muted"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mb-3 block h-0.5 w-6 rounded-full"
+                    style={{ background: hue }}
+                  />
+                  {f}
                 </li>
               ))}
             </ul>
           </div>
         )}
         {pub && (
-          <div className="grid gap-8 border-t border-line pt-8 sm:grid-cols-[1fr_auto]">
-            <div>
-              <h3 className="sc text-accent">Keywords</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {pub.keywords.join(" · ")}
-              </p>
-            </div>
-            <div>
-              <h3 className="sc text-accent">JEL codes</h3>
-              <p className="sc tnum mt-3 text-muted">{pub.jel.join(" · ")}</p>
-            </div>
+          <div className="border-t border-line pt-8">
+            <h3 className="sc text-accent">Keywords</h3>
+            <ul className="mt-4 flex flex-wrap gap-1.5">
+              {pub.keywords.map((k) => (
+                <li
+                  key={k}
+                  className="rounded-sm border border-line bg-card px-2.5 py-1 text-xs text-muted"
+                >
+                  {k}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </section>
@@ -222,9 +282,7 @@ export default async function ResearchDocPage({
           href={`/research/${prev.slug}`}
           className="group rounded-sm border border-line bg-card p-5 transition-colors hover:border-accent"
         >
-          <p className="text-xs uppercase tracking-[0.15em] text-muted">
-            ← Previous
-          </p>
+          <p className="sc text-muted-2">← Previous</p>
           <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
             {prev.title}
           </p>
@@ -233,9 +291,7 @@ export default async function ResearchDocPage({
           href={`/research/${next.slug}`}
           className="group rounded-sm border border-line bg-card p-5 text-right transition-colors hover:border-accent"
         >
-          <p className="text-xs uppercase tracking-[0.15em] text-muted">
-            Next →
-          </p>
+          <p className="sc text-muted-2">Next →</p>
           <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
             {next.title}
           </p>

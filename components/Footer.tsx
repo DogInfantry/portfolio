@@ -4,12 +4,12 @@ import { site } from "@/data/site";
 export default function Footer() {
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto max-w-5xl px-5 py-10">
+      <div className="mx-auto max-w-6xl px-5 py-10">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-baseline">
           <p className="font-serif text-lg tracking-tight">{site.name}</p>
-          <div className="sc flex gap-6 text-muted">
-            <Link href="/#projects" className="transition-colors hover:text-accent">
-              Projects
+          <div className="sc flex flex-wrap gap-x-6 gap-y-3 text-muted">
+            <Link href="/work" className="transition-colors hover:text-accent">
+              Work
             </Link>
             <Link href="/research" className="transition-colors hover:text-accent">
               Research
