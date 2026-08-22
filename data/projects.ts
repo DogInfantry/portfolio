@@ -26,6 +26,13 @@ export type Project = {
   /** preview image for doc-backed work; rendered plain, without browser chrome */
   cover?: string;
   /**
+   * Card-only image. The best thing to put on an index card is often not the
+   * best thing to put at the top of the case study: a chart from the analysis
+   * sells the work in a grid, while the case study still wants the screenshot
+   * of the running app. Set this when the two should differ.
+   */
+  thumbnail?: string;
+  /**
    * Charts for the case-study page. Every figure plots numbers already stated
    * in this file, and its required source field names the statement it came
    * from. Work whose copy states only counts carries no figure and leans on
@@ -65,7 +72,7 @@ export const projects: Project[] = [
     stack: ["Python", "DGCA / Eurostat / IATA data", "Next.js", "Scrollytelling", "GitHub Actions"],
     live: "https://india-widebody-window.vercel.app",
     github: "https://github.com/DogInfantry/india-widebody-window",
-    cover: "/screenshots/india-widebody-window.png",
+    thumbnail: "/screenshots/india-widebody-window-map.png",
     figures: [
       {
         kind: "diverging",
@@ -116,6 +123,7 @@ export const projects: Project[] = [
     ],
     stack: ["Python", "PhonePe Pulse / NPCI / AMFI", "DuckDB", "GitHub Actions", "Static site"],
     live: "https://india-fs-pulse.vercel.app",
+    thumbnail: "/screenshots/india-fs-pulse-map.png",
     github: "https://github.com/DogInfantry/india-fs-pulse",
     screenshot: "/screenshots/india-fs-pulse.png",
     figures: [

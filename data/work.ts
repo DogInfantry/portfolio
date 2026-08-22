@@ -33,8 +33,8 @@ export type WorkItem = {
   external?: { href: string; label: string };
   metrics: Metric[];
   image?: string;
-  /** screenshots get browser chrome, document covers are shown plain */
-  imageKind: "screenshot" | "cover";
+  /** screenshots get browser chrome; covers and figures are shown plain */
+  imageKind: "screenshot" | "cover" | "figure";
   /** short provenance line under the title */
   meta: string;
 };
@@ -58,8 +58,8 @@ const fromProjects: WorkItem[] = projects.map((p) => {
     typeLabel: type === "app" ? "Live app" : type === "deck" ? "Deck" : "Code",
     external,
     metrics: p.metrics,
-    image: p.screenshot ?? p.cover,
-    imageKind: p.screenshot ? "screenshot" : "cover",
+    image: p.thumbnail ?? p.screenshot ?? p.cover,
+    imageKind: p.thumbnail ? "figure" : p.screenshot ? "screenshot" : "cover",
     meta: p.fact,
   };
 });

@@ -30,7 +30,9 @@ export default function WorkCard({ item }: { item: WorkItem }) {
             alt={
               item.imageKind === "screenshot"
                 ? `${item.title}, application screenshot`
-                : `${item.title}, first page`
+                : item.imageKind === "figure"
+                  ? `${item.title}, an exhibit from the analysis`
+                  : `${item.title}, first page`
             }
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

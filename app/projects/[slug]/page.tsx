@@ -192,39 +192,48 @@ export default async function ProjectPage({
             sizes="(min-width: 768px) 768px, 100vw"
           />
         </div>
-      ) : (
-        project.doc && (
-          <figure className="mt-10">
-            <a
-              href={project.doc}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
-            >
-              {project.cover ? (
-                <Image
-                  src={project.cover}
-                  alt={`${project.title}, opening slide`}
-                  width={1200}
-                  height={675}
-                  sizes="(min-width: 768px) 768px, 100vw"
-                  className="h-auto w-full"
-                />
-              ) : (
-                /* Title is already in the header above, so the fallback card is
+      ) : project.doc ? (
+        <figure className="mt-10">
+          <a
+            href={project.doc}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
+          >
+            {project.cover ? (
+              <Image
+                src={project.cover}
+                alt={`${project.title}, opening slide`}
+                width={1200}
+                height={675}
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="h-auto w-full"
+              />
+            ) : (
+              /* Title is already in the header above, so the fallback card is
                    a call to action rather than a repeat of it. */
-                <DocCover
-                  title="Read the full case deck ↗"
-                  kind={`${domain.label} · ${project.docLabel ?? "Case deck"}`}
-                />
-              )}
-            </a>
-            <figcaption className="sc mt-3 text-muted-2">
-              {project.docLabel ?? "Case deck"} · opens as a PDF
-            </figcaption>
-          </figure>
-        )
-      )}
+              <DocCover
+                title="Read the full case deck ↗"
+                kind={`${domain.label} · ${project.docLabel ?? "Case deck"}`}
+              />
+            )}
+          </a>
+          <figcaption className="sc mt-3 text-muted-2">
+            {project.docLabel ?? "Case deck"} · opens as a PDF
+          </figcaption>
+        </figure>
+      ) : project.cover ?? project.thumbnail ? (
+        <figure className="mt-10 overflow-hidden rounded-sm border border-line bg-card">
+          <Image
+            src={(project.cover ?? project.thumbnail)!}
+            alt={`${project.title}, an exhibit from the analysis`}
+            width={1200}
+            height={675}
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="h-auto w-full"
+          />
+        </figure>
+      ) : null}
 
       <section className="mt-12 space-y-12 leading-relaxed">
         <div>
