@@ -11,9 +11,8 @@ Site: https://portfolio-five-rouge-90.vercel.app
 Everything below is also browsable as one filterable index at
 https://portfolio-five-rouge-90.vercel.app/work, narrowable by subject
 (?domain=credit, equities, macro, product, quant, sustainable, climate,
-market-structure, policy) and by artefact type (?type=app, paper, deck, code).
-The index is grouped: decks and case studies, published research, then live
-apps and code.
+market-structure, policy). The index is grouped and ordered: selected work,
+working papers, live apps and code, then reports and decks.
 
 ## Publications
 

@@ -84,32 +84,42 @@ const fromResearch: WorkItem[] = research.map((d) => ({
 export const work: WorkItem[] = [...fromProjects, ...fromResearch];
 
 /**
- * The index is grouped rather than flat.
+ * The index is grouped and ordered, not flat.
  *
- * A single grid of thirteen cards reads as a pile: a recruiter cannot tell a
- * peer-reviewable working paper from a weekend repo without opening both. These
- * groups are the distinction that actually matters to a reader deciding what to
- * spend time on, so they are headings on the page rather than a filter they
- * have to think to apply.
+ * A single grid of sixteen cards reads as a pile: a reader cannot tell a
+ * working paper from a weekend repo without opening both. The first group is
+ * curated by hand because "what should someone look at first" is an editorial
+ * judgement and not a property of the artefact. The rest fall out by what the
+ * artefact is.
  */
-export const groups: {
+export type Group = {
   key: string;
   title: string;
   blurb: string;
-  types: ArtifactType[];
-}[] = [
+  /** explicit, ordered membership; wins over `types` */
+  slugs?: string[];
+  types?: ArtifactType[];
+};
+
+export const groups: Group[] = [
   {
-    key: "decks",
-    title: "Decks and case studies",
+    key: "selected",
+    title: "Selected work",
     blurb:
-      "Consulting-style work delivered as a document: research, prioritization, and a recommendation someone could act on.",
-    types: ["deck"],
+      "Start here. Two commercial strategy cases, a causal-testing commodity desk, a product case study, and a quant study published as a negative result.",
+    slugs: [
+      "india-widebody-window",
+      "india-fs-pulse",
+      "enso-macro-risk-desk",
+      "indusind-protect",
+      "signals-before-storms",
+    ],
   },
   {
     key: "papers",
-    title: "Published research",
+    title: "Working papers",
     blurb:
-      "Working papers with an abstract, a stated design, and results that survive being wrong. Hosted on SSRN, open to read.",
+      "Research on SSRN, each with an abstract, a stated design, and results reported whether or not they flatter the hypothesis.",
     types: ["paper"],
   },
   {
@@ -119,22 +129,37 @@ export const groups: {
       "Analysis published as something you can open and click through, with the repository behind it.",
     types: ["app", "code"],
   },
+  {
+    key: "documents",
+    title: "Reports and decks",
+    blurb:
+      "Longer-form strategy and policy work delivered as a document. Each one opens as a PDF.",
+    types: ["deck"],
+  },
 ];
 
 /**
- * The three-item lead. Chosen for range rather than recency, one from each
- * group: a commercial strategy case, a live credit tool reading SEC filings, and
- * a working paper.
+ * Assign every item to the first group that claims it, so a piece of work
+ * appears exactly once no matter how many groups could hold it. Empty groups
+ * drop out, which is what keeps a filtered view from showing a heading over
+ * nothing.
  */
-export const featuredSlugs = [
-  "india-widebody-window",
-  "debt-covenant-surveillance",
-  "regulating-retail-options-boom",
-] as const;
-
-export const featured = featuredSlugs
-  .map((slug) => work.find((w) => w.slug === slug))
-  .filter((w): w is WorkItem => Boolean(w));
+export function groupItems(items: WorkItem[]) {
+  const taken = new Set<string>();
+  return groups
+    .map((g) => {
+      const picked = g.slugs
+        ? g.slugs
+            .map((slug) => items.find((w) => w.slug === slug))
+            .filter((w): w is WorkItem => Boolean(w))
+        : items.filter(
+            (w) => !taken.has(w.slug) && (g.types?.includes(w.type) ?? false)
+          );
+      for (const w of picked) taken.add(w.slug);
+      return { ...g, items: picked };
+    })
+    .filter((g) => g.items.length > 0);
+}
 
 /** Domains that actually have work behind them, in the palette's slot order. */
 export function activeDomains(items: WorkItem[] = work) {

@@ -26,10 +26,10 @@ export default function WorkPage() {
         Work
       </h1>
       <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-        {work.length} pieces in three groups: decks and case studies,
-        published research, and live apps with their code. Filter by subject to
-        narrow within the groups. Every card carries the numbers the work
-        produced, so you can decide what to open before you open it.
+        {work.length} pieces in four groups: selected work, working papers,
+        live apps with their code, then longer-form reports and decks. Filter by
+        subject to narrow within the groups. Every card carries the numbers the
+        work produced, so you can decide what to open before you open it.
       </p>
 
       <div className="mt-10">

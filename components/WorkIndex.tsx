@@ -2,21 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { domains, domainVar, type DomainKey } from "@/data/domains";
-import {
-  artifactTypes,
-  groups,
-  work,
-  type ArtifactType,
-  type WorkItem,
-} from "@/data/work";
+import { groupItems, work, type WorkItem } from "@/data/work";
 import WorkCard from "@/components/WorkCard";
 
 /**
- * The index of everything, grouped by what the artefact actually is.
+ * The index of everything, in labelled groups.
  *
- * Grouping is the point: a flat grid of thirteen cards reads as a pile, and a
- * reader cannot tell a working paper from a weekend repo without opening both.
- * Filters narrow within the groups rather than replacing them.
+ * Grouping is the point: a flat grid reads as a pile, and a reader cannot tell
+ * a working paper from a weekend repo without opening both. The subject filter
+ * narrows within the groups rather than replacing them.
  *
  * Filter state lives in the URL so a filtered view is shareable and the back
  * button behaves, but it is read from window.location rather than through
@@ -27,25 +21,23 @@ import WorkCard from "@/components/WorkCard";
  * reader on a slow connection actually get.
  */
 
-type Filters = { domain: DomainKey | null; type: ArtifactType | null };
+/**
+ * Only the subject filter survives. Artefact type used to be a filter too, but
+ * the groups below now carry that distinction as headings, and a chip row that
+ * restates the page structure is just one more thing to read.
+ */
+type Filters = { domain: DomainKey | null };
 
-const EMPTY: Filters = { domain: null, type: null };
+const EMPTY: Filters = { domain: null };
 
 function isDomain(v: string | null): v is DomainKey {
   return domains.some((d) => d.key === v);
-}
-function isType(v: string | null): v is ArtifactType {
-  return artifactTypes.some((t) => t.key === v);
 }
 
 function readUrl(): Filters {
   const p = new URLSearchParams(window.location.search);
   const domain = p.get("domain");
-  const type = p.get("type");
-  return {
-    domain: isDomain(domain) ? domain : null,
-    type: isType(type) ? type : null,
-  };
+  return { domain: isDomain(domain) ? domain : null };
 }
 
 function Chip({
@@ -99,8 +91,8 @@ export default function WorkIndex({ items = work }: { items?: WorkItem[] }) {
     const p = new URLSearchParams(window.location.search);
     if (next.domain) p.set("domain", next.domain);
     else p.delete("domain");
-    if (next.type) p.set("type", next.type);
-    else p.delete("type");
+    // a stale type= from an older link would silently narrow the page
+    p.delete("type");
     const qs = p.toString();
     window.history.pushState(
       null,
@@ -111,37 +103,19 @@ export default function WorkIndex({ items = work }: { items?: WorkItem[] }) {
 
   const shown = useMemo(
     () =>
-      items.filter(
-        (w) =>
-          (!filters.domain || w.domain === filters.domain) &&
-          (!filters.type || w.type === filters.type)
-      ),
+      items.filter((w) => !filters.domain || w.domain === filters.domain),
     [items, filters]
   );
 
-  // a group with nothing behind it is not rendered at all, so filtering never
-  // leaves a heading standing over an empty space
-  const sections = useMemo(
-    () =>
-      groups
-        .map((g) => ({
-          ...g,
-          items: shown.filter((w) => g.types.includes(w.type)),
-        }))
-        .filter((g) => g.items.length > 0),
-    [shown]
-  );
+  const sections = useMemo(() => groupItems(shown), [shown]);
 
   // only offer a filter that has something behind it
-  const present = useMemo(
-    () => ({
-      domains: new Set(items.map((w) => w.domain)),
-      types: new Set(items.map((w) => w.type)),
-    }),
+  const presentDomains = useMemo(
+    () => new Set(items.map((w) => w.domain)),
     [items]
   );
 
-  const filtered = filters.domain !== null || filters.type !== null;
+  const filtered = filters.domain !== null;
 
   return (
     <div>
@@ -151,43 +125,19 @@ export default function WorkIndex({ items = work }: { items?: WorkItem[] }) {
         </Chip>
         <span aria-hidden="true" className="mx-1 h-5 w-px bg-line" />
         {domains
-          .filter((d) => present.domains.has(d.key))
+          .filter((d) => presentDomains.has(d.key))
           .map((d) => (
             <Chip
               key={d.key}
               active={filters.domain === d.key}
               hue={domainVar(d.key)}
               onClick={() =>
-                commit({
-                  ...filters,
-                  domain: filters.domain === d.key ? null : d.key,
-                })
+                commit({ domain: filters.domain === d.key ? null : d.key })
               }
             >
               {d.label}
             </Chip>
           ))}
-        {present.types.size > 1 && (
-          <>
-            <span aria-hidden="true" className="mx-1 h-5 w-px bg-line" />
-            {artifactTypes
-              .filter((t) => present.types.has(t.key))
-              .map((t) => (
-                <Chip
-                  key={t.key}
-                  active={filters.type === t.key}
-                  onClick={() =>
-                    commit({
-                      ...filters,
-                      type: filters.type === t.key ? null : t.key,
-                    })
-                  }
-                >
-                  {t.label}
-                </Chip>
-              ))}
-          </>
-        )}
       </div>
 
       <p aria-live="polite" className="sc mt-5 text-muted-2">
