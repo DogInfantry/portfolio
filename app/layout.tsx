@@ -31,10 +31,15 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "Portfolio of Anklesh Rawat (MBA, IIM Bodh Gaya): investment research, strategy, and financial analysis. Author of an SSRN working paper on SEBI's 2024–25 index derivatives reforms. Covenant surveillance, equity research engines, capital markets intelligence, climate macro, sustainable finance, and product strategy.",
+    "Portfolio of Anklesh Rawat (MBA, IIM Bodh Gaya): strategy, finance, investment research and quantitative work. Two SSRN working papers, on SEBI's 2024–25 index derivatives reforms and on social protection take-up in rural India. Commercial strategy cases, covenant surveillance, payments economics, equity research engines, capital markets intelligence, climate macro and sustainable finance.",
   keywords: [
     "Anklesh Rawat",
+    "commercial strategy",
+    "market entry strategy",
+    "corporate finance",
     "investment research",
+    "payments economics",
+    "policy research",
     "equity research",
     "credit analysis",
     "covenant monitoring",
@@ -54,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${site.name} · ${site.role}`,
     description:
-      "Covenant surveillance, equity research engines, capital markets intelligence, sustainable finance research, and an SSRN working paper on SEBI's index derivatives reforms.",
+      "Commercial strategy cases, covenant surveillance, payments economics, equity research engines, capital markets intelligence, and two SSRN working papers.",
     type: "website",
     url: site.url,
     siteName: site.name,

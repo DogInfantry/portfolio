@@ -54,17 +54,18 @@ export default function Home() {
         </Reveal>
         <Reveal delay={80}>
           <h1 className="mt-5 max-w-3xl font-serif text-5xl leading-[1.05] tracking-tight sm:text-6xl">
-            Investment research,{" "}
+            Strategy, finance and research,{" "}
             <em className="text-accent">live and explorable.</em>
           </h1>
         </Reveal>
         <Reveal delay={160}>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-            Covenant surveillance, payments economics, aviation strategy,
-            derivatives regulation. Analysis that usually stays locked in
-            terminals and slide decks, published as live dashboards anyone can
-            open, working papers anyone can read, and graded honestly when it
-            does not work.
+            Commercial strategy, corporate finance, investment research and
+            quantitative work. Market entry cases, payments economics, covenant
+            surveillance, derivatives regulation. The kind of analysis that
+            usually ends its life inside a slide deck or a terminal, published
+            here as dashboards you can open, papers you can read, and
+            repositories you can check line by line.
           </p>
         </Reveal>
         <Reveal delay={240}>
@@ -170,9 +171,9 @@ export default function Home() {
             <h2 className="mt-3 font-serif text-4xl tracking-tight">
               Let&apos;s talk
             </h2>
-            <p className="mx-auto mt-3 max-w-md text-muted">
-              Open to roles and collaborations in investment research, credit,
-              and quantitative tooling.
+            <p className="mx-auto mt-3 max-w-lg text-muted">
+              Open to roles and collaborations across strategy, finance,
+              investment and policy research, and quantitative work.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <a
