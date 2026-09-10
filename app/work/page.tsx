@@ -25,8 +25,8 @@ export default function WorkPage() {
       <p className="sc kicker">Everything, in one place</p>
       <h1 className="mt-4 font-serif text-display">Work</h1>
       <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-        {work.length} pieces in four groups: selected work, working papers,
-        dashboards, then longer-form reports and decks. Filter by
+        {work.length} pieces in four groups: selected work, dashboards,
+        longer-form reports and decks, then the working papers. Filter by
         subject or by what the artefact is, search across titles and stacks, and
         switch to the table to see all {work.length} at once. Every row carries
         the numbers the work produced, so you can decide what to open before you

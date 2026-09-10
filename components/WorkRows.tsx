@@ -128,17 +128,17 @@ export default function WorkRows({
                   glyph over the domain hue rather than an empty cell. Hidden
                   below sm, where the row already carries four things. */}
               <td
-                className="hidden border-l-[3px] py-4 pl-4 pr-4 align-top sm:table-cell"
+                className="hidden border-l-[3px] py-3 pl-4 pr-4 align-top sm:table-cell"
                 style={{ borderLeftColor: domainVar(r.domain) }}
               >
-                <span className="flex h-11 w-14 items-center justify-center overflow-hidden rounded-[2px] bg-sunken">
+                <span className="flex h-[70px] w-28 items-center justify-center overflow-hidden rounded-[2px] bg-sunken">
                   {r.thumb ? (
                     <Image
                       src={asset(r.thumb)}
                       alt=""
-                      width={112}
-                      height={88}
-                      sizes="56px"
+                      width={224}
+                      height={140}
+                      sizes="112px"
                       className={
                         r.thumbKind === "cover"
                           ? "h-full w-full object-contain p-1"
@@ -149,7 +149,7 @@ export default function WorkRows({
                     /* the hue repeats the row's left rule and the Subject
                        cell, so it is never the only carrier of meaning */
                     <span style={{ color: domainVar(r.domain) }}>
-                      <Glyph type={r.type} className="h-4 w-4" />
+                      <Glyph type={r.type} className="h-6 w-6" />
                     </span>
                   )}
                 </span>
@@ -158,7 +158,7 @@ export default function WorkRows({
                   lives here for the narrow layout where the plate is hidden */}
               <th
                 scope="row"
-                className="border-l-[3px] py-4 pl-4 pr-4 text-left align-top font-normal sm:border-l-0 sm:pl-0"
+                className="border-l-[3px] py-3 pl-4 pr-4 text-left align-top font-normal sm:border-l-0 sm:pl-0"
                 style={{ borderLeftColor: domainVar(r.domain) }}
               >
                 <Link
@@ -171,13 +171,13 @@ export default function WorkRows({
                   {r.outcome}
                 </span>
               </th>
-              <td className="sc hidden py-4 pr-4 align-top text-muted sm:table-cell">
+              <td className="sc hidden py-3 pr-4 align-top text-muted sm:table-cell">
                 {r.domainLabel}
               </td>
-              <td className="sc py-4 pr-4 align-top text-muted-2">
+              <td className="sc py-3 pr-4 align-top text-muted-2">
                 {r.typeLabel}
               </td>
-              <td className="hidden py-4 pr-4 align-top md:table-cell">
+              <td className="hidden py-3 pr-4 align-top md:table-cell">
                 {r.evidence ? (
                   <>
                     <span className="tnum block text-base font-semibold leading-none tracking-tight text-foreground">
@@ -193,7 +193,7 @@ export default function WorkRows({
                   <span className="text-xs text-muted-2">{r.meta}</span>
                 )}
               </td>
-              <td className="py-4 align-top text-sm">
+              <td className="py-3 align-top text-sm">
                 <span className="flex flex-col items-end gap-1.5 whitespace-nowrap">
                   <Link href={r.href} className="lk font-medium text-accent">
                     Case study <span aria-hidden="true">→</span>

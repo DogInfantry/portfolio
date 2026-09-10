@@ -33,16 +33,6 @@ export type Project = {
    */
   thumbnail?: string;
   /**
-   * Prefer this project's first figure over its screenshot on index cards.
-   *
-   * The mirror of `thumbnail`: that one says "a different image on the card",
-   * this one says "no image on the card, plot the finding instead". Set it
-   * where the screenshot collides visually with a neighbouring card, which is
-   * what happened when three of the featured six were dark maps. The case study
-   * still gets the screenshot.
-   */
-  cardFigure?: boolean;
-  /**
    * Charts for the case-study page. Every figure plots numbers already stated
    * in this file, and its required source field names the statement it came
    * from. Work whose copy states only counts carries no figure and leans on
@@ -81,6 +71,7 @@ export const projects: Project[] = [
     ],
     stack: ["Python", "DGCA / Eurostat / IATA data", "Next.js", "Scrollytelling", "GitHub Actions"],
     live: "https://india-widebody-window.vercel.app",
+    thumbnail: "/screenshots/india-widebody-window-map.png",
     github: "https://github.com/DogInfantry/india-widebody-window",
     figures: [
       {
@@ -132,6 +123,7 @@ export const projects: Project[] = [
     ],
     stack: ["Python", "PhonePe Pulse / NPCI / AMFI", "DuckDB", "GitHub Actions", "Static site"],
     live: "https://india-fs-pulse.vercel.app",
+    thumbnail: "/screenshots/india-fs-pulse-map.png",
     github: "https://github.com/DogInfantry/india-fs-pulse",
     screenshot: "/screenshots/india-fs-pulse.png",
     figures: [
@@ -279,9 +271,6 @@ export const projects: Project[] = [
     stack: ["Python", "Granger / CCM", "SARIMA + LSTM", "NOAA CPC data", "Docker"],
     live: "https://doginfantry-enso-macro-risk-desk.hf.space/",
     screenshot: "/screenshots/enso-macro-risk-desk.png",
-    // the screenshot is a dark dashboard with a world map in it, which read as
-    // the same picture as the two India cases beside it in the featured grid
-    cardFigure: true,
   },
   {
     slug: "debt-covenant-surveillance",

@@ -1,4 +1,3 @@
-import type { Figure } from "./figures";
 import { projects, type Metric } from "./projects";
 import { research } from "./research";
 import { asset } from "./asset";
@@ -37,14 +36,6 @@ export type WorkItem = {
   image?: string;
   /** screenshots get browser chrome; covers and figures are shown plain */
   imageKind: "screenshot" | "cover" | "figure";
-  /**
-   * The item's first figure, for the card to plot when it has no image.
-   *
-   * An index card with a chart of the actual finding cannot collide with the
-   * card beside it, which a screenshot of a dark dashboard very much can.
-   * See components/Exhibit.tsx.
-   */
-  figure?: Figure;
   /** short provenance line under the title */
   meta: string;
   /**
@@ -91,11 +82,8 @@ const fromProjects: WorkItem[] = projects.map((p) => {
     typeLabel,
     external,
     metrics: p.metrics,
-    // cardFigure withholds the image from the card so Exhibit plots the
-    // finding instead; the case study still renders the screenshot
-    image: p.cardFigure ? undefined : (p.thumbnail ?? p.screenshot ?? p.cover),
+    image: p.thumbnail ?? p.screenshot ?? p.cover,
     imageKind: p.thumbnail ? "figure" : p.screenshot ? "screenshot" : "cover",
-    figure: p.figures?.[0],
     meta: p.fact,
     search: haystack(
       p.title,
@@ -122,7 +110,6 @@ const fromResearch: WorkItem[] = research.map((d) => ({
   metrics: d.metrics ?? [],
   image: d.cover,
   imageKind: "cover",
-  figure: d.figures?.[0],
   meta: `${d.kind} · ${d.pages} pp`,
   search: haystack(
     d.title,
@@ -172,13 +159,6 @@ export const groups: Group[] = [
     ],
   },
   {
-    key: "papers",
-    title: "Working papers",
-    blurb:
-      "Research on SSRN, each with an abstract, a stated design, and results reported whether or not they flatter the hypothesis.",
-    types: ["paper"],
-  },
-  {
     key: "builds",
     title: "Dashboards",
     blurb:
@@ -191,6 +171,13 @@ export const groups: Group[] = [
     blurb:
       "Longer-form strategy and policy work delivered as a document. Each one opens as a PDF.",
     types: ["deck"],
+  },
+  {
+    key: "papers",
+    title: "Working papers",
+    blurb:
+      "Research on SSRN, each with an abstract, a stated design, and results reported whether or not they flatter the hypothesis.",
+    types: ["paper"],
   },
 ];
 

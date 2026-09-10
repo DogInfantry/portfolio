@@ -12,7 +12,7 @@ Everything below is also browsable as one filterable index at
 https://portfolio-five-rouge-90.vercel.app/work, narrowable by subject
 (?domain=credit, equities, macro, product, quant, sustainable, climate,
 market-structure, policy). The index is grouped and ordered: selected work,
-working papers, dashboards, then reports and decks.
+dashboards, reports and decks, then working papers.
 
 ## Publications
 

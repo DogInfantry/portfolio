@@ -20,12 +20,17 @@ export default function DocCover({
   className?: string;
 }) {
   return (
+    /* overflow-hidden and the two clamps are load bearing, not tidiness. This
+       was written for research items, whose `kind` is short ("Independent
+       research · 14 pp"). A project passes its `fact`, which is a whole
+       sentence, and that pushed the plate 17px past its own aspect box and made
+       one card in a row of three taller than the other two. */
     <div
-      className={`flex aspect-[16/10] w-full flex-col justify-between bg-sunken px-6 py-4 sm:py-6 ${className}`}
+      className={`flex aspect-[16/10] w-full flex-col justify-between overflow-hidden bg-sunken px-6 py-4 sm:py-6 ${className}`}
     >
-      <p className="sc text-muted">{kind}</p>
+      <p className="sc line-clamp-2 text-muted">{kind}</p>
       <div className="border-t border-line pt-3">
-        <p className="font-serif text-xl leading-snug tracking-tight text-foreground">
+        <p className="line-clamp-3 font-serif text-xl leading-snug tracking-tight text-foreground">
           {title}
         </p>
         {subtitle && (

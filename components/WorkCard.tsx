@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import DocCover from "@/components/DocCover";
-import Exhibit from "@/components/Exhibit";
 import Glyph from "@/components/glyphs";
 import { asset } from "@/data/asset";
 import { domainVar, getDomain } from "@/data/domains";
@@ -78,16 +77,9 @@ export default function WorkCard({
             }
           />
         </div>
-      ) : item.figure ? (
-        /* No image, but the work has a figure: plot the finding. Three of the
-           featured cards used to be dark maps, which said nothing about how the
-           analyses differ. A chart of the actual result cannot collide with the
-           card beside it, because the results do not have the same shape. */
-        <Exhibit figure={item.figure} domain={item.domain} />
       ) : (
         /* A card with no thumbnail reads as an afterthought beside one that has
-           it, so a document with neither cover art nor a figure gets a
-           typographic stand-in rather than an empty slot. */
+           it, so a document without cover art gets a typographic stand-in rather than an empty slot. */
         <DocCover title={item.outcome} kind={item.meta} />
       )}
 
