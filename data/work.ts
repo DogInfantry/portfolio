@@ -1,6 +1,6 @@
 import { projects, type Metric } from "./projects";
 import { research } from "./research";
-import type { DomainKey } from "./domains";
+import { domains, getDomain, type DomainKey } from "./domains";
 
 /**
  * Projects and research, flattened into one shape.
@@ -37,10 +37,33 @@ export type WorkItem = {
   imageKind: "screenshot" | "cover" | "figure";
   /** short provenance line under the title */
   meta: string;
+  /**
+   * Lowercased haystack for the index search box. Derived here, never authored.
+   *
+   * It carries the fields the index does not render: `stack`, and a paper's
+   * keywords and JEL codes. That is the whole case for having a search box at
+   * all, because browser find already covers every title and outcome on screen,
+   * and it does not cover "cvxpy", "SEC EDGAR" or "difference-in-differences",
+   * which are exactly what a recruiter or a researcher types.
+   *
+   * Long prose is excluded on purpose. The retail options abstract alone is
+   * 2.4KB, and those matches are already reachable by browser find on the case
+   * study page once it is open.
+   */
+  search: string;
 };
+
+const haystack = (...parts: (string | readonly string[] | undefined)[]) =>
+  parts
+    .flat()
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
 
 const fromProjects: WorkItem[] = projects.map((p) => {
   const type: ArtifactType = p.live ? "app" : p.doc ? "deck" : "code";
+  const typeLabel =
+    type === "app" ? "Live app" : type === "deck" ? "Deck" : "Code";
   const external = p.live
     ? { href: p.live, label: "Live" }
     : p.github
@@ -55,12 +78,20 @@ const fromProjects: WorkItem[] = projects.map((p) => {
     outcome: p.tagline,
     domain: p.domain,
     type,
-    typeLabel: type === "app" ? "Live app" : type === "deck" ? "Deck" : "Code",
+    typeLabel,
     external,
     metrics: p.metrics,
     image: p.thumbnail ?? p.screenshot ?? p.cover,
     imageKind: p.thumbnail ? "figure" : p.screenshot ? "screenshot" : "cover",
     meta: p.fact,
+    search: haystack(
+      p.title,
+      p.tagline,
+      p.fact,
+      getDomain(p.domain).label,
+      typeLabel,
+      p.stack
+    ),
   };
 });
 
@@ -79,6 +110,16 @@ const fromResearch: WorkItem[] = research.map((d) => ({
   image: d.cover,
   imageKind: "cover",
   meta: `${d.kind} · ${d.pages} pp`,
+  search: haystack(
+    d.title,
+    d.subtitle,
+    d.kind,
+    getDomain(d.domain).label,
+    d.publication ? "Paper" : "Deck",
+    d.publication?.keywords,
+    d.publication?.jel,
+    d.publication?.venue
+  ),
 }));
 
 export const work: WorkItem[] = [...fromProjects, ...fromResearch];
@@ -164,4 +205,78 @@ export function groupItems(items: WorkItem[]) {
 /** Domains that actually have work behind them, in the palette's slot order. */
 export function activeDomains(items: WorkItem[] = work) {
   return new Set(items.map((w) => w.domain));
+}
+
+export function isArtifactType(v: string | null): v is ArtifactType {
+  return artifactTypes.some((t) => t.key === v);
+}
+
+/**
+ * The slim view model that crosses the server to client boundary.
+ *
+ * WorkIndex used to `import { work }` at module scope, which dragged
+ * data/projects.ts and data/research.ts into the client chunk: roughly 50KB of
+ * descriptions, approaches, highlights and abstracts that the index never
+ * renders, none of it tree shakeable because the arrays are consumed whole.
+ *
+ * The index needs the fields below and nothing else, so the server component
+ * computes them and passes them down. About 5KB raw across sixteen items, and
+ * the two data modules leave the client graph entirely. The cards themselves
+ * stay server rendered; the client only decides which of them are hidden.
+ */
+export type IndexRow = {
+  slug: string;
+  href: string;
+  title: string;
+  outcome: string;
+  domain: DomainKey;
+  domainLabel: string;
+  type: ArtifactType;
+  typeLabel: string;
+  /** the single strongest number, or null where the work states only counts */
+  evidence: Metric | null;
+  meta: string;
+  external?: { href: string; label: string };
+  search: string;
+};
+
+export function toIndexRows(items: WorkItem[] = work): IndexRow[] {
+  return items.map((w) => ({
+    slug: w.slug,
+    href: w.href,
+    title: w.title,
+    outcome: w.outcome,
+    domain: w.domain,
+    domainLabel: getDomain(w.domain).label,
+    type: w.type,
+    typeLabel: w.typeLabel,
+    evidence: w.metrics[0] ?? null,
+    meta: w.meta,
+    external: w.external,
+    search: w.search,
+  }));
+}
+
+/** Labels only. Keeps data/domains.ts out of the client graph too. */
+export type DomainOption = { key: DomainKey; label: string };
+
+/**
+ * Everything the client index needs, computed on the server.
+ *
+ * Facet values with nothing behind them are dropped rather than rendered
+ * disabled, because the taxonomy has nine subjects and four artefact types
+ * while `code` currently has zero members: `fromProjects` only emits it when a
+ * project has neither a live URL nor a document, and every project has one. A
+ * type column with no items in it is a dead control, not a fuller picture.
+ */
+export function indexProps(items: WorkItem[] = work) {
+  const presentDomains = new Set(items.map((w) => w.domain));
+  const presentTypes = new Set(items.map((w) => w.type));
+  return {
+    rows: toIndexRows(items),
+    domains: domains
+      .filter((d) => presentDomains.has(d.key))
+      .map((d) => ({ key: d.key, label: d.label })) as DomainOption[],
+    types: artifactTypes.filter((t) => presentTypes.has(t.key)),
+  };
 }

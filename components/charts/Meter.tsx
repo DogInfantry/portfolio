@@ -25,7 +25,6 @@ export default function Meter({
       </p>
       <div
         className="mt-3 h-3.5 w-full rounded-[2px] bg-grid"
-        title={`${display} of ${max}`}
       >
         <div
           className="h-full rounded-r-[4px]"
@@ -35,7 +34,7 @@ export default function Meter({
           }}
         />
       </div>
-      <p className="tnum mt-2 flex justify-between text-[11px] text-muted-2">
+      <p className="tnum mt-2 flex justify-between text-xs text-muted-2">
         <span>0</span>
         <span>{scaleNote}</span>
         <span>{max}</span>

@@ -33,8 +33,6 @@ export async function generateMetadata({
       description: project.tagline,
       type: "article",
       url: `${site.url}/projects/${project.slug}`,
-      // declaring openGraph here replaces the layout's, so images must repeat
-      images: ["/og.png"],
     },
   };
 }
@@ -101,11 +99,11 @@ export default async function ProjectPage({
   };
 
   return (
-    <article className="mx-auto max-w-3xl px-5 py-14">
+    <article className="mx-auto max-w-3xl px-5 py-12 sm:py-16">
       <JsonLd data={jsonLd} />
       <JsonLd data={breadcrumbs} />
       <Link href="/work" className="lk text-sm text-muted">
-        ← All work
+        <span aria-hidden="true">←</span> All work
       </Link>
 
       <header className="mt-8">
@@ -123,12 +121,14 @@ export default async function ProjectPage({
             {domain.label}
           </Link>
         </p>
-        <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight sm:text-5xl">
-          {project.title}
-        </h1>
+        <h1 className="mt-4 font-serif text-display">{project.title}</h1>
         <p className="mt-4 text-lg leading-relaxed text-muted">
           {project.tagline}
         </p>
+        {/* The overview paragraph used to sit under an "Overview" heading below
+            the numbers, where it restated the tagline to a reader who had not
+            been given a single figure yet. As an unlabelled lede it is read. */}
+        <p className="mt-4 leading-relaxed text-muted">{project.description}</p>
         <div className="mt-6 flex flex-wrap gap-3">
           {project.live && (
             <a
@@ -137,7 +137,7 @@ export default async function ProjectPage({
               rel="noopener noreferrer"
               className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
             >
-              Open live app ↗
+              Open live app <span aria-hidden="true">↗</span>
             </a>
           )}
           {project.github && (
@@ -147,7 +147,7 @@ export default async function ProjectPage({
               rel="noopener noreferrer"
               className="rounded-sm border border-line px-5 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
             >
-              View on GitHub ↗
+              View on GitHub <span aria-hidden="true">↗</span>
             </a>
           )}
           {project.doc && (
@@ -157,15 +157,72 @@ export default async function ProjectPage({
               rel="noopener noreferrer"
               className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
             >
-              Open the deck ↗
+              Open the deck <span aria-hidden="true">↗</span>
             </a>
           )}
         </div>
       </header>
 
+      {/* Stack used to be the last section of the case study, which quietly
+          argued the wrong thing about an analyst. As one cell here it is a
+          fact. `fact` is the provenance line that until now appeared only on
+          index cards, where the reader could not act on it. */}
+      <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-line py-6 sm:grid-cols-4">
+        <div>
+          <dt className="sc text-muted-2">Domain</dt>
+          <dd className="mt-1 text-sm">
+            <Link
+              href={`/work?domain=${project.domain}`}
+              className="lk text-accent"
+            >
+              {domain.label}
+            </Link>
+          </dd>
+        </div>
+        <div>
+          <dt className="sc text-muted-2">Artefact</dt>
+          <dd className="mt-1 text-sm text-muted">
+            {project.live ? "Live app" : project.doc ? "Deck" : "Code"}
+          </dd>
+        </div>
+        <div className="col-span-2 sm:col-span-1">
+          <dt className="sc text-muted-2">Basis</dt>
+          <dd className="mt-1 text-sm text-muted">{project.fact}</dd>
+        </div>
+        <div className="col-span-2 sm:col-span-1">
+          <dt className="sc text-muted-2">Stack</dt>
+          <dd className="mt-1 text-sm text-muted">
+            {project.stack.join(" · ")}
+          </dd>
+        </div>
+      </dl>
+
+      {/* Plain anchors, no scroll spy and no sticky rail. A max-w-3xl article
+          with five sections does not earn a rail. */}
+      <nav
+        aria-label="On this page"
+        className="sc no-print mt-4 hidden flex-wrap gap-x-5 gap-y-2 text-muted-2 md:flex"
+      >
+        {[
+          { href: "#result", label: "Result" },
+          ...(project.figures?.length ? [{ href: "#figures", label: "Figures" }] : []),
+          { href: "#problem", label: "The problem" },
+          { href: "#approach", label: "The approach" },
+          { href: "#findings", label: "What it found" },
+        ].map((a) => (
+          <a
+            key={a.href}
+            href={a.href}
+            className="transition-colors hover:text-accent"
+          >
+            {a.label}
+          </a>
+        ))}
+      </nav>
+
       {/* The result comes first. A reader who stops after one screen should
           still leave with the numbers, not with a paragraph of setup. */}
-      <section className="mt-12 border-y border-line py-8">
+      <section id="result" className="mt-12 scroll-mt-24 border-b border-line pb-8">
         <h2 className="sc kicker">What it produced</h2>
         <StatTiles
           metrics={project.metrics}
@@ -175,7 +232,7 @@ export default async function ProjectPage({
       </section>
 
       {project.figures && project.figures.length > 0 && (
-        <div className="mt-10 flex flex-col gap-8">
+        <div id="figures" className="mt-12 flex scroll-mt-24 flex-col gap-8">
           {project.figures.map((f) => (
             <Figure key={f.caption} figure={f} domain={project.domain} />
           ))}
@@ -183,9 +240,10 @@ export default async function ProjectPage({
       )}
 
       {project.screenshot ? (
-        <div className="mt-10">
+        <div className="mt-12">
           <BrowserFrame
             src={project.screenshot}
+            priority
             alt={`${project.title}, application screenshot`}
             url={externalHref}
             href={externalHref}
@@ -193,7 +251,7 @@ export default async function ProjectPage({
           />
         </div>
       ) : project.doc ? (
-        <figure className="mt-10">
+        <figure className="mt-12">
           <a
             href={project.doc}
             target="_blank"
@@ -223,7 +281,7 @@ export default async function ProjectPage({
           </figcaption>
         </figure>
       ) : project.cover ?? project.thumbnail ? (
-        <figure className="mt-10 overflow-hidden rounded-sm border border-line bg-card">
+        <figure className="mt-12 overflow-hidden rounded-sm border border-line bg-card">
           <Image
             src={(project.cover ?? project.thumbnail)!}
             alt={`${project.title}, an exhibit from the analysis`}
@@ -235,72 +293,78 @@ export default async function ProjectPage({
         </figure>
       ) : null}
 
-      <section className="mt-12 space-y-12 leading-relaxed">
-        <div>
-          <h2 className="font-serif text-2xl">Overview</h2>
-          <p className="mt-3 text-muted">{project.description}</p>
-        </div>
-        <div>
+      <section className="mt-16 space-y-12 leading-relaxed">
+        <div id="problem" className="scroll-mt-24">
           <h2 className="font-serif text-2xl">The problem</h2>
-          <p className="mt-3 text-muted">{project.problem}</p>
+          <p className="mt-4 text-muted">{project.problem}</p>
         </div>
-        <div>
+        <div id="approach" className="scroll-mt-24">
           <h2 className="font-serif text-2xl">The approach</h2>
-          <p className="mt-3 text-muted">{project.approach}</p>
+          <p className="mt-4 text-muted">{project.approach}</p>
         </div>
-        <div>
+        <div id="findings" className="scroll-mt-24">
           <h2 className="font-serif text-2xl">What it found</h2>
-          <ul className="mt-5 space-y-3">
-            {project.highlights.map((h) => (
-              <li
-                key={h}
-                className="rounded-sm border border-line bg-card px-5 py-4 leading-relaxed text-muted"
-              >
-                <span
-                  aria-hidden="true"
-                  className="mb-3 block h-0.5 w-6 rounded-full"
-                  style={{ background: hue }}
-                />
-                {h}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="font-serif text-2xl">Stack</h2>
-          <ul className="mt-4 flex flex-wrap gap-1.5">
-            {project.stack.map((s) => (
-              <li
-                key={s}
-                className="rounded-sm border border-line bg-card px-2.5 py-1 text-xs text-muted"
-              >
-                {s}
-              </li>
-            ))}
-          </ul>
+          {/* Seven identical bordered blocks of body copy gave a skimming eye
+              no entry point. Each highlight is already written with its claim
+              in the first sentence, so the split is at render time and the two
+              halves are weighted differently. No data change, and the reader
+              gets seven anchors instead of seven grey rectangles. */}
+          <ol className="mt-6 space-y-5">
+            {project.highlights.map((h, i) => {
+              const cut = h.indexOf(". ");
+              const lead = cut === -1 ? h : h.slice(0, cut + 1);
+              const rest = cut === -1 ? "" : h.slice(cut + 2);
+              return (
+                <li
+                  key={h}
+                  className="grid grid-cols-[2rem_1fr] gap-x-3 border-b border-line pb-5 last:border-0"
+                >
+                  <span aria-hidden="true" className="sc tnum pt-1 text-muted-2">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="leading-relaxed">
+                    <span className="font-medium text-foreground">{lead}</span>
+                    {rest && <span className="text-muted"> {rest}</span>}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </section>
 
       {/* Prev / next */}
-      <nav className="mt-16 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
-        <Link
-          href={`/projects/${prev.slug}`}
-          className="group rounded-sm border border-line bg-card p-5 transition-colors hover:border-accent"
-        >
-          <p className="sc text-muted-2">← Previous</p>
-          <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
-            {prev.title}
-          </p>
-        </Link>
-        <Link
-          href={`/projects/${next.slug}`}
-          className="group rounded-sm border border-line bg-card p-5 text-right transition-colors hover:border-accent"
-        >
-          <p className="sc text-muted-2">Next →</p>
-          <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
-            {next.title}
-          </p>
-        </Link>
+      {/* the neighbour's subject sits above its title, so a reader can tell
+          whether the next case is even in their field before clicking */}
+      <nav className="mt-24 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
+        {[
+          { item: prev, dir: "Previous", align: "" },
+          { item: next, dir: "Next", align: "text-right" },
+        ].map(({ item, dir, align }) => (
+          <Link
+            key={item.slug}
+            href={`/projects/${item.slug}`}
+            className={`group rounded-sm border border-line-strong bg-card p-6 transition-colors hover:border-accent ${align}`}
+          >
+            <p className="sc text-muted-2">
+              {dir === "Previous" ? (
+                <>
+                  <span aria-hidden="true">←</span> Previous
+                </>
+              ) : (
+                <>
+                  Next <span aria-hidden="true">→</span>
+                </>
+              )}
+            </p>
+            <p className="sc mt-3 text-muted">
+              {getDomain(item.domain).label}
+            </p>
+            <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
+              {item.title}
+            </p>
+          </Link>
+        ))}
       </nav>
     </article>
   );

@@ -34,8 +34,6 @@ export async function generateMetadata({
       description,
       type: "article",
       url: `${site.url}/research/${doc.slug}`,
-      // declaring openGraph here replaces the layout's, so images must repeat
-      images: ["/og.png"],
     },
   };
 }
@@ -113,12 +111,12 @@ export default async function ResearchDocPage({
   };
 
   return (
-    <article className="mx-auto max-w-3xl px-5 py-14">
+    <article className="mx-auto max-w-3xl px-5 py-12 sm:py-16">
       <JsonLd data={jsonLd} />
       <JsonLd data={breadcrumbs} />
 
       <Link href="/research" className="lk text-sm text-muted">
-        ← All research
+        <span aria-hidden="true">←</span> All research
       </Link>
 
       <header className="mt-8">
@@ -134,16 +132,8 @@ export default async function ResearchDocPage({
           >
             {domain.label}
           </Link>
-          <span aria-hidden="true" className="text-line">
-            |
-          </span>
-          <span className="text-muted-2">
-            {doc.kind} · {doc.pages} pp · PDF, {doc.sizeMB}
-          </span>
         </p>
-        <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight sm:text-5xl">
-          {doc.title}
-        </h1>
+        <h1 className="mt-4 font-serif text-display">{doc.title}</h1>
         <p className="mt-4 font-serif text-lg italic leading-relaxed text-muted">
           {doc.subtitle}
         </p>
@@ -168,7 +158,7 @@ export default async function ResearchDocPage({
             rel="noopener noreferrer"
             className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
           >
-            Read the PDF ↗
+            Read the PDF <span aria-hidden="true">↗</span>
           </a>
           {pub && (
             <a
@@ -177,7 +167,7 @@ export default async function ResearchDocPage({
               rel="noopener noreferrer"
               className="rounded-sm border border-line px-5 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
             >
-              View on SSRN ↗
+              View on SSRN <span aria-hidden="true">↗</span>
             </a>
           )}
           <a
@@ -190,10 +180,64 @@ export default async function ResearchDocPage({
         </div>
       </header>
 
+      {/* Same glance block as a project case study, because they are the same
+          practice and the two templates should read as one page shape. */}
+      <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-line py-6 sm:grid-cols-4">
+        <div>
+          <dt className="sc text-muted-2">Domain</dt>
+          <dd className="mt-1 text-sm">
+            <Link href={`/work?domain=${doc.domain}`} className="lk text-accent">
+              {domain.label}
+            </Link>
+          </dd>
+        </div>
+        <div>
+          <dt className="sc text-muted-2">Kind</dt>
+          <dd className="mt-1 text-sm text-muted">{doc.kind}</dd>
+        </div>
+        <div>
+          <dt className="sc text-muted-2">Length</dt>
+          <dd className="tnum mt-1 text-sm text-muted">
+            {doc.pages} pp · {doc.sizeMB}
+          </dd>
+        </div>
+        {/* not every item is published at a venue; say nothing rather than
+            leave a labelled empty cell */}
+        {pub && (
+          <div>
+            <dt className="sc text-muted-2">Venue</dt>
+            <dd className="mt-1 text-sm text-muted">{pub.venue}</dd>
+          </div>
+        )}
+      </dl>
+
+      <nav
+        aria-label="On this page"
+        className="sc no-print mt-4 hidden flex-wrap gap-x-5 gap-y-2 text-muted-2 md:flex"
+      >
+        {[
+          ...(doc.metrics?.length ? [{ href: "#result", label: "Result" }] : []),
+          ...(doc.figures?.length ? [{ href: "#figures", label: "Figures" }] : []),
+          ...(pub ? [{ href: "#abstract", label: "Abstract" }] : []),
+          { href: "#overview", label: pub ? "In short" : "Overview" },
+          ...(doc.findings?.length
+            ? [{ href: "#findings", label: "Findings" }]
+            : []),
+        ].map((a) => (
+          <a
+            key={a.href}
+            href={a.href}
+            className="transition-colors hover:text-accent"
+          >
+            {a.label}
+          </a>
+        ))}
+      </nav>
+
       {/* Headline numbers before the prose, for the same reason as on a project
           page: a reader who stops early should still leave with the result. */}
       {doc.metrics && doc.metrics.length > 0 && (
-        <section className="mt-12 border-y border-line py-8">
+        <section id="result" className="mt-12 scroll-mt-24 border-b border-line pb-8">
           <h2 className="sc kicker">What it found</h2>
           <StatTiles
             metrics={doc.metrics}
@@ -204,7 +248,7 @@ export default async function ResearchDocPage({
       )}
 
       {doc.figures && doc.figures.length > 0 && (
-        <div className="mt-10 flex flex-col gap-8">
+        <div id="figures" className="mt-12 flex scroll-mt-24 flex-col gap-8">
           {doc.figures.map((f) => (
             <Figure key={f.caption} figure={f} domain={doc.domain} />
           ))}
@@ -214,7 +258,7 @@ export default async function ResearchDocPage({
       {/* The header already carries the title, so a coverless doc shows nothing
           here rather than a DocCover repeating it. */}
       {doc.cover && (
-        <figure className="mt-10 overflow-hidden rounded-sm border border-line bg-card">
+        <figure className="mt-12 overflow-hidden rounded-sm border border-line bg-card">
           <Image
             src={doc.cover}
             alt={`${doc.title}, first page`}
@@ -226,47 +270,58 @@ export default async function ResearchDocPage({
         </figure>
       )}
 
-      <section className="mt-12 space-y-12 leading-relaxed">
+      <section className="mt-16 space-y-12 leading-relaxed">
         {pub && (
-          <div>
+          <div id="abstract" className="scroll-mt-24">
             <h2 className="font-serif text-2xl">Abstract</h2>
-            <p className="mt-3 text-muted">{pub.abstract}</p>
+            <p className="mt-4 text-muted">{pub.abstract}</p>
           </div>
         )}
-        <div>
+        <div id="overview" className="scroll-mt-24">
           <h2 className="font-serif text-2xl">
             {pub ? "In short" : "Overview"}
           </h2>
-          <p className="mt-3 text-muted">{doc.summary}</p>
+          <p className="mt-4 text-muted">{doc.summary}</p>
         </div>
         {doc.findings && (
-          <div>
+          <div id="findings" className="scroll-mt-24">
             <h2 className="font-serif text-2xl">Findings</h2>
-            <ul className="mt-5 space-y-3">
-              {doc.findings.map((f) => (
-                <li
-                  key={f}
-                  className="rounded-sm border border-line bg-card px-5 py-4 leading-relaxed text-muted"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="mb-3 block h-0.5 w-6 rounded-full"
-                    style={{ background: hue }}
-                  />
-                  {f}
-                </li>
-              ))}
-            </ul>
+            <ol className="mt-6 space-y-5">
+              {doc.findings.map((f, i) => {
+                const cut = f.indexOf(". ");
+                const lead = cut === -1 ? f : f.slice(0, cut + 1);
+                const rest = cut === -1 ? "" : f.slice(cut + 2);
+                return (
+                  <li
+                    key={f}
+                    className="grid grid-cols-[2rem_1fr] gap-x-3 border-b border-line pb-5 last:border-0"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="sc tnum pt-1 text-muted-2"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <p className="leading-relaxed">
+                      <span className="font-medium text-foreground">
+                        {lead}
+                      </span>
+                      {rest && <span className="text-muted"> {rest}</span>}
+                    </p>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
         )}
         {pub && (
           <div className="border-t border-line pt-8">
             <h3 className="sc text-accent">Keywords</h3>
-            <ul className="mt-4 flex flex-wrap gap-1.5">
+            <ul className="mt-4 flex flex-wrap gap-2">
               {pub.keywords.map((k) => (
                 <li
                   key={k}
-                  className="rounded-sm border border-line bg-card px-2.5 py-1 text-xs text-muted"
+                  className="rounded-sm border border-line bg-card px-3 py-1 text-xs text-muted"
                 >
                   {k}
                 </li>
@@ -277,25 +332,33 @@ export default async function ResearchDocPage({
       </section>
 
       {/* Prev / next */}
-      <nav className="mt-16 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
-        <Link
-          href={`/research/${prev.slug}`}
-          className="group rounded-sm border border-line bg-card p-5 transition-colors hover:border-accent"
-        >
-          <p className="sc text-muted-2">← Previous</p>
-          <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
-            {prev.title}
-          </p>
-        </Link>
-        <Link
-          href={`/research/${next.slug}`}
-          className="group rounded-sm border border-line bg-card p-5 text-right transition-colors hover:border-accent"
-        >
-          <p className="sc text-muted-2">Next →</p>
-          <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
-            {next.title}
-          </p>
-        </Link>
+      <nav className="mt-24 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
+        {[
+          { item: prev, dir: "Previous", align: "" },
+          { item: next, dir: "Next", align: "text-right" },
+        ].map(({ item, dir, align }) => (
+          <Link
+            key={item.slug}
+            href={`/research/${item.slug}`}
+            className={`group rounded-sm border border-line-strong bg-card p-6 transition-colors hover:border-accent ${align}`}
+          >
+            <p className="sc text-muted-2">
+              {dir === "Previous" ? (
+                <>
+                  <span aria-hidden="true">←</span> Previous
+                </>
+              ) : (
+                <>
+                  Next <span aria-hidden="true">→</span>
+                </>
+              )}
+            </p>
+            <p className="sc mt-3 text-muted">{getDomain(item.domain).label}</p>
+            <p className="mt-2 font-serif text-lg leading-snug transition-colors group-hover:text-accent">
+              {item.title}
+            </p>
+          </Link>
+        ))}
       </nav>
     </article>
   );

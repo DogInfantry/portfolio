@@ -22,8 +22,18 @@ function current(): Theme {
   return attr === "light" || attr === "dark" ? attr : "system";
 }
 
+const STATUS_ID = "theme-status";
+
+const SPOKEN: Record<Theme, string> = {
+  system: "Theme set to follow the system",
+  light: "Light theme",
+  dark: "Dark theme",
+};
+
 function apply(theme: Theme) {
   const root = document.documentElement;
+  const status = document.getElementById(STATUS_ID);
+  if (status) status.textContent = SPOKEN[theme];
   if (theme === "system") {
     root.removeAttribute("data-theme");
     try {
@@ -74,9 +84,20 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={() => apply(NEXT[current()])}
-      title="Change theme"
-      className="-my-1 inline-flex h-8 w-8 items-center justify-center rounded-sm border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+      /* No title attribute. It showed a tooltip saying something different from
+         the button's own accessible name, for no gain. */
+      className="-my-1 inline-flex h-8 w-8 items-center justify-center rounded-sm border border-line-strong text-muted transition-colors hover:border-accent hover:text-accent"
     >
+      {/* Pressing the button silently changed its own name from "Theme: light"
+          to "Theme: dark" with nothing announced, so a screen reader user got
+          no confirmation the press did anything.
+
+          This region starts empty and the click handler writes into it. That is
+          deliberate: the icons swap through a CSS display change driven by the
+          data-theme attribute, and a live region does not announce a change in
+          CSS visibility, only a mutation of its own content. Starting empty also
+          means the server and the client render the same thing. */}
+      <span id={STATUS_ID} aria-live="polite" className="vh" />
       {faces.map((f) => (
         <span
           key={f.theme}

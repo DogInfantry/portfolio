@@ -37,12 +37,11 @@ export default function DivergingBars({
             key={d.label}
             className="grid items-center gap-x-3 gap-y-1 sm:grid-cols-[minmax(0,10rem)_1fr_auto]"
           >
-            <p className="text-xs leading-snug text-muted sm:text-[13px]">
+            <p className="text-small leading-snug text-muted">
               {d.label}
             </p>
             <div
               className="relative h-3.5 w-full rounded-[2px] bg-grid"
-              title={`${d.label}: ${value}`}
             >
               <span
                 aria-hidden="true"
@@ -59,7 +58,7 @@ export default function DivergingBars({
                 }}
               />
             </div>
-            <p className="tnum text-[13px] font-semibold text-foreground">
+            <p className="tnum text-small font-semibold text-foreground">
               {value}
             </p>
           </div>

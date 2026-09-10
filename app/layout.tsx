@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { Geist, Fraunces } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -13,10 +13,10 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Geist Mono was loaded for exactly one consumer, the 11px URL chip in
+// BrowserFrame, which is hidden below sm. A phone downloaded and preloaded a
+// whole family for something it never rendered. The chip is sans now, and
+// .tnum is font-variant-numeric, so tabular figures survive the removal.
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -63,11 +63,9 @@ export const metadata: Metadata = {
     type: "website",
     url: site.url,
     siteName: site.name,
-    images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og.png"],
   },
 };
 
@@ -98,8 +96,22 @@ const personJsonLd = {
   ],
 };
 
-const THEME_SCRIPT =
-  `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`;
+/**
+ * Runs synchronously during HTML parsing, before first paint.
+ *
+ * Theme: an absent data-theme means "follow the OS", which the light-dark()
+ * tokens in globals.css handle on their own, so this only stamps an explicit
+ * stored choice. A reader with JavaScript disabled still gets their OS theme.
+ *
+ * View: the work index ships both the card grid and the table in the markup and
+ * lets CSS choose, so stamping ?view=table here means a deep link paints the
+ * right one immediately instead of flashing cards and swapping after hydration.
+ */
+const BOOT_SCRIPT = `(function(){try{
+var t=localStorage.getItem("theme");
+if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);
+if(new URLSearchParams(location.search).get("view")==="table")document.documentElement.dataset.view="table";
+}catch(e){}})()`;
 
 export default function RootLayout({
   children,
@@ -109,7 +121,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -123,13 +135,22 @@ export default function RootLayout({
             typeof window === "undefined" ? "text/javascript" : "text/plain"
           }
           suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
+          dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }}
         />
       </head>
       <body className="flex min-h-full flex-col">
+        {/* Nav puts a wordmark, four links, a GitHub link and the theme toggle
+            ahead of content on every page, and it is sticky, so a keyboard user
+            tabbed through all of it on every navigation. The unhide rule for
+            a.vh:focus lives in globals.css. */}
+        <a href="#main" className="vh">
+          Skip to content
+        </a>
         <JsonLd data={personJsonLd} />
         <Nav />
-        <main className="flex-1">{children}</main>
+        <main id="main" tabIndex={-1} className="flex-1 scroll-mt-24">
+          {children}
+        </main>
         <Footer />
         <SpeedInsights />
         <Analytics />

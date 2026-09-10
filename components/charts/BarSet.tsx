@@ -33,13 +33,13 @@ export default function BarSet({
             key={d.label}
             className="grid items-center gap-x-3 gap-y-1 sm:grid-cols-[minmax(0,10rem)_1fr_auto]"
           >
-            <p className="text-xs leading-snug text-muted sm:text-[13px]">
+            <p className="text-small leading-snug text-muted">
               {d.label}
             </p>
-            <div
-              className="relative h-3.5 w-full rounded-[2px] bg-grid"
-              title={`${d.label}: ${value}`}
-            >
+            {/* no title attribute: it duplicated the value already printed
+                beside the bar, and title is unreachable by keyboard and by
+                touch, so it was cost without reach */}
+            <div className="relative h-3.5 w-full rounded-[2px] bg-grid">
               {/* An interval draws a wash to the high end and a solid arm to the
                   low end, so the bar never asserts a point estimate the source
                   did not give. Without a range the two coincide. */}
@@ -58,7 +58,17 @@ export default function BarSet({
                 }}
               />
             </div>
-            <p className="tnum text-[13px] font-semibold text-foreground">
+            {/* Weight is the second channel. Emphasis was carried by hue alone,
+                which is the one place on this site where colour was load
+                bearing: --mark-neutral against a warm domain hue is close for a
+                deuteranope and there was nothing else to read. */}
+            <p
+              className={`tnum text-small ${
+                d.emphasis
+                  ? "font-semibold text-foreground"
+                  : "font-normal text-muted"
+              }`}
+            >
               {value}
             </p>
           </div>

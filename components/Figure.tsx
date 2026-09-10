@@ -34,7 +34,7 @@ export default function Figure({ figure, domain }: FigureProps) {
         <DotMatrix total={figure.total} rows={figure.rows} domain={domain} />
       )}
       <figcaption className="mt-6 border-t border-line pt-4">
-        <p className="text-[13px] leading-relaxed text-muted">
+        <p className="text-small leading-relaxed text-muted">
           {figure.caption}
         </p>
         <p className="sc mt-2 text-muted-2">Source: {figure.source}</p>

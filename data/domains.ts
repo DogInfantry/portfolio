@@ -69,7 +69,7 @@ export function getDomain(key: DomainKey) {
   return byKey.get(key)!;
 }
 
-/** The CSS variable holding this domain's hue for the active theme. */
-export function domainVar(key: DomainKey) {
-  return `var(--domain-${key})`;
-}
+/** Re-exported so existing server callers keep one import site. The definition
+    lives in data/hue.ts, which the client components import instead, because it
+    has no runtime dependency on this module. */
+export { domainVar } from "./hue";

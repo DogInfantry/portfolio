@@ -17,7 +17,7 @@ export default function DotMatrix({
     <div className="flex flex-col gap-4">
       {rows.map((row) => (
         <div key={row.label}>
-          <p className="flex flex-wrap items-baseline justify-between gap-x-3 text-xs text-muted sm:text-[13px]">
+          <p className="flex flex-wrap items-baseline justify-between gap-x-3 text-small text-muted">
             <span>{row.label}</span>
             <span className="tnum font-semibold text-foreground">
               {row.hit} of {total}
@@ -25,7 +25,6 @@ export default function DotMatrix({
           </p>
           <div
             className="mt-2 flex flex-wrap gap-1"
-            title={`${row.label}: ${row.hit} of ${total}`}
           >
             {Array.from({ length: total }, (_, i) => (
               <span

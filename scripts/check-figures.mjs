@@ -27,6 +27,18 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 function entries(file) {
   const src = readFileSync(join(root, "data", file), "utf8");
   const parts = src.split(/\n  \{\n    slug: "/).slice(1);
+  /* Canary. The split above depends on exact indentation, so a reformat, a
+     nested object gaining that indent, or a slug written with single quotes
+     would silently yield zero entries and the whole check would pass by
+     finding nothing to check. Counting the slug keys independently is two
+     lines and turns a silent pass into a loud failure. */
+  const declared = (src.match(/^\s{4}slug: ["']/gm) ?? []).length;
+  if (parts.length !== declared) {
+    console.error(
+      `check-figures: parsed ${parts.length} entries from data/${file} but the file declares ${declared}. The entry splitter is out of date with the file's formatting.`
+    );
+    process.exit(1);
+  }
   return parts.map((p) => ({
     slug: p.slice(0, p.indexOf('"')),
     text: p,

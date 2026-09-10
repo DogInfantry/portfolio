@@ -28,10 +28,10 @@ export default function StatTiles({
             className="block h-0.5 w-8 rounded-full"
             style={{ background: domainVar(domain) }}
           />
-          <dd className="mt-3 text-2xl font-semibold leading-none tracking-tight text-foreground sm:text-[28px]">
+          <dd className="mt-3 text-2xl font-semibold leading-none tracking-tight text-foreground">
             {m.value}
           </dd>
-          <dt className="mt-2 text-[13px] leading-snug text-muted">
+          <dt className="mt-2 text-small leading-snug text-muted">
             {m.label}
           </dt>
         </div>

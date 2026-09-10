@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/check-figures.mjs && node scripts/check-tokens.mjs && next build",
     "start": "next start",
     "lint": "eslint",
-    "check:figures": "node scripts/check-figures.mjs"
+    "check:figures": "node scripts/check-figures.mjs",
+    "check:tokens": "node scripts/check-tokens.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

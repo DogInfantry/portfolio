@@ -24,13 +24,13 @@ export default function BrowserFrame({
   priority?: boolean;
 }) {
   const frame = (
-    <figure className="overflow-hidden rounded-sm border border-line bg-card shadow-[var(--shadow-sm)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-lift)]">
+    <figure className="lift overflow-hidden rounded-sm border border-line-strong bg-card shadow-[var(--raise)]">
       <div className="flex items-center gap-2 border-b border-line bg-frame-chrome px-3.5 py-2">
         <span className="h-2 w-2 rounded-full bg-frame-dot" />
         <span className="h-2 w-2 rounded-full bg-frame-dot" />
         <span className="h-2 w-2 rounded-full bg-frame-dot" />
         {url && (
-          <span className="tnum ml-2 hidden truncate rounded-sm bg-card px-2.5 py-0.5 font-mono text-[11px] text-muted sm:block">
+          <span className="tnum ml-2 hidden truncate rounded-sm bg-card px-3 py-0.5 text-xs text-muted sm:block">
             {url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
           </span>
         )}
@@ -42,7 +42,7 @@ export default function BrowserFrame({
           fill
           sizes={sizes}
           priority={priority}
-          className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+          className="object-cover object-top"
         />
       </div>
     </figure>

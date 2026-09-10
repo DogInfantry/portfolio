@@ -3,123 +3,110 @@
 /* ---------------------------------------------------------------------------
    Theme tokens.
 
-   Every colour in the site resolves through one of these variables, so the dark
-   theme is a redefinition of this block rather than a `dark:` variant on each
-   component. Two scopes carry the dark values: the media query follows the OS
-   setting, the [data-theme] scope follows the in-page toggle. The :not() guard
-   lets an explicit light choice beat OS dark, so the toggle wins both ways.
+   Every colour in the site resolves through one of these variables, so there is
+   not a single `dark:` variant anywhere: components paint with tokens and the
+   tokens change underneath them.
+
+   Each token is declared EXACTLY ONCE, through light-dark(). The theme is then
+   chosen by `color-scheme` alone:
+
+     :root                      color-scheme: light dark   follow the OS
+     :root[data-theme="light"]  color-scheme: light        explicit choice
+     :root[data-theme="dark"]   color-scheme: dark         explicit choice
+
+   This replaces the previous arrangement, which repeated the whole dark palette
+   verbatim under both a prefers-color-scheme block and a [data-theme] block.
+   The two copies had already drifted: --domain-policy was declared twice in one
+   and not at all in the other, so pressing the toggle to dark on a light OS
+   rendered Public Policy at 2.49:1 against the card, under the 3:1 the palette
+   was validated to. One declaration per token makes that class of bug
+   unrepresentable.
+
+   It also means a reader with JavaScript disabled still gets their OS theme,
+   which an attribute stamped by a script cannot deliver.
+
+   Shadows are not colours, so light-dark() cannot carry them directly. Their
+   geometry is uniform across themes and only the two edge colours swap: light
+   gets a drop shadow and a transparent inner edge, dark gets an inner highlight
+   and a transparent drop. Black shadows on a #0f1216 ground are invisible,
+   which is why the dark theme previously had no elevation at all.
 --------------------------------------------------------------------------- */
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 
-  --background: #faf9f6;
-  --foreground: #1c2530;
-  --muted: #5b6673;
+  --background: light-dark(#faf9f6, #0f1216);
+  --foreground: light-dark(#1c2530, #e9e7e2);
+  --muted: light-dark(#5b6673, #a3acb8);
   /* secondary ink: the old text-muted/70 and /80 fell under 4.5:1, this does not */
-  --muted-2: #68717d;
-  --accent: #14665a;
-  --accent-soft: #e7f0ee;
-  --on-accent: #ffffff;
-  --line: #e4e1da;
-  --card: #ffffff;
+  --muted-2: light-dark(#68717d, #8d97a4);
 
-  /* browser-frame chrome, previously hardcoded inside the component */
-  --frame-chrome: #f2f0ea;
-  --frame-dot: #c9c4b8;
+  --accent: light-dark(#14665a, #3fae97);
+  --accent-soft: light-dark(#e7f0ee, #12302b);
+  /* accent-soft is 1.22:1 against the dark card, so the kicker pill needs an
+     edge to read as a pill at all */
+  --accent-border: light-dark(#cfe0dc, #1e4a41);
+  --on-accent: light-dark(#ffffff, #0f1216);
 
-  --shadow-sm: 0 1px 2px rgba(28, 37, 48, 0.06);
-  --shadow-lift: 0 12px 32px rgba(28, 37, 48, 0.12);
+  /* --line is the hairline INSIDE content: rules, dividers, figcaption edges.
+     --line-strong is the edge OF a plane: cards, figures, browser frames. The
+     dark card at #171d24 clears the #0f1216 ground by roughly 1.1:1, so the
+     border is what separates a card from the page, not the fill. */
+  --line: light-dark(#e4e1da, #272e37);
+  --line-strong: light-dark(#cdc8bd, #3a434f);
+
+  --card: light-dark(#ffffff, #171d24);
+  /* a well inside a raised plane goes darker in dark; an interactive row tint
+     on the page ground goes lighter. Same value in light, different roles. */
+  --sunken: light-dark(#f2f0ea, #12161c);
+  --row-hover: light-dark(#f2f0ea, #1b2027);
+
+  /* browser-frame chrome */
+  --frame-chrome: light-dark(#f2f0ea, #1d232b);
+  --frame-dot: light-dark(#c9c4b8, #4a5462);
+
+  --edge-hi: light-dark(transparent, rgba(233, 231, 226, 0.05));
+  --edge-lo: light-dark(rgba(28, 37, 48, 0.06), transparent);
+  --edge-hi-strong: light-dark(transparent, rgba(233, 231, 226, 0.08));
+  --edge-lo-strong: light-dark(rgba(28, 37, 48, 0.12), rgba(0, 0, 0, 0.55));
+
+  --raise: inset 0 1px 0 var(--edge-hi), 0 1px 2px var(--edge-lo);
+  --shadow-lift: inset 0 1px 0 var(--edge-hi-strong), 0 12px 32px
+    var(--edge-lo-strong);
 
   /* Categorical palette for domains and chart marks, in validated slot order.
-     Light steps: lightness band, chroma floor, adjacent CVD separation (worst
-     10.3), normal-vision separation (worst 18.6) and 3:1 contrast against
-     #faf9f6 all pass. Do not reorder or re-step without re-validating. */
-  --domain-credit: #00856e;
-  --domain-macro: #b4531f;
-  --domain-equities: #3550a8;
-  --domain-product: #9a7000;
-  --domain-quant: #9c3f6d;
-  --domain-sustainable: #5d7519;
-  --domain-climate: #0f7fa8;
-  --domain-market-structure: #b03636;
-  --domain-policy: #7a3d9e;
+     The nine hues passed a lightness band, chroma floor, adjacent colour-vision
+     separation, normal-vision separation and 3:1 contrast check against both
+     surfaces, as an ORDERED SET. Reordering data/domains.ts or editing a hex
+     invalidates that result. scripts/check-tokens.mjs asserts every domain key
+     declared there has exactly one token here. */
+  --domain-credit: light-dark(#00856e, #279680);
+  --domain-macro: light-dark(#b4531f, #cc6832);
+  --domain-equities: light-dark(#3550a8, #7a8fe0);
+  --domain-product: light-dark(#9a7000, #b4870a);
+  --domain-quant: light-dark(#9c3f6d, #c86392);
+  --domain-sustainable: light-dark(#5d7519, #7fa032);
+  --domain-climate: light-dark(#0f7fa8, #2d94ba);
+  --domain-market-structure: light-dark(#b03636, #e06a6a);
+  --domain-policy: light-dark(#7a3d9e, #a06fd0);
 
   /* chart chrome */
-  --grid: #e8e5de;
-  --axis: #cdc8bd;
-  --mark-neutral: #a9a294;
+  --grid: light-dark(#e8e5de, #232a32);
+  --axis: light-dark(#cdc8bd, #333c47);
+  --mark-neutral: light-dark(#a9a294, #5c6672);
+
+  /* motion */
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 420ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-
-    --background: #0f1216;
-    --foreground: #e9e7e2;
-    --muted: #a3acb8;
-    --muted-2: #8d97a4;
-    --accent: #3fae97;
-    --accent-soft: #12302b;
-    --on-accent: #0f1216;
-    --line: #272e37;
-    --card: #161a20;
-
-    --frame-chrome: #1d232b;
-    --frame-dot: #39424e;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow-lift: 0 12px 32px rgba(0, 0, 0, 0.5);
-
-    /* Dark steps: same eight hues re-stepped for the dark surface (#161a20),
-       validated as their own set. Worst adjacent CVD 10.8, normal-vision 19.5. */
-    --domain-credit: #279680;
-    --domain-macro: #cc6832;
-    --domain-equities: #7a8fe0;
-    --domain-product: #b4870a;
-    --domain-quant: #c86392;
-    --domain-sustainable: #7fa032;
-    --domain-climate: #2d94ba;
-    --domain-market-structure: #e06a6a;
-  --domain-policy: #a06fd0;
-    --domain-policy: #a06fd0;
-
-    --grid: #232a32;
-    --axis: #333c47;
-    --mark-neutral: #5c6672;
-  }
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-
-  --background: #0f1216;
-  --foreground: #e9e7e2;
-  --muted: #a3acb8;
-  --muted-2: #8d97a4;
-  --accent: #3fae97;
-  --accent-soft: #12302b;
-  --on-accent: #0f1216;
-  --line: #272e37;
-  --card: #161a20;
-
-  --frame-chrome: #1d232b;
-  --frame-dot: #39424e;
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-lift: 0 12px 32px rgba(0, 0, 0, 0.5);
-
-  --domain-credit: #279680;
-  --domain-macro: #cc6832;
-  --domain-equities: #7a8fe0;
-  --domain-product: #b4870a;
-  --domain-quant: #c86392;
-  --domain-sustainable: #7fa032;
-  --domain-climate: #2d94ba;
-  --domain-market-structure: #e06a6a;
-
-  --grid: #232a32;
-  --axis: #333c47;
-  --mark-neutral: #5c6672;
 }
 
 @theme inline {
@@ -129,17 +116,40 @@
   --color-muted-2: var(--muted-2);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-border: var(--accent-border);
   --color-on-accent: var(--on-accent);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-card: var(--card);
+  --color-sunken: var(--sunken);
+  --color-row-hover: var(--row-hover);
   --color-frame-chrome: var(--frame-chrome);
   --color-frame-dot: var(--frame-dot);
   --color-grid: var(--grid);
   --color-axis: var(--axis);
   --color-mark-neutral: var(--mark-neutral);
+
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-fraunces);
-  --font-mono: var(--font-geist-mono);
+
+  /* Closed type scale. Four tokens are added here; text-xs, text-sm, text-base,
+     text-lg, text-xl and text-2xl are Tailwind defaults already correct at
+     sixty-plus call sites and are left alone. Each token carries its own line
+     height, so no heading needs a leading-* class. */
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.18em;
+
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.5;
+
+  --text-display: clamp(2rem, 1.4rem + 2.4vw, 2.5rem);
+  --text-display--line-height: 1.12;
+  --text-display--letter-spacing: -0.015em;
+
+  --text-hero: clamp(2.75rem, 1.7rem + 4.4vw, 3.75rem);
+  --text-hero--line-height: 1.04;
+  --text-hero--letter-spacing: -0.022em;
 }
 
 html {
@@ -162,15 +172,103 @@ body {
   color: var(--on-accent);
 }
 
-/* cross-document transitions, native; no library, no client JS */
+/* cross-document transitions, native; no library, no client JS. The chrome is
+   named so it holds still instead of crossfading against itself. */
 @view-transition {
   navigation: auto;
 }
 
+header {
+  view-transition-name: chrome-top;
+}
+
+footer {
+  view-transition-name: chrome-bottom;
+}
+
+::view-transition-group(*) {
+  animation-duration: var(--dur);
+}
+
+/* ---------------------------------------------------------------------------
+   The work index.
+
+   All of this is CSS rather than React state, so it is correct in the
+   prerendered HTML before any JavaScript runs. The card grid and the table are
+   both in the markup; the view attribute decides which one is painted, and the
+   pre-paint script in the root layout stamps it from ?view= so a deep link does
+   not flash the wrong one. There is one index per page, which is why the
+   attribute can live on the root element.
+--------------------------------------------------------------------------- */
+/* Below sm the subject-by-form matrix degrades to a wrapping row of subject
+   chips: the table parts are re-laid out as blocks and the counts drop away,
+   so the same markup serves both without a second copy of it and without any
+   state. Twenty seven cells does not fit 375px; nine chips does. */
+@media (max-width: 639px) {
+  .facet table,
+  .facet tbody,
+  .facet tr,
+  .facet th {
+    display: block;
+  }
+  .facet thead,
+  .facet td {
+    display: none;
+  }
+  .facet tbody {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .facet tr {
+    border: 0;
+    background: none;
+  }
+  .facet th[scope="row"] {
+    padding: 0;
+  }
+  .facet th[scope="row"] button {
+    width: auto;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 6px 12px;
+  }
+  .facet th[scope="row"] button[aria-pressed="true"] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+}
+
+.wi-table {
+  display: none;
+}
+:root[data-view="table"] .wi-cards {
+  display: none;
+}
+:root[data-view="table"] .wi-table {
+  display: block;
+}
+
+/* a group heading over nothing is worse than no group */
+[data-group]:not(:has(article:not([hidden]))) {
+  display: none;
+}
+
+/* a printed index is a table, not sixteen plates */
+@media print {
+  .wi-cards {
+    display: none !important;
+  }
+  .wi-table {
+    display: block !important;
+  }
+}
+
 /* journal system: small-caps label + tabular figures */
 .sc {
-  font-size: 11px;
-  letter-spacing: 0.18em;
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -183,6 +281,7 @@ body {
   display: inline-block;
   padding: 4px 12px;
   border-radius: 999px;
+  border: 1px solid var(--accent-border);
   background: var(--accent-soft);
   color: var(--accent);
 }
@@ -201,61 +300,139 @@ body {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.3s ease;
+  transition: transform var(--dur) var(--ease-out);
 }
 .lk:hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
 
-/* scroll-reveal: elements start hidden, .is-visible added by Reveal component.
-   Applied to section headers and the first screen only; blanket-fading every
-   block read as sluggish rather than considered. */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
+/* ---------------------------------------------------------------------------
+   Entry animation.
+
+   The hidden state exists ONLY inside a keyframe, never as a base rule. The
+   previous version set `.reveal { opacity: 0 }` and relied on a client
+   IntersectionObserver to add a class, so the whole home page was prerendered
+   correctly and then painted invisible: a failed, blocked or slow bundle left a
+   blank column. Here a browser with no animation support, a reader with reduced
+   motion, a print run and a dead bundle all see opacity 1, because nothing in
+   the cascade ever sets it to 0.
+--------------------------------------------------------------------------- */
+@keyframes enter {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
+/* above the fold: plays on load, ordered by --i */
+.enter {
+  animation: enter var(--dur-slow) var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* below the fold: scroll driven, no observer, no client JS. Firefox has no
+   view() yet, so the guard leaves content static there, which is the correct
+   failure direction. Never put .rise on a block taller than about two
+   viewports or the range never completes. */
+@supports (animation-timeline: view()) {
+  .rise {
+    animation: enter auto var(--ease-out) both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 26%;
+  }
+}
+
+/* one gesture for "this is a door to an off-site artefact" */
+.lift {
+  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur)
+    var(--ease-out);
+}
+.group:hover .lift {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion.
+
+   Colour transitions are deliberately left running: the setting is about
+   vestibular motion, not about snapping colours. .lk keeps its underline
+   permanently rather than losing it, because the underline is the link
+   affordance and removing it would be an accessibility regression dressed as a
+   motion fix.
+--------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
-    opacity: 1;
-    transform: none;
+  .enter,
+  .rise {
+    animation: none;
+  }
+  .lk::after {
     transition: none;
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .lift,
+  .group:hover .lift {
+    transition: none;
+    transform: none;
   }
   @view-transition {
     navigation: none;
   }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
 
 /* ---------------------------------------------------------------------------
-   Print: the site doubles as a dossier. Drop navigation and interactive chrome,
-   flatten to ink on white, and keep link targets visible.
+   Print: the site doubles as a dossier.
+
+   Two fixes over the previous block. `color-scheme: light` at equal specificity
+   to the theme selectors, later in the file, so a reader who chose dark does
+   not print black plates; every light-dark() token resolves light from that one
+   line. And `body > header` rather than `header`, so page chrome is dropped
+   while a case study's own article masthead, which carries the title, the
+   tagline and the domain, survives. Nav and Footer are both direct children of
+   <body>, so the selector is exact.
 --------------------------------------------------------------------------- */
 @media print {
-  :root {
+  :root,
+  :root[data-theme] {
+    color-scheme: light;
     --background: #ffffff;
     --card: #ffffff;
+    --sunken: #ffffff;
+    --row-hover: #ffffff;
     --foreground: #000000;
     --muted: #333333;
     --muted-2: #444444;
     --line: #bbbbbb;
+    --line-strong: #888888;
+    --edge-hi: transparent;
+    --edge-lo: transparent;
+    --edge-hi-strong: transparent;
+    --edge-lo-strong: transparent;
   }
-  header,
-  footer,
+  body > header,
   .no-print {
     display: none !important;
   }
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
+  /* An entrance animation holds its first keyframe until the document timeline
+     advances, and a print render is not obliged to advance it. Without this the
+     hero could print blank, which is the same failure the old scroll-reveal
+     shipped, arriving by a different route. */
+  .enter,
+  .rise {
+    animation: none !important;
   }
   a[href^="http"]::after {
     content: " (" attr(href) ")";
@@ -271,10 +448,10 @@ body {
 /* ---------------------------------------------------------------------------
    Theme toggle icon state.
 
-   Which icon shows is driven entirely by the data-theme attribute the inline
-   script stamps on <html> before first paint, so the button holds no React
-   state and there is nothing for hydration to disagree about. Absent attribute
-   means "follow the system".
+   Which icon shows is driven by the data-theme attribute the inline script
+   stamps on <html> before first paint, so the button holds no React state and
+   there is nothing for hydration to disagree about. Absent attribute means
+   "follow the system", which the tokens above handle on their own.
 --------------------------------------------------------------------------- */
 .theme-face {
   display: none;
@@ -296,4 +473,26 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* the skip link: hidden until focused, then a real target. .vh uses the legacy
+   clip rect, which needs clip:auto to unhide, so this is an escape hatch rather
+   than a pile of focus: utilities at the call site. */
+a.vh:focus {
+  position: fixed;
+  top: 0.75rem;
+  left: 1rem;
+  z-index: 60;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  border-radius: 2px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 0.875rem;
+  font-weight: 500;
 }
