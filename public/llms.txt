@@ -12,7 +12,7 @@ Everything below is also browsable as one filterable index at
 https://portfolio-five-rouge-90.vercel.app/work, narrowable by subject
 (?domain=credit, equities, macro, product, quant, sustainable, climate,
 market-structure, policy). The index is grouped and ordered: selected work,
-working papers, live apps and code, then reports and decks.
+working papers, dashboards, then reports and decks.
 
 ## Publications
 
@@ -39,6 +39,22 @@ working papers, live apps and code, then reports and decks.
   (30.8%). SSRN: https://papers.ssrn.com/abstract=7239538
 
 ## Projects
+
+- [Ground Truth](https://portfolio-five-rouge-90.vercel.app/projects/datacentre-capacity-audit):
+  Forensic read of India's data centre buildout, announced against delivered.
+  10.6 GW announced across 8 operators against 619 MW live, which is 5.8% of the
+  announcement and a factor of 17 between the two numbers. Only 2 of 8 operators
+  are traced to a primary filing; the rest carry a secondary or unverified tag on
+  every row. One prospectus defines built capacity as the maximum IT load a
+  facility is engineered to support, so nothing has to be constructed for the
+  number to be true. Anant Raj announces 307 MW, calls 28 MW operational and
+  reports 8 MW handed to customers. Reading all 433 pages of Techno Electric's
+  annual report yields 896.35 mn of overdue receivables the auditor flagged and
+  194.59 mn moved from payables into borrowings with no cash moving, against no
+  segment disclosure at all. 104 published claims are pinned as build invariants,
+  so a claim that stops being true fails the build.
+  Live: https://datacenter-capacity-audit.vercel.app/
+  Code: https://github.com/DogInfantry/datacentre-announced-vs-delivered
 
 - [India's Wide-Body Window](https://portfolio-five-rouge-90.vercel.app/projects/india-widebody-window):
   Commercial aviation market-entry case. Where 60 A350-900s on firm order and 40

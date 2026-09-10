@@ -8,12 +8,12 @@ import WorkIndex from "@/components/WorkIndex";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Every project and research document by Anklesh Rawat in one filterable index: live analytical apps, two SSRN working papers, strategy decks and open code, across credit, equities, macro, market structure, climate, sustainable finance, quant research and product strategy.",
+    "Every project and research document by Anklesh Rawat in one filterable index: dashboards, two SSRN working papers, strategy decks and open code, across credit, equities, macro, market structure, climate, sustainable finance, quant research and product strategy.",
   alternates: { canonical: "/work" },
   openGraph: {
     title: "Work · Anklesh Rawat",
     description:
-      "Live analytical apps, two working papers, strategy decks and open code, filterable by subject and by artefact type, as cards or as a table.",
+      "Dashboards, two working papers, strategy decks and open code, filterable by subject and by artefact, as cards or as a table.",
     type: "website",
     url: `${site.url}/work`,
   },
@@ -25,8 +25,8 @@ export default function WorkPage() {
       <p className="sc kicker">Everything, in one place</p>
       <h1 className="mt-4 font-serif text-display">Work</h1>
       <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-        {work.length} pieces in four groups: selected work, working papers, live
-        apps with their code, then longer-form reports and decks. Filter by
+        {work.length} pieces in four groups: selected work, working papers,
+        dashboards, then longer-form reports and decks. Filter by
         subject or by what the artefact is, search across titles and stacks, and
         switch to the table to see all {work.length} at once. Every row carries
         the numbers the work produced, so you can decide what to open before you

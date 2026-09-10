@@ -9,7 +9,8 @@ export const size = OG_SIZE;
 export const dynamic = "force-static";
 
 export const contentType = "image/png";
-export const alt = "The full work index: live apps, working papers, decks and code.";
+export const alt =
+  "The full work index: dashboards, working papers and reports.";
 
 export default function Image() {
   return new ImageResponse(
@@ -21,7 +22,7 @@ export default function Image() {
         outcome="Live analytical apps, working papers, strategy decks and open code. Filter by subject or by artefact, or read the whole shelf as one table."
         metrics={[
           { value: `${work.length}`, label: "pieces across nine subjects" },
-          { value: `${work.filter((w) => w.type === "app").length}`, label: "of them open as live apps" },
+          { value: `${work.filter((w) => w.type === "app").length}`, label: "open as live dashboards" },
         ]}
         host={`${site.url.replace(/^https?:\/\//, "")}/work`}
       />

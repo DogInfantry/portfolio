@@ -43,7 +43,7 @@ export default function ResearchPage() {
         a summary page and an open PDF.
       </p>
       <p className="mt-3 text-sm text-muted-2">
-        Looking for the live dashboards and code as well?{" "}
+        Looking for the dashboards as well?{" "}
         <Link href="/work" className="lk text-accent">
           The full work index has everything
         </Link>

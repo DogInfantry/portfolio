@@ -8,21 +8,29 @@ import type { FigureDatum } from "@/data/figures";
  *
  * Every bar is directly labelled because these figures run to four marks at
  * most; the "label selectively" rule guards against dense series, not this.
+ *
+ * `compact` is the card preview mode used by components/Exhibit.tsx. It drops
+ * the label column, because eight labelled rows inside a 320px card are
+ * illegible and an illegible label is decoration. The marks and the emphasis
+ * rule are unchanged, so the shape a reader sees on the card is the shape they
+ * get on the case study.
  */
 export default function BarSet({
   data,
   domain,
   unit = "",
+  compact = false,
 }: {
   data: FigureDatum[];
   domain: DomainKey;
   unit?: string;
+  compact?: boolean;
 }) {
   const max = Math.max(...data.map((d) => d.range?.[1] ?? d.value));
   const pct = (n: number) => `${(n / max) * 100}%`;
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className={`flex flex-col ${compact ? "gap-1.5" : "gap-3"}`}>
       {data.map((d) => {
         const hue = d.emphasis ? domainVar(domain) : "var(--mark-neutral)";
         const low = d.range ? d.range[0] : d.value;
@@ -31,15 +39,23 @@ export default function BarSet({
         return (
           <div
             key={d.label}
-            className="grid items-center gap-x-3 gap-y-1 sm:grid-cols-[minmax(0,10rem)_1fr_auto]"
+            className={
+              compact
+                ? "grid grid-cols-[1fr_auto] items-center gap-x-2"
+                : "grid items-center gap-x-3 gap-y-1 sm:grid-cols-[minmax(0,10rem)_1fr_auto]"
+            }
           >
-            <p className="text-small leading-snug text-muted">
-              {d.label}
-            </p>
+            {!compact && (
+              <p className="text-small leading-snug text-muted">{d.label}</p>
+            )}
             {/* no title attribute: it duplicated the value already printed
                 beside the bar, and title is unreachable by keyboard and by
                 touch, so it was cost without reach */}
-            <div className="relative h-3.5 w-full rounded-[2px] bg-grid">
+            <div
+              className={`relative w-full rounded-[2px] bg-grid ${
+                compact ? "h-2.5" : "h-3.5"
+              }`}
+            >
               {/* An interval draws a wash to the high end and a solid arm to the
                   low end, so the bar never asserts a point estimate the source
                   did not give. Without a range the two coincide. */}

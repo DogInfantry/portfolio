@@ -1,3 +1,4 @@
+import type { Figure } from "./figures";
 import { projects, type Metric } from "./projects";
 import { research } from "./research";
 import { asset } from "./asset";
@@ -15,10 +16,10 @@ import { domains, getDomain, type DomainKey } from "./domains";
 export type ArtifactType = "app" | "paper" | "deck" | "code";
 
 export const artifactTypes: { key: ArtifactType; label: string }[] = [
-  { key: "app", label: "Live app" },
-  { key: "paper", label: "Paper" },
-  { key: "deck", label: "Deck" },
-  { key: "code", label: "Code" },
+  { key: "app", label: "Dashboard" },
+  { key: "paper", label: "Working paper" },
+  { key: "deck", label: "Report" },
+  { key: "code", label: "Repository" },
 ];
 
 export type WorkItem = {
@@ -36,6 +37,14 @@ export type WorkItem = {
   image?: string;
   /** screenshots get browser chrome; covers and figures are shown plain */
   imageKind: "screenshot" | "cover" | "figure";
+  /**
+   * The item's first figure, for the card to plot when it has no image.
+   *
+   * An index card with a chart of the actual finding cannot collide with the
+   * card beside it, which a screenshot of a dark dashboard very much can.
+   * See components/Exhibit.tsx.
+   */
+  figure?: Figure;
   /** short provenance line under the title */
   meta: string;
   /**
@@ -64,7 +73,7 @@ const haystack = (...parts: (string | readonly string[] | undefined)[]) =>
 const fromProjects: WorkItem[] = projects.map((p) => {
   const type: ArtifactType = p.live ? "app" : p.doc ? "deck" : "code";
   const typeLabel =
-    type === "app" ? "Live app" : type === "deck" ? "Deck" : "Code";
+    type === "app" ? "Dashboard" : type === "deck" ? "Report" : "Repository";
   const external = p.live
     ? { href: p.live, label: "Live" }
     : p.github
@@ -82,8 +91,11 @@ const fromProjects: WorkItem[] = projects.map((p) => {
     typeLabel,
     external,
     metrics: p.metrics,
-    image: p.thumbnail ?? p.screenshot ?? p.cover,
+    // cardFigure withholds the image from the card so Exhibit plots the
+    // finding instead; the case study still renders the screenshot
+    image: p.cardFigure ? undefined : (p.thumbnail ?? p.screenshot ?? p.cover),
     imageKind: p.thumbnail ? "figure" : p.screenshot ? "screenshot" : "cover",
+    figure: p.figures?.[0],
     meta: p.fact,
     search: haystack(
       p.title,
@@ -103,20 +115,21 @@ const fromResearch: WorkItem[] = research.map((d) => ({
   outcome: d.subtitle,
   domain: d.domain,
   type: d.publication ? "paper" : "deck",
-  typeLabel: d.publication ? "Paper" : "Deck",
+  typeLabel: d.publication ? "Working paper" : "Report",
   external: d.publication
     ? { href: d.publication.url, label: "SSRN" }
     : { href: asset(d.file), label: "PDF" },
   metrics: d.metrics ?? [],
   image: d.cover,
   imageKind: "cover",
+  figure: d.figures?.[0],
   meta: `${d.kind} · ${d.pages} pp`,
   search: haystack(
     d.title,
     d.subtitle,
     d.kind,
     getDomain(d.domain).label,
-    d.publication ? "Paper" : "Deck",
+    d.publication ? "Working paper" : "Report",
     d.publication?.keywords,
     d.publication?.jel,
     d.publication?.venue
@@ -148,10 +161,11 @@ export const groups: Group[] = [
     key: "selected",
     title: "Selected work",
     blurb:
-      "Start here. Two commercial strategy cases, a causal-testing commodity desk, a product case study, and a quant study published as a negative result.",
+      "Start here. Two commercial strategy cases, a forensic read of what an infrastructure buildout has actually energised, a causal-testing commodity desk, a product case study, and a quant study published as a negative result.",
     slugs: [
       "india-widebody-window",
       "india-fs-pulse",
+      "datacentre-capacity-audit",
       "enso-macro-risk-desk",
       "indusind-protect",
       "signals-before-storms",
@@ -166,9 +180,9 @@ export const groups: Group[] = [
   },
   {
     key: "builds",
-    title: "Live apps and code",
+    title: "Dashboards",
     blurb:
-      "Analysis published as something you can open and click through, with the repository behind it.",
+      "Analysis you can open and interrogate rather than read about. Each one takes a question, works it through public data, and leaves the working exposed.",
     types: ["app", "code"],
   },
   {
@@ -237,6 +251,17 @@ export type IndexRow = {
   /** the single strongest number, or null where the work states only counts */
   evidence: Metric | null;
   meta: string;
+  /**
+   * Cover or screenshot for the row plate.
+   *
+   * Five reports have real first-page art sitting in public/research/covers and
+   * the row tables never showed it, which made a document look like a bare line
+   * of text next to a card that had a face. Items with no image get a glyph
+   * plate instead, so the column is never a run of empty cells.
+   */
+  thumb?: string;
+  /** covers are contained on the plate, screenshots fill it */
+  thumbKind: "screenshot" | "cover" | "figure";
   external?: { href: string; label: string };
   search: string;
 };
@@ -253,6 +278,10 @@ export function toIndexRows(items: WorkItem[] = work): IndexRow[] {
     typeLabel: w.typeLabel,
     evidence: w.metrics[0] ?? null,
     meta: w.meta,
+    // a row plate is 56px, where a chart is illegible, so a card that plots its
+    // figure falls back to the glyph plate here rather than to a tiny exhibit
+    thumb: w.image,
+    thumbKind: w.imageKind,
     external: w.external,
     search: w.search,
   }));

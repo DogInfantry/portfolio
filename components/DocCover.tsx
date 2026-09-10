@@ -1,6 +1,6 @@
 /**
  * Typographic stand-in for a document thumbnail. Used wherever a research doc
- * has no cover PNG, or a project's artefact is a deck rather than a live app.
+ * has no cover PNG, or a project's artefact is a document rather than a dashboard.
  *
  * It was a full-bleed accent-soft plate, which made the two cards that use it
  * the only saturated teal blocks in a sixteen card grid. On the sunken ground

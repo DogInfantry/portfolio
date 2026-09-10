@@ -33,7 +33,7 @@ export default async function Image({
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) notFound();
-  const type = p.live ? "Live app" : p.doc ? "Deck" : "Code";
+  const type = p.live ? "Dashboard" : p.doc ? "Report" : "Repository";
   return new ImageResponse(
     (
       <OgCard

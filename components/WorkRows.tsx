@@ -1,4 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
+import Glyph from "@/components/glyphs";
+import { asset } from "@/data/asset";
 import { domainVar } from "@/data/hue";
 import type { IndexRow } from "@/data/work";
 
@@ -90,6 +93,9 @@ export default function WorkRows({
         </caption>
         <thead>
           <tr>
+            <th scope="col" className="hidden border-b border-line pb-3 pr-4 sm:table-cell">
+              <span className="vh">Cover</span>
+            </th>
             <HeadCell col="title" sort={sort} dir={dir} onSort={onSort} />
             <HeadCell
               col="domain"
@@ -116,9 +122,43 @@ export default function WorkRows({
               key={r.slug}
               className="group border-b border-line transition-colors hover:bg-row-hover"
             >
+              {/* The plate is the row's face. Covers are contained so a
+                  document reads as a page, screenshots fill so a dashboard
+                  reads as a screen, and an item with neither gets its artefact
+                  glyph over the domain hue rather than an empty cell. Hidden
+                  below sm, where the row already carries four things. */}
+              <td
+                className="hidden border-l-[3px] py-4 pl-4 pr-4 align-top sm:table-cell"
+                style={{ borderLeftColor: domainVar(r.domain) }}
+              >
+                <span className="flex h-11 w-14 items-center justify-center overflow-hidden rounded-[2px] bg-sunken">
+                  {r.thumb ? (
+                    <Image
+                      src={asset(r.thumb)}
+                      alt=""
+                      width={112}
+                      height={88}
+                      sizes="56px"
+                      className={
+                        r.thumbKind === "cover"
+                          ? "h-full w-full object-contain p-1"
+                          : "h-full w-full object-cover object-top"
+                      }
+                    />
+                  ) : (
+                    /* the hue repeats the row's left rule and the Subject
+                       cell, so it is never the only carrier of meaning */
+                    <span style={{ color: domainVar(r.domain) }}>
+                      <Glyph type={r.type} className="h-4 w-4" />
+                    </span>
+                  )}
+                </span>
+              </td>
+              {/* the domain rule moves onto the plate at sm and above, so it
+                  lives here for the narrow layout where the plate is hidden */}
               <th
                 scope="row"
-                className="border-l-[3px] py-4 pl-4 pr-4 text-left align-top font-normal"
+                className="border-l-[3px] py-4 pl-4 pr-4 text-left align-top font-normal sm:border-l-0 sm:pl-0"
                 style={{ borderLeftColor: domainVar(r.domain) }}
               >
                 <Link

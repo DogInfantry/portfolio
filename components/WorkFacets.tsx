@@ -1,5 +1,6 @@
 "use client";
 
+import Glyph from "@/components/glyphs";
 import { domainVar } from "@/data/hue";
 import type { DomainKey } from "@/data/domains";
 import type { ArtifactType, DomainOption, IndexRow } from "@/data/work";
@@ -90,7 +91,10 @@ export default function WorkFacets({
                         : "text-muted-2 hover:text-accent"
                     }`}
                   >
-                    {t.label}
+                    <span className="inline-flex items-center gap-1.5">
+                      <Glyph type={t.key} className="h-3 w-3" />
+                      {t.label}
+                    </span>
                   </button>
                 </th>
               ))}

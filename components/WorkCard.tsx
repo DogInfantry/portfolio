@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import DocCover from "@/components/DocCover";
+import Exhibit from "@/components/Exhibit";
+import Glyph from "@/components/glyphs";
 import { asset } from "@/data/asset";
 import { domainVar, getDomain } from "@/data/domains";
 import type { WorkItem } from "@/data/work";
 
 /**
- * One card shape for every artefact: live app, paper, deck or repository.
+ * One card shape for every artefact: dashboard, working paper or report.
  *
  * Reading order is hue rule, media, title, outcome, one number, caption row.
  * Taxonomy is a caption, not a header: the domain and the artefact type used to
@@ -76,10 +78,16 @@ export default function WorkCard({
             }
           />
         </div>
+      ) : item.figure ? (
+        /* No image, but the work has a figure: plot the finding. Three of the
+           featured cards used to be dark maps, which said nothing about how the
+           analyses differ. A chart of the actual result cannot collide with the
+           card beside it, because the results do not have the same shape. */
+        <Exhibit figure={item.figure} domain={item.domain} />
       ) : (
         /* A card with no thumbnail reads as an afterthought beside one that has
-           it, so a document without cover art gets a typographic stand-in
-           rather than an empty slot. */
+           it, so a document with neither cover art nor a figure gets a
+           typographic stand-in rather than an empty slot. */
         <DocCover title={item.outcome} kind={item.meta} />
       )}
 
@@ -106,35 +114,43 @@ export default function WorkCard({
           </dl>
         )}
 
-        <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-line pt-3">
-          <p className="sc flex flex-wrap items-center gap-x-2 gap-y-1 text-muted">
-            <span
-              aria-hidden="true"
-              className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
-              style={{ background: hue }}
-            />
-            <Link
-              href={`/work?domain=${item.domain}`}
-              className="relative z-10 transition-colors hover:text-accent"
-            >
-              {domain.label}
-            </Link>
-            <span aria-hidden="true" className="text-line">
-              |
-            </span>
-            <span className="text-muted-2">{item.typeLabel}</span>
-          </p>
+        {/* Two deliberate lines rather than one wrapping row. The subject and
+            the artefact together need about 290px inside a 253px slot, so a
+            single row wrapped on the long domain names and not the short ones,
+            which left the caption one line tall on some cards in a row and two
+            on others. Fixed at two, it is even across the grid. */}
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="flex items-baseline justify-between gap-3">
+            <p className="sc flex min-w-0 items-center gap-x-2 text-muted">
+              <span
+                aria-hidden="true"
+                className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{ background: hue }}
+              />
+              <Link
+                href={`/work?domain=${item.domain}`}
+                className="relative z-10 truncate transition-colors hover:text-accent"
+              >
+                {domain.label}
+              </Link>
+            </p>
 
-          {item.external && (
-            <a
-              href={item.external.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="lk relative z-10 shrink-0 text-sm font-medium text-muted"
-            >
-              {item.external.label} <span aria-hidden="true">↗</span>
-            </a>
-          )}
+            {item.external && (
+              <a
+                href={item.external.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lk relative z-10 shrink-0 text-sm font-medium text-muted"
+              >
+                {item.external.label} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+
+          <p className="sc mt-1.5 flex items-center gap-1.5 text-muted-2">
+            <Glyph type={item.type} className="h-3 w-3" />
+            {item.typeLabel}
+          </p>
         </div>
       </div>
     </article>

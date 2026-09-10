@@ -13,10 +13,13 @@ export default function DivergingBars({
   data,
   domain,
   unit = "",
+  compact = false,
 }: {
   data: FigureDatum[];
   domain: DomainKey;
   unit?: string;
+  /** card preview mode; see the note in BarSet and components/Exhibit.tsx */
+  compact?: boolean;
 }) {
   const values = data.map((d) => d.value);
   const min = Math.min(0, ...values);
@@ -25,7 +28,7 @@ export default function DivergingBars({
   const zero = ((0 - min) / span) * 100;
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className={`flex flex-col ${compact ? "gap-1.5" : "gap-3"}`}>
       {data.map((d) => {
         const hue = d.emphasis ? domainVar(domain) : "var(--mark-neutral)";
         const pos = ((d.value - min) / span) * 100;
@@ -35,13 +38,19 @@ export default function DivergingBars({
         return (
           <div
             key={d.label}
-            className="grid items-center gap-x-3 gap-y-1 sm:grid-cols-[minmax(0,10rem)_1fr_auto]"
+            className={
+              compact
+                ? "grid grid-cols-[1fr_auto] items-center gap-x-2"
+                : "grid items-center gap-x-3 gap-y-1 sm:grid-cols-[minmax(0,10rem)_1fr_auto]"
+            }
           >
-            <p className="text-small leading-snug text-muted">
-              {d.label}
-            </p>
+            {!compact && (
+              <p className="text-small leading-snug text-muted">{d.label}</p>
+            )}
             <div
-              className="relative h-3.5 w-full rounded-[2px] bg-grid"
+              className={`relative w-full rounded-[2px] bg-grid ${
+                compact ? "h-2.5" : "h-3.5"
+              }`}
             >
               <span
                 aria-hidden="true"
@@ -64,9 +73,13 @@ export default function DivergingBars({
           </div>
         );
       })}
-      <p className="sc mt-1 text-muted-2">
-        Zero marks the baseline. Bars left of it are negative.
-      </p>
+      {/* the axis note is for the reader of the figure, not for a card preview
+          that has no labels to orient against in the first place */}
+      {!compact && (
+        <p className="sc mt-1 text-muted-2">
+          Zero marks the baseline. Bars left of it are negative.
+        </p>
+      )}
     </div>
   );
 }

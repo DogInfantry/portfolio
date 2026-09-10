@@ -138,7 +138,7 @@ export default async function ProjectPage({
               rel="noopener noreferrer"
               className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
             >
-              Open live app <span aria-hidden="true">↗</span>
+              Open the dashboard <span aria-hidden="true">↗</span>
             </a>
           )}
           {project.github && (
@@ -183,7 +183,7 @@ export default async function ProjectPage({
         <div>
           <dt className="sc text-muted-2">Artefact</dt>
           <dd className="mt-1 text-sm text-muted">
-            {project.live ? "Live app" : project.doc ? "Deck" : "Code"}
+            {project.live ? "Dashboard" : project.doc ? "Report" : "Repository"}
           </dd>
         </div>
         <div className="col-span-2 sm:col-span-1">
