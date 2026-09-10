@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/data/asset";
 
 /**
  * A screenshot in browser chrome.
@@ -37,7 +38,7 @@ export default function BrowserFrame({
       </div>
       <div className="relative aspect-[16/10] w-full overflow-hidden">
         <Image
-          src={src}
+          src={asset(src)}
           alt={alt}
           fill
           sizes={sizes}

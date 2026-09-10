@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { asset } from "@/data/asset";
 import { getProject, projects } from "@/data/projects";
 import { getDomain, domainVar } from "@/data/domains";
 import { site } from "@/data/site";
@@ -152,7 +153,7 @@ export default async function ProjectPage({
           )}
           {project.doc && (
             <a
-              href={project.doc}
+              href={asset(project.doc)}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
@@ -253,14 +254,14 @@ export default async function ProjectPage({
       ) : project.doc ? (
         <figure className="mt-12">
           <a
-            href={project.doc}
+            href={asset(project.doc)}
             target="_blank"
             rel="noopener noreferrer"
             className="group block overflow-hidden rounded-sm border border-line bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
           >
             {project.cover ? (
               <Image
-                src={project.cover}
+                src={asset(project.cover)}
                 alt={`${project.title}, opening slide`}
                 width={1200}
                 height={675}
@@ -283,7 +284,7 @@ export default async function ProjectPage({
       ) : project.cover ?? project.thumbnail ? (
         <figure className="mt-12 overflow-hidden rounded-sm border border-line bg-card">
           <Image
-            src={(project.cover ?? project.thumbnail)!}
+            src={asset((project.cover ?? project.thumbnail)!)}
             alt={`${project.title}, an exhibit from the analysis`}
             width={1200}
             height={675}

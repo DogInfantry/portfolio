@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { asset } from "@/data/asset";
 import { getResearchDoc, research } from "@/data/research";
 import { getDomain, domainVar } from "@/data/domains";
 import { site } from "@/data/site";
@@ -153,7 +154,7 @@ export default async function ResearchDocPage({
         )}
         <div className="mt-6 flex flex-wrap gap-3">
           <a
-            href={doc.file}
+            href={asset(doc.file)}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
@@ -171,7 +172,7 @@ export default async function ResearchDocPage({
             </a>
           )}
           <a
-            href={doc.file}
+            href={asset(doc.file)}
             download
             className="rounded-sm border border-line px-5 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
           >
@@ -260,7 +261,7 @@ export default async function ResearchDocPage({
       {doc.cover && (
         <figure className="mt-12 overflow-hidden rounded-sm border border-line bg-card">
           <Image
-            src={doc.cover}
+            src={asset(doc.cover)}
             alt={`${doc.title}, first page`}
             width={1200}
             height={675}

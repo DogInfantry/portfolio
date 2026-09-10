@@ -4,6 +4,10 @@ import { work } from "@/data/work";
 import { OgCard, OG_SIZE, OG } from "@/components/OgCard";
 
 export const size = OG_SIZE;
+/* Required by output: "export". The card is rendered from data/ at build
+   time and touches no request-scoped API, so this is a statement of fact. */
+export const dynamic = "force-static";
+
 export const contentType = "image/png";
 export const alt = `${site.name}. ${site.role}.`;
 

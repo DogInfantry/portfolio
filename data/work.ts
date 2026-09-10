@@ -1,5 +1,6 @@
 import { projects, type Metric } from "./projects";
 import { research } from "./research";
+import { asset } from "./asset";
 import { domains, getDomain, type DomainKey } from "./domains";
 
 /**
@@ -69,7 +70,7 @@ const fromProjects: WorkItem[] = projects.map((p) => {
     : p.github
       ? { href: p.github, label: "GitHub" }
       : p.doc
-        ? { href: p.doc, label: "Deck" }
+        ? { href: asset(p.doc), label: "Deck" }
         : undefined;
   return {
     slug: p.slug,
@@ -105,7 +106,7 @@ const fromResearch: WorkItem[] = research.map((d) => ({
   typeLabel: d.publication ? "Paper" : "Deck",
   external: d.publication
     ? { href: d.publication.url, label: "SSRN" }
-    : { href: d.file, label: "PDF" },
+    : { href: asset(d.file), label: "PDF" },
   metrics: d.metrics ?? [],
   image: d.cover,
   imageKind: "cover",

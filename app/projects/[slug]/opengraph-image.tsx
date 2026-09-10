@@ -8,16 +8,21 @@ import { OgCard, OG_SIZE, DOMAIN_HEX } from "@/components/OgCard";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
+/* Required by output: "export". The card is rendered from data/ at build time
+   and touches no request-scoped API, so this is a statement of fact rather
+   than a workaround. */
+export const dynamic = "force-static";
+
+/* A static alt rather than a per item one. generateImageMetadata would give
+   each card its own alt text, but it adds a [__metadata_id__] route segment
+   that output: "export" cannot statically resolve, which fails the whole
+   build. This says what the card contains, which is the part a screen reader
+   user needs before deciding whether to open the link. */
+export const alt =
+  "A social card for this case study: its subject and artefact type, the title, the question it answers, and its headline numbers.";
+
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
-}
-
-/* alt is a static export and cannot read params, so the per item text comes
-   through generateImageMetadata instead. A shared link is often the only thing
-   a screen reader user gets before deciding to open the page. */
-export function generateImageMetadata({ params }: { params: { slug: string } }) {
-  const p = getProject(params.slug);
-  return [{ id: "card", size, contentType, alt: p ? `${p.title}. ${p.tagline}` : site.name }];
 }
 
 export default async function Image({

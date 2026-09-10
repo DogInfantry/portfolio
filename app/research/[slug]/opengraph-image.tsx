@@ -8,13 +8,15 @@ import { OgCard, OG_SIZE, DOMAIN_HEX } from "@/components/OgCard";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
+/* See the note in app/projects/[slug]/opengraph-image.tsx: both exports below
+   are what output: "export" needs, and the alt is static for the same reason. */
+export const dynamic = "force-static";
+
+export const alt =
+  "A social card for this document: its subject and kind, the title, its subtitle, and its headline numbers.";
+
 export function generateStaticParams() {
   return research.map((d) => ({ slug: d.slug }));
-}
-
-export function generateImageMetadata({ params }: { params: { slug: string } }) {
-  const d = getResearchDoc(params.slug);
-  return [{ id: "card", size, contentType, alt: d ? `${d.title}. ${d.subtitle}` : site.name }];
 }
 
 export default async function Image({

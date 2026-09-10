@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import DocCover from "@/components/DocCover";
+import { asset } from "@/data/asset";
 import { domainVar, getDomain } from "@/data/domains";
 import type { WorkItem } from "@/data/work";
 
@@ -58,7 +59,7 @@ export default function WorkCard({
           }`}
         >
           <Image
-            src={item.image}
+            src={asset(item.image)}
             alt={
               item.imageKind === "screenshot"
                 ? `${item.title}, application screenshot`
