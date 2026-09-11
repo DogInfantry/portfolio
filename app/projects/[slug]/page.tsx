@@ -289,6 +289,8 @@ export default async function ProjectPage({
             width={1200}
             height={675}
             sizes="(min-width: 768px) 768px, 100vw"
+            /* a vector exhibit needs no raster optimizer; see WorkCard */
+            unoptimized={(project.cover ?? project.thumbnail)!.endsWith(".svg")}
             className="h-auto w-full"
           />
         </figure>

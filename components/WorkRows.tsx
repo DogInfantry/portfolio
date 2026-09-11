@@ -139,6 +139,9 @@ export default function WorkRows({
                       width={224}
                       height={140}
                       sizes="112px"
+                      /* see the note in WorkCard: a vector needs no optimizer,
+                         and enabling SVG there would loosen remote handling */
+                      unoptimized={r.thumb.endsWith(".svg")}
                       className={
                         r.thumbKind === "cover"
                           ? "h-full w-full object-contain p-1"

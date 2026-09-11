@@ -41,6 +41,11 @@ export default function WorkCard({
   const metric = item.metrics[0];
   const Heading = `h${headingLevel}` as const;
   const isCover = item.imageKind === "cover";
+  /* An SVG is already resolution independent, so the raster optimizer has
+     nothing to do and Next refuses to run it without dangerouslyAllowSVG. That
+     flag also loosens remote SVG handling, which is not a trade worth making
+     for one local file we authored ourselves. */
+  const isVector = item.image?.endsWith(".svg") ?? false;
 
   return (
     <article
@@ -58,6 +63,8 @@ export default function WorkCard({
           className={`relative aspect-[16/10] w-full overflow-hidden bg-sunken ${
             isCover ? "p-4" : ""
           }`}
+          /* the exhibit carries its own dark ground, so it sits on the plate as
+             a picture rather than blending into a light theme behind it */
         >
           <Image
             src={asset(item.image)}
@@ -69,9 +76,15 @@ export default function WorkCard({
                   : `${item.title}, an exhibit from the analysis`
             }
             fill
+            unoptimized={isVector}
             sizes="(min-width: 1024px) 368px, (min-width: 640px) 50vw, 100vw"
+            /* A chart is contained, never cropped. The exhibit is 720x470
+               against a 16:10 slot, so object-cover would take about four per
+               cent off the bottom, which is exactly where its axis label sits.
+               Raster screenshots still fill, because losing a few pixels of a
+               dashboard costs nothing. */
             className={
-              isCover
+              isCover || isVector
                 ? "object-contain object-top p-2"
                 : "object-cover object-top"
             }

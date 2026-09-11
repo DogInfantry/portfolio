@@ -489,6 +489,7 @@ export const projects: Project[] = [
       "Build-time invariants",
     ],
     live: "https://datacenter-capacity-audit.vercel.app/",
+    thumbnail: "/screenshots/datacentre-capacity-audit.svg",
     github: "https://github.com/DogInfantry/datacentre-announced-vs-delivered",
     figures: [
       {
