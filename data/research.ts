@@ -47,7 +47,7 @@ export const research: ResearchDoc[] = [
     domain: "equities",
     title: "Bharti Airtel: Initiation of Coverage",
     subtitle:
-      "India's best telecom franchise, close to a fair price. HOLD, 12-month target Rs 1,946, initiated 8 Oct 2026",
+      "India's best telecom franchise, close to a fair price. Valued part by part, initiated 8 Oct 2026",
     kind: "Independent equity research",
     pages: 15,
     sizeMB: "0.6 MB",
@@ -58,7 +58,7 @@ export const research: ResearchDoc[] = [
     metrics: [
       {
         value: "HOLD · Rs 1,946",
-        label: "12-month target, 6.2% above the 7 Oct 2026 price of Rs 1,833",
+        label: "12-month target, 6.2% above the 7 Oct 2026 price",
       },
       { value: "Rs 1,338", label: "DCF by part, 27.0% below the price" },
       {
