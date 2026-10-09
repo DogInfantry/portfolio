@@ -187,11 +187,12 @@ export default function Home() {
               captures the value in India&apos;s payments network.
             </p>
             <p>
-              The same instinct runs through the written work: two working
-              papers on SSRN, one estimating what SEBI&apos;s 2024–25 index
-              derivatives curbs did to retail participation, the other asking
-              why rural households who already know about a benefit still do not
-              receive it.
+              The same instinct runs through the written work: an initiation of
+              coverage on Bharti Airtel that prints, before the event, what would
+              change its call, and two working papers on SSRN, one estimating
+              what SEBI&apos;s 2024–25 index derivatives curbs did to retail
+              participation, the other asking why rural households who already
+              know about a benefit still do not receive it.
             </p>
             <p>
               It also runs through what gets published when the answer is no.

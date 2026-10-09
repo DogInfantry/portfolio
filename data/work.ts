@@ -148,13 +148,13 @@ export const groups: Group[] = [
     key: "selected",
     title: "Selected work",
     blurb:
-      "Start here. Two commercial strategy cases, a forensic read of what an infrastructure buildout has actually energised, a causal-testing commodity desk, a product case study, and a quant study published as a negative result.",
+      "An equity initiation that states in advance what would change its call, two commercial strategy cases, a forensic read of what an infrastructure buildout has actually energised, a causal-testing commodity desk, and a quant study published as a negative result.",
     slugs: [
+      "bharti-airtel-initiation",
       "india-widebody-window",
       "india-fs-pulse",
       "datacentre-capacity-audit",
       "enso-macro-risk-desk",
-      "indusind-protect",
       "signals-before-storms",
     ],
   },

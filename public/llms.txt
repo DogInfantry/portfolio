@@ -102,6 +102,16 @@ dashboards, reports and decks, then working papers.
 
 ## Research reports
 
+- [Bharti Airtel: Initiation of Coverage](https://portfolio-five-rouge-90.vercel.app/research/bharti-airtel-initiation):
+  15-page equity initiation, 8 Oct 2026. HOLD, 12-month target Rs 1,946, 6.2%
+  above the 7 Oct close of Rs 1,833. Valued part by part (India mobile, Airtel
+  Africa, Indus Towers, Bharti Hexacom); the DCF by part is Rs 1,338 and the
+  price needs India ARPU to grow 9.5% a year to FY31 against 5.7% forecast.
+  Three dated outcomes weighted 30/43/27 (bear Rs 1,709, base Rs 1,947, bull
+  Rs 2,209), with the Jio price band rule printed in advance. Street consensus
+  is a Buy at Rs 2,317. In the style of the CFA Institute Research Challenge;
+  not an entry, not investment advice.
+  PDF: https://portfolio-five-rouge-90.vercel.app/research/bharti-airtel-initiation.pdf
 - [India's Critical Minerals & Green Steel Transition](https://portfolio-five-rouge-90.vercel.app/research/india-strategic-metals-transition):
   Strategic roadmap for the energy-transition value chain and mid-market steel.
 - [Bridging India's MSME Credit Gap](https://portfolio-five-rouge-90.vercel.app/research/msme-credit):

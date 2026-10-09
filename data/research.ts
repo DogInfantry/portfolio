@@ -43,6 +43,74 @@ export type ResearchDoc = {
 // PPTs: export to PDF first, since browsers cannot render .pptx natively.
 export const research: ResearchDoc[] = [
   {
+    slug: "bharti-airtel-initiation",
+    domain: "equities",
+    title: "Bharti Airtel: Initiation of Coverage",
+    subtitle:
+      "India's best telecom franchise, close to a fair price. HOLD, 12-month target Rs 1,946, initiated 8 Oct 2026",
+    kind: "Independent equity research",
+    pages: 15,
+    sizeMB: "0.6 MB",
+    cover: "/research/covers/bharti-airtel-initiation.png",
+    file: "/research/bharti-airtel-initiation.pdf",
+    summary:
+      "A sell-side style initiation on Bharti Airtel, valued part by part: India mobile, Airtel Africa (79.11% owned), Indus Towers and Bharti Hexacom. The franchise leads Indian telecom on price per customer, margin and returns, but at Rs 1,833 the market already prices India ARPU growth of 9.5% a year to FY31, against 5.7% in the forecast. Three dated outcomes, weighted 30% / 43% / 27%, give a 12-month target of Rs 1,946, 6.2% above the price and inside the HOLD band. Written in the style of the CFA Institute Research Challenge; not an entry, not reviewed by CFA Institute, and not investment advice.",
+    metrics: [
+      {
+        value: "HOLD · Rs 1,946",
+        label: "12-month target, 6.2% above the 7 Oct 2026 price of Rs 1,833",
+      },
+      { value: "Rs 1,338", label: "DCF by part, 27.0% below the price" },
+      {
+        value: "7.8%",
+        label: "expected total return, including the FY27 dividend",
+      },
+    ],
+    findings: [
+      "India mobile is the best franchise in the market. ARPU of Rs 263.9 a month is 22% above Jio's, and in FY26 the segment earned a 60.2% EBITDA margin and 18.7% after tax on its net segment assets, against an India WACC of 9.96%",
+      "The price needs more tariff repair than the forecast allows. Run through the model, Rs 1,833 requires India ARPU to grow 9.5% a year to FY31, the equivalent of 1.1 more tariff steps the size of July 2024's. The forecast already includes one repair, 5% in FY28 and 3% in FY29, and grows ARPU 5.7% a year; management guides to 4% or 5% from mix",
+      "The rule that changes the call is printed in advance. A Jio Platforms price band midpoint above US$147 bn makes Bharti a BUY; one below US$121 bn takes the target to Rs 1,720, still a HOLD. The Q1 FY28 results, due by 14 Aug 2027, are the second dated test",
+      "HOLD holds across the weights. Bear is Rs 1,709 at 30%, base Rs 1,947 at 43%, bull Rs 2,209 at 27%. SELL is out of reach at any pair of weights, and BUY needs a bull weight of 61% with no bear",
+      "The gap to the street is the multiple, not the forecast. Consensus from 34 analysts is a Buy at Rs 2,317. FY28E EBITDA sits close to Motilal Oswal's, the only full public forecast, and EPS 8.0% below it",
+    ],
+    figures: [
+      {
+        kind: "bars",
+        caption:
+          "The three outcomes for 7 Oct 2027 against the price, in rupees a share. Each is a multiple of India EBIT tied to a dated event. Weighted, they give the target, 6.2% above the price and inside the HOLD band of -10% to +15%; the base case of Rs 1,947 sits on the target and is left off.",
+        source: "Finding 4 and the metrics above; the report's Figure 1",
+        data: [
+          { label: "Bear, 30%", value: 1709, display: "Rs 1,709" },
+          { label: "Price, 7 Oct 2026", value: 1833, display: "Rs 1,833" },
+          {
+            label: "Target, 12 months",
+            value: 1946,
+            display: "Rs 1,946",
+            emphasis: true,
+          },
+          { label: "Bull, 27%", value: 2209, display: "Rs 2,209" },
+        ],
+      },
+      {
+        kind: "bars",
+        caption:
+          "Three answers to what a share is worth. The DCF by part, at an India WACC of 9.96%, sits 27.0% below the price and the street sits above it. The gap to the DCF is a view on the cost of capital rather than on the forecast, which is why the target weights dated outcomes instead.",
+        source:
+          "Metrics above and finding 5; consensus from MarketScreener, 34 analysts, 6 Oct 2026",
+        data: [
+          { label: "DCF by part, today", value: 1338, display: "Rs 1,338" },
+          {
+            label: "Target, 12 months",
+            value: 1946,
+            display: "Rs 1,946",
+            emphasis: true,
+          },
+          { label: "Consensus, 34 analysts", value: 2317, display: "Rs 2,317" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "regulating-retail-options-boom",
     domain: "market-structure",
     title: "Regulating the Retail Options Boom",
