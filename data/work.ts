@@ -148,7 +148,7 @@ export const groups: Group[] = [
     key: "selected",
     title: "Selected work",
     blurb:
-      "An equity initiation that states in advance what would change its call, two commercial strategy cases, a forensic read of what an infrastructure buildout has actually energised, a causal-testing commodity desk, and a quant study published as a negative result.",
+      "The six to open first: an equity initiation on Bharti Airtel, two commercial strategy cases, an audit of India's data centre buildout, a causal test of El Niño commodity trades, and a quant study whose strategy failed out of sample.",
     slugs: [
       "bharti-airtel-initiation",
       "india-widebody-window",
@@ -162,21 +162,21 @@ export const groups: Group[] = [
     key: "builds",
     title: "Dashboards",
     blurb:
-      "Analysis you can open and interrogate rather than read about. Each one takes a question, works it through public data, and leaves the working exposed.",
+      "Interactive dashboards on public data. Each starts from one question and shows the data and method behind its answer.",
     types: ["app", "code"],
   },
   {
     key: "documents",
     title: "Reports and decks",
     blurb:
-      "Longer-form strategy and policy work delivered as a document. Each one opens as a PDF.",
+      "Equity research, strategy and policy reports. Each opens as a PDF.",
     types: ["deck"],
   },
   {
     key: "papers",
     title: "Working papers",
     blurb:
-      "Research on SSRN, each with an abstract, a stated design, and results reported whether or not they flatter the hypothesis.",
+      "Working papers on SSRN. Each states its design up front and reports results whether or not they support the hypothesis.",
     types: ["paper"],
   },
 ];

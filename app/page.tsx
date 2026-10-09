@@ -24,7 +24,6 @@ const capabilities = [
       "Market Sizing & TAM",
       "Industry & Competitive Analysis",
       "Financial Modeling",
-      "Structured Problem-Solving",
       "Product Strategy & Roadmapping",
       "User Research & Personas",
     ],
@@ -33,6 +32,7 @@ const capabilities = [
     label: "Investment & Valuation",
     items: [
       "DCF & Reverse DCF",
+      "Sum-of-the-Parts & Scenario Valuation",
       "LBO Modeling",
       "Credit & Covenant Analysis",
       "Comparable Analysis",
@@ -81,12 +81,9 @@ export default function Home() {
           className="enter mt-6 max-w-2xl text-lg leading-relaxed text-muted"
           style={{ "--i": 2 } as React.CSSProperties}
         >
-          Commercial strategy, corporate finance, investment research and
-          quantitative work. Market entry cases, payments economics, covenant
-          surveillance, derivatives regulation. The kind of analysis that
-          usually ends its life inside a slide deck or a terminal, published
-          here as dashboards you can open, papers you can read, and repositories
-          you can check line by line.
+          Equity research, commercial strategy cases, market and credit
+          dashboards, and two working papers on SSRN. Every chart on the site
+          names its source.
         </p>
         <div
           className="enter mt-8 flex flex-wrap gap-3"
@@ -115,8 +112,7 @@ export default function Home() {
         className="scroll-mt-24 border-t border-line py-12 sm:py-16"
       >
         <span id="projects" className="vh scroll-mt-24" />
-        <p className="sc kicker rise">Start here</p>
-        <h2 className="rise mt-4 font-serif text-display">{selected.title}</h2>
+        <h2 className="rise font-serif text-display">{selected.title}</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
           {selected.blurb}
         </p>
@@ -131,11 +127,10 @@ export default function Home() {
         id="index"
         className="scroll-mt-24 border-t border-line py-12 sm:py-16"
       >
-        <p className="sc kicker rise">The rest of the shelf</p>
-        <h2 className="rise mt-4 font-serif text-display">Everything else</h2>
+        <h2 className="rise font-serif text-display">Everything else</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-          {work.length - selected.items.length} more pieces, grouped by what the
-          artefact is. Every row opens a case page.
+          {work.length - selected.items.length} more pieces, grouped by type.
+          Each row opens its own page.
         </p>
         <div className="mt-12 flex flex-col gap-12">
           {rest.map((g) => (
@@ -169,37 +164,34 @@ export default function Home() {
         id="about"
         className="scroll-mt-24 border-t border-line py-12 sm:py-16"
       >
-        <p className="sc kicker rise">Background</p>
-        <h2 className="rise mt-4 font-serif text-display">About</h2>
+        <h2 className="rise font-serif text-display">About</h2>
         <div className="mt-12 grid gap-8 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-4 leading-relaxed text-muted">
             <p>
-              I&apos;m a finance and strategy generalist (MBA, IIM Bodh Gaya)
-              working across investment research, management-consulting-style
-              problem-solving, and financial analysis. My work spans credit,
-              equities, macro, private equity, and sustainable finance.
+              I work in investment research, strategy and financial analysis,
+              and hold an MBA from IIM Bodh Gaya. The work here spans equities,
+              credit, macro, private equity and sustainable finance.
             </p>
             <p>
-              The difference is that it doesn&apos;t stop at a memo or a deck.
-              Each analysis becomes something you can open: a covenant monitor
-              reading SEC filings, a research terminal with reverse-DCF pricing,
-              a causal-tested ENSO commodity desk, an open-data trail for who
-              captures the value in India&apos;s payments network.
+              Where the analysis allows it, I publish it as a dashboard rather
+              than a deck: a covenant monitor that reads SEC filings, a research
+              terminal with reverse-DCF pricing, an ENSO commodity desk with
+              causal tests, and an open-data trace of who earns the value in
+              India&apos;s UPI network.
             </p>
             <p>
-              The same instinct runs through the written work: an initiation of
-              coverage on Bharti Airtel that prints, before the event, what would
-              change its call, and two working papers on SSRN, one estimating
-              what SEBI&apos;s 2024–25 index derivatives curbs did to retail
-              participation, the other asking why rural households who already
-              know about a benefit still do not receive it.
+              The written work includes an initiation of coverage on Bharti
+              Airtel, which sets out in advance the event that would change its
+              rating, and two SSRN working papers: one estimates what
+              SEBI&apos;s 2024–25 index derivatives curbs did to retail
+              participation, the other asks why rural households who know about
+              a benefit still do not receive it.
             </p>
             <p>
-              It also runs through what gets published when the answer is no.
-              The regime-switching study here is a negative result with a
-              diagnosis attached, and the aviation case reversed its own
-              recommendation mid-way and wrote down why, because a portfolio of
-              only wins says nothing about how someone handles a loss.
+              Two pieces report results against their own starting hypothesis.
+              In the regime-switching study the model worked and the strategy
+              did not. The aviation case reversed its recommendation partway
+              through and records why.
             </p>
           </div>
 
@@ -229,11 +221,10 @@ export default function Home() {
         className="scroll-mt-24 py-12 pb-20 sm:py-16 sm:pb-24"
       >
         <div className="rounded-md border border-line-strong bg-accent-soft/60 px-6 py-16 text-center">
-          <p className="sc kicker">Contact</p>
-          <h2 className="mt-4 font-serif text-display">Let&apos;s talk</h2>
+          <h2 className="font-serif text-display">Contact</h2>
           <p className="mx-auto mt-4 max-w-lg text-muted">
-            Open to roles and collaborations across strategy, finance,
-            investment and policy research, and quantitative work.
+            Open to roles in investment research, strategy, financial analysis
+            and policy research.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a

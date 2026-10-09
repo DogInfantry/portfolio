@@ -239,7 +239,7 @@ export default async function ResearchDocPage({
           page: a reader who stops early should still leave with the result. */}
       {doc.metrics && doc.metrics.length > 0 && (
         <section id="result" className="mt-12 scroll-mt-24 border-b border-line pb-8">
-          <h2 className="sc kicker">What it found</h2>
+          <h2 className="font-serif text-2xl">What it found</h2>
           <StatTiles
             metrics={doc.metrics}
             domain={doc.domain}

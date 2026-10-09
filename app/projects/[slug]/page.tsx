@@ -224,7 +224,7 @@ export default async function ProjectPage({
       {/* The result comes first. A reader who stops after one screen should
           still leave with the numbers, not with a paragraph of setup. */}
       <section id="result" className="mt-12 scroll-mt-24 border-b border-line pb-8">
-        <h2 className="sc kicker">What it produced</h2>
+        <h2 className="font-serif text-2xl">What it produced</h2>
         <StatTiles
           metrics={project.metrics}
           domain={project.domain}

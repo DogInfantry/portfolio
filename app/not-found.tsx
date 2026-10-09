@@ -12,7 +12,7 @@ import WorkRows from "@/components/WorkRows";
 export default function NotFound() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-12 sm:py-16">
-      <p className="sc kicker">404</p>
+      <p className="sc text-muted-2">404</p>
       <h1 className="mt-4 font-serif text-display">
         That page has moved, or never existed
       </h1>

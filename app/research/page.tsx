@@ -33,14 +33,11 @@ const papers = research.filter((d) => d.publication).length;
 export default function ResearchPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-12 sm:py-16">
-      <p className="sc kicker">Publications &amp; research</p>
-      <h1 className="mt-4 font-serif text-display">Research</h1>
+      <h1 className="font-serif text-display">Research</h1>
       <p className="mt-4 max-w-2xl leading-relaxed text-muted">
         {papers === 1 ? "A working paper" : `${papers} working papers`} on SSRN,
-        each with an abstract, a stated design, and results reported whether or
-        not they flatter the hypothesis. Then longer-form strategy roadmaps,
-        policy proposals, market analysis and company deep-dives. Every item has
-        a summary page and an open PDF.
+        an equity initiation, and strategy, policy and market reports. Every
+        item has a summary page and an open PDF.
       </p>
       <p className="mt-3 text-sm text-muted-2">
         Looking for the dashboards as well?{" "}

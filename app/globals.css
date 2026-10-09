@@ -276,16 +276,6 @@ footer {
   font-variant-numeric: tabular-nums;
 }
 
-/* section kicker: small-caps label on a soft accent pill */
-.kicker {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--accent-border);
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
 /* animated link underline */
 .lk {
   position: relative;

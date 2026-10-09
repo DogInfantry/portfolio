@@ -22,15 +22,11 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-12 sm:py-16">
-      <p className="sc kicker">Everything, in one place</p>
-      <h1 className="mt-4 font-serif text-display">Work</h1>
+      <h1 className="font-serif text-display">Work</h1>
       <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-        {work.length} pieces in four groups: selected work, dashboards,
-        longer-form reports and decks, then the working papers. Filter by
-        subject or by what the artefact is, search across titles and stacks, and
-        switch to the table to see all {work.length} at once. Every row carries
-        the numbers the work produced, so you can decide what to open before you
-        open it.
+        All {work.length} pieces: selected work, dashboards, reports and
+        working papers. Filter by subject or type, search titles and tools, or
+        switch to the table to compare headline numbers before opening any.
       </p>
       <p className="mt-3 text-sm text-muted-2">
         Papers and reports on their own:{" "}

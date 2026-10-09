@@ -162,7 +162,7 @@ export const projects: Project[] = [
     title: "Sellside Research Engine",
     domain: "equities",
     tagline:
-      "An institutional-grade equity research dashboard: DCF to NLP tone scoring in one screen.",
+      "An equity research dashboard: DCF valuation through NLP scoring of earnings calls, on one screen.",
     description:
       "A single-screen research terminal covering DCF and reverse-DCF valuation, football-field charts, multi-factor composite scoring, full risk metrics (VaR, Sharpe, Sortino, drawdown), and NLP-scored management commentary from earnings calls.",
     problem:
@@ -209,7 +209,7 @@ export const projects: Project[] = [
     title: "Capital Markets Intelligence Platform",
     domain: "macro",
     tagline:
-      "IPO event studies, sovereign risk scoring, M&A screening, and yield-curve decomposition, with zero API keys.",
+      "IPO event studies, sovereign risk scoring, M&A screening and yield-curve decomposition, all on open data.",
     description:
       "A production-grade market intelligence platform modeled on Goldman Sachs GIR, J.P. Morgan, D.E. Shaw and PwC Deals workflows: six proprietary models across 501 trading days of open data, with cross-asset regime detection on top.",
     problem:
@@ -334,7 +334,7 @@ export const projects: Project[] = [
     title: "Signals Before Storms",
     domain: "quant",
     tagline:
-      "An HMM regime overlay, graded honestly: the model worked, the strategy did not.",
+      "A regime-switching (HMM) overlay tested out of sample: the model worked, the strategy did not.",
     description:
       "A regime-switching tactical asset allocation engine that detects Bull, Bear and Crisis states with a 3-state Gaussian HMM, then reallocates across equity, cash and gold via per-regime convex optimization. Validated with a leak-proof expanding walk-forward backtest on India (primary) and the US (robustness), and published as a rigorous negative result with a diagnosis rather than as a winning strategy.",
     problem:
