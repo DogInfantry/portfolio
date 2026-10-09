@@ -133,7 +133,7 @@ export default function Home() {
           Each row opens its own page.
         </p>
         <div className="mt-12 flex flex-col gap-12">
-          {rest.map((g) => (
+          {rest.map((g, i) => (
             <div key={g.key}>
               <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-line pt-4">
                 <h3 className="font-serif text-2xl tracking-tight">
@@ -144,7 +144,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="mt-4">
-                <WorkRows rows={toIndexRows(g.items)} />
+                <WorkRows rows={toIndexRows(g.items)} quietHead={i > 0} />
               </div>
             </div>
           ))}

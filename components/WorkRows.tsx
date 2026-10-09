@@ -78,20 +78,28 @@ export default function WorkRows({
   sort,
   dir,
   onSort,
+  quietHead = false,
 }: {
   rows: IndexRow[];
   sort?: SortKey;
   dir?: Dir;
   onSort?: (k: SortKey) => void;
+  /** stacked tables share one visible header row; the rest keep theirs for
+      screen readers only, so the same four labels do not repeat down the page */
+  quietHead?: boolean;
 }) {
   return (
     /* wide content scrolls inside its own container; the page body never does */
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[34rem] border-collapse text-left">
+      {/* The minimum width applies from sm up. Below it the table used to stay
+          544px wide inside a 335px phone column, clipping titles and pushing
+          the number and the link off screen. On a phone a row is the title,
+          the outcome and the number, and nothing else. */}
+      <table className="w-full border-collapse text-left sm:min-w-[34rem]">
         <caption className="vh">
           Every piece of work, with its subject, form and headline number.
         </caption>
-        <thead>
+        <thead className={quietHead ? "vh" : undefined}>
           <tr>
             <th scope="col" className="hidden border-b border-line pb-3 pr-4 sm:table-cell">
               <span className="vh">Cover</span>
@@ -104,7 +112,13 @@ export default function WorkRows({
               dir={dir}
               onSort={onSort}
             />
-            <HeadCell col="type" sort={sort} dir={dir} onSort={onSort} />
+            <HeadCell
+              col="type"
+              className="hidden sm:table-cell"
+              sort={sort}
+              dir={dir}
+              onSort={onSort}
+            />
             <th
               scope="col"
               className="sc hidden border-b border-line pb-3 pr-4 text-left font-medium text-muted-2 md:table-cell"
@@ -173,11 +187,17 @@ export default function WorkRows({
                 <span className="mt-1 block text-sm leading-snug text-muted">
                   {r.outcome}
                 </span>
+                {/* the Evidence column only exists from md up */}
+                {r.evidence && (
+                  <span className="tnum mt-2 block text-sm font-semibold text-foreground md:hidden">
+                    {r.evidence.value}
+                  </span>
+                )}
               </th>
               <td className="sc hidden py-3 pr-4 align-top text-muted sm:table-cell">
                 {r.domainLabel}
               </td>
-              <td className="sc py-3 pr-4 align-top text-muted-2">
+              <td className="sc hidden py-3 pr-4 align-top text-muted-2 sm:table-cell">
                 {r.typeLabel}
               </td>
               <td className="hidden py-3 pr-4 align-top md:table-cell">
@@ -196,22 +216,20 @@ export default function WorkRows({
                   <span className="text-xs text-muted-2">{r.meta}</span>
                 )}
               </td>
-              <td className="py-3 align-top text-sm">
-                <span className="flex flex-col items-end gap-1.5 whitespace-nowrap">
-                  <Link href={r.href} className="lk font-medium text-accent">
-                    Case study <span aria-hidden="true">→</span>
-                  </Link>
-                  {r.external && (
-                    <a
-                      href={r.external.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="lk text-muted"
-                    >
-                      {r.external.label} <span aria-hidden="true">↗</span>
-                    </a>
-                  )}
-                </span>
+              {/* One link per row. The title already opens the case page, so a
+                  second "Case study" link to the same place was a duplicate tab
+                  stop, and the wrong word for a report. */}
+              <td className="whitespace-nowrap py-3 text-right align-top text-sm">
+                {r.external && (
+                  <a
+                    href={r.external.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="lk font-medium text-accent"
+                  >
+                    {r.external.label} <span aria-hidden="true">↗</span>
+                  </a>
+                )}
               </td>
             </tr>
           ))}

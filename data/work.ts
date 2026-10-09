@@ -70,7 +70,7 @@ const fromProjects: WorkItem[] = projects.map((p) => {
     : p.github
       ? { href: p.github, label: "GitHub" }
       : p.doc
-        ? { href: asset(p.doc), label: "Deck" }
+        ? { href: asset(p.doc), label: "PDF" }
         : undefined;
   return {
     slug: p.slug,

@@ -30,7 +30,7 @@ export default function NotFound() {
       </p>
 
       <div className="mt-12 flex flex-col gap-12">
-        {groupItems(work).map((g) => (
+        {groupItems(work).map((g, i) => (
           <div key={g.key}>
             <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-line pt-4">
               <h2 className="font-serif text-2xl tracking-tight">{g.title}</h2>
@@ -39,7 +39,7 @@ export default function NotFound() {
               </p>
             </div>
             <div className="mt-4">
-              <WorkRows rows={toIndexRows(g.items)} />
+              <WorkRows rows={toIndexRows(g.items)} quietHead={i > 0} />
             </div>
           </div>
         ))}

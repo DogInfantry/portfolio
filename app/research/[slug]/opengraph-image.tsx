@@ -31,7 +31,7 @@ export default async function Image({
     (
       <OgCard
         hue={DOMAIN_HEX[d.domain]}
-        kicker={`${getDomain(d.domain).label} · ${d.publication ? "Paper" : "Deck"}`}
+        kicker={`${getDomain(d.domain).label} · ${d.publication ? "Paper" : "Report"}`}
         title={d.title}
         outcome={d.subtitle}
         metrics={d.metrics ?? [{ value: `${d.pages} pp`, label: d.kind }]}
