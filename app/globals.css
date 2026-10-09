@@ -325,17 +325,9 @@ footer {
   animation-delay: calc(var(--i, 0) * 70ms);
 }
 
-/* below the fold: scroll driven, no observer, no client JS. Firefox has no
-   view() yet, so the guard leaves content static there, which is the correct
-   failure direction. Never put .rise on a block taller than about two
-   viewports or the range never completes. */
-@supports (animation-timeline: view()) {
-  .rise {
-    animation: enter auto var(--ease-out) both;
-    animation-timeline: view();
-    animation-range: entry 8% cover 26%;
-  }
-}
+/* Below the fold nothing animates. A scroll-driven .rise used to slide each
+   section heading in while the paragraph and cards under it stayed still, so
+   the page moved in pieces; the hero entrance is the one authored moment. */
 
 /* one gesture for "this is a door to an off-site artefact" */
 .lift {
@@ -360,8 +352,7 @@ footer {
   html {
     scroll-behavior: auto;
   }
-  .enter,
-  .rise {
+  .enter {
     animation: none;
   }
   .lk::after {
@@ -420,8 +411,7 @@ footer {
      advances, and a print render is not obliged to advance it. Without this the
      hero could print blank, which is the same failure the old scroll-reveal
      shipped, arriving by a different route. */
-  .enter,
-  .rise {
+  .enter {
     animation: none !important;
   }
   a[href^="http"]::after {

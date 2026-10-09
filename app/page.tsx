@@ -112,7 +112,7 @@ export default function Home() {
         className="scroll-mt-24 border-t border-line py-12 sm:py-16"
       >
         <span id="projects" className="vh scroll-mt-24" />
-        <h2 className="rise font-serif text-display">{selected.title}</h2>
+        <h2 className="font-serif text-display">{selected.title}</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
           {selected.blurb}
         </p>
@@ -127,7 +127,7 @@ export default function Home() {
         id="index"
         className="scroll-mt-24 border-t border-line py-12 sm:py-16"
       >
-        <h2 className="rise font-serif text-display">Everything else</h2>
+        <h2 className="font-serif text-display">Everything else</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
           {work.length - selected.items.length} more pieces, grouped by type.
           Each row opens its own page.
@@ -164,7 +164,7 @@ export default function Home() {
         id="about"
         className="scroll-mt-24 border-t border-line py-12 sm:py-16"
       >
-        <h2 className="rise font-serif text-display">About</h2>
+        <h2 className="font-serif text-display">About</h2>
         <div className="mt-12 grid gap-8 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-4 leading-relaxed text-muted">
             <p>
