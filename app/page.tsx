@@ -56,27 +56,32 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-6xl px-5">
       {/* Hero.
-          Deliberately just a name, a claim and two ways to act on it. An
-          earlier version stacked a chart, a derived counts line and a row of
-          four headline numbers here, which meant the first screen had to be
-          studied before it could be understood. The work itself is the
-          evidence, and it starts one scroll below.
+          The name is the headline. A slogan ("live and explorable") made a
+          recruiter read a claim before learning whose page this is; the name
+          answers that in one glance and the line under it says what the work
+          is. Padding is tight so the first row of cards starts on the first
+          screen at desktop height. An earlier version stacked a chart, a
+          derived counts line and four headline numbers here, which made the
+          first screen something to study rather than read.
 
           The entry animation is CSS. It used to be a client component that set
           opacity to 0 as a base rule and relied on an IntersectionObserver to
           undo it, so a failed or slow bundle left this page blank. Nothing here
           sets opacity to 0 outside a keyframe now. */}
-      <section className="py-16 sm:py-24">
-        <p className="sc enter text-accent" style={{ "--i": 0 } as React.CSSProperties}>
-          Anklesh Rawat · {site.education}
-        </p>
+      <section className="pb-10 pt-12 sm:pb-14 sm:pt-20">
         <h1
-          className="enter mt-6 max-w-3xl font-serif text-hero"
+          className="enter max-w-3xl font-serif text-hero"
+          style={{ "--i": 0 } as React.CSSProperties}
+        >
+          {site.name}
+        </h1>
+        <p
+          className="enter mt-4 max-w-2xl font-serif text-xl italic leading-snug text-accent sm:text-2xl"
           style={{ "--i": 1 } as React.CSSProperties}
         >
-          Strategy, finance and research,{" "}
-          <em className="text-accent">live and explorable.</em>
-        </h1>
+          Investment research, strategy and financial analysis.{" "}
+          {site.education}.
+        </p>
         <p
           className="enter mt-6 max-w-2xl text-lg leading-relaxed text-muted"
           style={{ "--i": 2 } as React.CSSProperties}
@@ -109,14 +114,14 @@ export default function Home() {
           margin because a span does not inherit the section's. */}
       <section
         id="work"
-        className="scroll-mt-24 border-t border-line py-12 sm:py-16"
+        className="scroll-mt-24 border-t border-line pb-12 pt-10 sm:pb-16 sm:pt-12"
       >
         <span id="projects" className="vh scroll-mt-24" />
         <h2 className="font-serif text-display">{selected.title}</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
           {selected.blurb}
         </p>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {selected.items.map((item) => (
             <WorkCard key={item.slug} item={item} headingLevel={3} />
           ))}
