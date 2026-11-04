@@ -129,6 +129,17 @@ dashboards, reports and decks, then working papers.
   of payments, three oil-led scenarios to March 2027 and five dated range calls
   for 30 November. The bank is illustrative and desk forecasts are marked as
   drafts; not investment research or advice.
+- [Maha Navonmesh: Wiring Maharashtra's Innovation Money](https://portfolio-five-rouge-90.vercel.app/research/maha-navonmesh-tgc-2026):
+  30-page submission to The Governance Challenge 2026. Maharashtra earmarks about
+  Rs 2,920 Cr a year for innovation, 234 times the Rs 12.5 Cr reaching startups as
+  pilot orders. Proposes one pipeline with six levers at Rs 1,125 Cr a year, 52%
+  of the 0.5% earmark, with no new agency or tax. Model inputs are labelled
+  assumptions.
+- [Cipla: A Point of Care Diagnostics Business](https://portfolio-five-rouge-90.vercel.app/research/cipla-point-of-care-diagnostics):
+  Cipla Ascend Season 2, Round 1 submission. Base case of Rs 615 Cr FY32 revenue
+  at a 19% EBITDA margin, breakeven in FY30, on Rs 954 Cr of capital, 10% of net
+  cash, starting with a 50 clinic pilot. Scores and model inputs are labelled
+  assumptions.
 - [India's Critical Minerals & Green Steel Transition](https://portfolio-five-rouge-90.vercel.app/research/india-strategic-metals-transition):
   Strategic roadmap for the energy-transition value chain and mid-market steel.
 - [Bridging India's MSME Credit Gap](https://portfolio-five-rouge-90.vercel.app/research/msme-credit):

@@ -9,7 +9,7 @@ import WorkIndex from "@/components/WorkIndex";
 export const metadata: Metadata = {
   title: "Research",
   description:
-    "Research and publications by Anklesh Rawat: equity initiations on Bharti Airtel and NephroPlus, a sample India markets note, two SSRN working papers, one on SEBI's 2024–25 index derivatives reforms and one on social protection take-up in rural India, plus strategy and policy work on strategic metals, MSME credit, ESG value creation, river management, and currency markets.",
+    "Research and publications by Anklesh Rawat: equity initiations on Bharti Airtel and NephroPlus, a sample India markets note, two SSRN working papers, one on SEBI's 2024–25 index derivatives reforms and one on social protection take-up in rural India, plus strategy and policy work on Maharashtra's innovation spending, point of care diagnostics at Cipla, strategic metals, MSME credit, ESG value creation, river management, and currency markets.",
   alternates: { canonical: "/research" },
   openGraph: {
     title: "Research · Anklesh Rawat",

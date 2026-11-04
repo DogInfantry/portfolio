@@ -55,7 +55,7 @@ export const domains = [
   {
     key: "policy",
     label: "Public Policy",
-    blurb: "Social protection delivery, administrative burden, take-up",
+    blurb: "Social protection delivery, administrative burden, state innovation",
   },
 ] as const;
 

@@ -220,6 +220,106 @@ export const research: ResearchDoc[] = [
     ],
   },
   {
+    slug: "maha-navonmesh-tgc-2026",
+    domain: "policy",
+    title: "Maha Navonmesh: Wiring Maharashtra's Innovation Money",
+    subtitle:
+      "One pipeline to test, buy and scale deep tech by 2035, on money already earmarked",
+    kind: "The Governance Challenge 2026 · submission",
+    pages: 30,
+    sizeMB: "1.3 MB",
+    cover: "/research/covers/maha-navonmesh-tgc-2026.png",
+    file: "/research/maha-navonmesh-tgc-2026.pdf",
+    summary:
+      "A solution deck for The Governance Challenge 2026: Maharashtra earmarks about ₹2,920 Cr a year for innovation, 234 times the ₹12.5 Cr reaching startups as pilot orders. The proposed mission connects that money into one pipeline with six levers, one per lifecycle stage, run through MSInS and MITRA with no new agency or tax. It costs ₹1,125 Cr a year at full run, 52% of the 0.5% departmental earmark, and is applied to all six challenge sectors. Budget figures are sourced; model inputs and scores are labelled as assumptions or the author's assessment.",
+    metrics: [
+      {
+        value: "234x",
+        label: "the ₹2,920 Cr earmark against the ₹12.5 Cr reaching startups as pilot orders",
+      },
+      {
+        value: "₹1,125 Cr",
+        label: "proposed yearly cost at full run, 52% of the 0.5% earmark",
+      },
+      {
+        value: "90% / 25%",
+        label: "political salience against system capacity, on the Governance Matrix",
+      },
+    ],
+    findings: [
+      "The money exists but has no route. The 0.5% departmental rule gives ₹2,155 Cr and the 3.5% district plan share ₹765 Cr, and pilot orders take 0.4% of that pool",
+      "State instruments stop short of buying. Across nine instruments since 2025, stage scores out of 18 are Conceive 5, Research 8, Test 4, Fund 7, Adopt 2 and Scale 3, and pilots stop at ₹25 lakh with the next order needing a fresh tender",
+      "The state has will without capacity. It scores 90% on political salience and 25% on system capacity, a Shooting Star on Samagra's Governance Matrix, and the six levers move capacity from 3 to 11 points of 12",
+      "Pilot to Purchase is the central rule. Phases run to ₹25 lakh, ₹1.5 Cr and ₹25 Cr, with no fresh tender for the last if verified KPIs are met. 300 feasibility awards lead to 30 scale orders a year, 10% end to end against 58 of 548 (10.6%) at iDEX",
+      "The plan is tested against its own limits. With every cost assumption high it runs ₹1,580 Cr, 73% of the earmark. Four of five feasibility tests pass outright; delivery at scale passes only once DGCA and CDSCO agreements are signed",
+    ],
+    figures: [
+      {
+        kind: "bars",
+        caption:
+          "How well nine state instruments cover each lifecycle stage, scored out of 18 from the policy texts. Research and funding are best covered; buying what has been tested scores lowest. The scores measure what the texts say rather than what is spent, and are the author's assessment on a stated rule.",
+        source: "Finding 2; the deck's slide 4",
+        data: [
+          { label: "Conceive", value: 5, display: "5 of 18" },
+          { label: "Research", value: 8, display: "8 of 18" },
+          { label: "Test", value: 4, display: "4 of 18" },
+          { label: "Fund", value: 7, display: "7 of 18" },
+          { label: "Adopt", value: 2, display: "2 of 18", emphasis: true },
+          { label: "Scale", value: 3, display: "3 of 18" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cipla-point-of-care-diagnostics",
+    domain: "product",
+    title: "Cipla: A Point of Care Diagnostics Business",
+    subtitle:
+      "Turning prescriber reach into test and treat, on ₹954 Cr of capital, 10% of net cash",
+    kind: "Cipla Ascend Season 2 · Round 1 submission",
+    pages: 5,
+    sizeMB: "0.5 MB",
+    cover: "/research/covers/cipla-point-of-care-diagnostics.png",
+    file: "/research/cipla-point-of-care-diagnostics.pdf",
+    summary:
+      "A Round 1 case submission for Cipla Ascend Season 2, recommending that Cipla build a point of care diagnostics business on its prescriber reach. The base case reaches ₹615 Cr of FY32 revenue (range ₹307 to 1,048 Cr) at a 19% EBITDA margin, with breakeven in FY30, on ₹954 Cr of capital over five years. Judgement scores and model inputs are labelled assumptions, and the plan starts with a 50 clinic pilot to replace them with measured values.",
+    metrics: [
+      {
+        value: "₹615 Cr",
+        label: "FY32 revenue, base case, on labelled assumptions",
+      },
+      { value: "19%", label: "FY32 EBITDA margin, breakeven in FY30" },
+      { value: "26 of 30", label: "point of care kits in a five segment screen" },
+    ],
+    findings: [
+      "Point of care is where a pharma channel wins. On six criteria it scores 26 of 30, against 20 for lung clinics, 17 for path labs, 13 for multispecialty hospitals and 10 for implants and consumables",
+      "India is the engine. In Q2 FY27 India grew 12% while group revenue fell 2% and North America fell 19%, and net cash of ₹9,823 Cr covers the five year plan 10.3 times",
+      "The base case stays below listed peers. Its 19% margin compares with Molbio at 22.2%, Metropolis at 24.4% and Dr Lal PathLabs at 28.3%, with cartridges reaching 63% of revenue and ₹187 Cr a year of pharma revenue pulled through by FY32",
+      "Idle analysers are the risk to manage first. Molbio's utilisation is 42.3%, so analysers are placed only where clinics commit to 3 tests a day",
+      "Capital is released through gates. A 50 clinic pilot reads out by March 2027, 4,000 analysers at 3.5 tests a day are due by FY29, and any acquisition waits until after breakeven",
+    ],
+    figures: [
+      {
+        kind: "bars",
+        caption:
+          "Five healthcare segments scored on growth, margin, capital needs, channel fit, price freedom and pharma pull, out of 30. The scores are judgement readings of the evidence rather than survey data.",
+        source: "Finding 1; the deck's first slide after the title",
+        data: [
+          {
+            label: "Point of care kits",
+            value: 26,
+            display: "26 of 30",
+            emphasis: true,
+          },
+          { label: "Lung clinics", value: 20, display: "20 of 30" },
+          { label: "Path labs", value: 17, display: "17 of 30" },
+          { label: "Multispecialty hospitals", value: 13, display: "13 of 30" },
+          { label: "Implants and consumables", value: 10, display: "10 of 30" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "regulating-retail-options-boom",
     domain: "market-structure",
     title: "Regulating the Retail Options Boom",
