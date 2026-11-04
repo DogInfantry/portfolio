@@ -185,12 +185,12 @@ export default function Home() {
               India&apos;s UPI network.
             </p>
             <p>
-              The written work includes an initiation of coverage on Bharti
-              Airtel, which sets out in advance the event that would change its
-              rating, and two SSRN working papers: one estimates what
-              SEBI&apos;s 2024–25 index derivatives curbs did to retail
-              participation, the other asks why rural households who know about
-              a benefit still do not receive it.
+              The written work includes a sample India markets note, initiations
+              of coverage on NephroPlus and on Bharti Airtel, which sets out in
+              advance the event that would change its rating, and two SSRN
+              working papers: one estimates what SEBI&apos;s 2024–25 index
+              derivatives curbs did to retail participation, the other asks why
+              rural households who know about a benefit still do not receive it.
             </p>
             <p>
               Two pieces report results against their own starting hypothesis.

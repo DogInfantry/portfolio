@@ -111,6 +111,115 @@ export const research: ResearchDoc[] = [
     ],
   },
   {
+    slug: "nephroplus-initiation",
+    domain: "equities",
+    title: "NephroPlus: Initiation of Coverage",
+    subtitle:
+      "India's largest dialysis chain: a growth stock's multiple on prices the government sets",
+    kind: "Independent equity research",
+    pages: 15,
+    sizeMB: "0.6 MB",
+    cover: "/research/covers/nephroplus-initiation.png",
+    file: "/research/nephroplus-initiation.pdf",
+    summary:
+      "HOLD, with a 12-month target of Rs 605, 6.8% below the 1 Oct close of Rs 649, on India's largest dialysis chain. The market pays a growth stock's multiple, but 76.5% of patients are on public insurance and published scheme and tender rates reproduce about nine tenths of an Indian session. The network runs 550 clinics for 38,262 patients, with 45% of revenue abroad. Built from clinic-level returns, a DCF, peer multiples and a Monte Carlo; the DCF puts intrinsic value at Rs 365, three outcomes for September 2027 set the target, and the report keeps the two numbers apart. An independent student exercise in the format of the CFA Institute Research Challenge; not investment advice.",
+    metrics: [
+      {
+        value: "HOLD · Rs 605",
+        label: "12-month target, 6.8% below the 1 Oct 2026 close",
+      },
+      { value: "Rs 365", label: "DCF value today, 44% below the price" },
+      {
+        value: "9.3%",
+        label: "after-tax return on a captive clinic, against a 10.9% cost of capital",
+      },
+    ],
+    findings: [
+      "Government payers set the price. India realisation went from Rs 1,787 in FY25 to Rs 1,802 in Q1FY27, so the rise in group realisation is mix rather than pricing power",
+      "Indian growth barely clears its cost of capital. A captive clinic earns 9.3% after tax against 10.9% and a PPP clinic 2.3%. FY27 free cash flow is Rs 5 cr after acquisitions; on I-Sec's definition, which leaves them out, the report gets Rs 74 cr against I-Sec's Rs 118 cr",
+      "Cheap on EBITDA, dear on EBIT. Against six Indian hospital chains the stock trades at 26.2x EV/EBITDA against 30.1x and 44.0x EV/EBIT against 38.7x, with the heaviest depreciation in the set at 9.1% of revenue",
+      "The DCF and the target answer different questions. Only 157 of 10,000 Monte Carlo draws reach the price, yet a simple version of the same DCF puts seven listed peers at 17% to 36% of market value, so the gap is partly about the lens. It enters the target once, as the bear case",
+      "The rule that changes the call is stated. Bear Rs 405 at 35%, base Rs 660 at 45%, bull Rs 829 at 20%. SELL needs 43% on the bear, and at the 15 Sep price of Rs 735 the call would have been a SELL. Investing.com consensus is Rs 848 from 4 analysts. Q2FY27 results, due by 14 November, are the first test",
+    ],
+    figures: [
+      {
+        kind: "bars",
+        caption:
+          "Where every number sits, in rupees a share. The DCF is intrinsic value today; the three outcomes are for September 2027 and, weighted, give the target, 6.8% below the price and inside the HOLD band of -10% to +15%. The base case sits above the price and the target below it because the bear case carries 35%.",
+        source: "The metrics above and findings 4 and 5; the report's Figure 1",
+        data: [
+          { label: "DCF value, today", value: 365, display: "Rs 365" },
+          { label: "Bear, 35%", value: 405, display: "Rs 405" },
+          {
+            label: "Target, 12 months",
+            value: 605,
+            display: "Rs 605",
+            emphasis: true,
+          },
+          { label: "Price, 1 Oct 2026", value: 649, display: "Rs 649" },
+          { label: "Base, 45%", value: 660, display: "Rs 660" },
+          { label: "Bull, 20%", value: 829, display: "Rs 829" },
+          { label: "Consensus, 4 analysts", value: 848, display: "Rs 848" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "india-markets-monthly-oct-2026",
+    domain: "macro",
+    title: "India Markets Monthly: Bonds Have Stopped Hedging Equities",
+    subtitle:
+      "October 2026 sample desk note on rates, FX, flows and external funding",
+    kind: "Illustrative work sample",
+    pages: 14,
+    sizeMB: "0.5 MB",
+    cover: "/research/covers/india-markets-monthly-oct-2026.png",
+    file: "/research/india-markets-monthly-oct-2026.pdf",
+    summary:
+      "A sample monthly note, written from public data as a bank research desk would write it: Indian bonds have stopped cushioning falls in equities. The correlation of daily returns between the Nifty 50 and the 10 year G-sec index is 0.45 this year against 0.07 in 2025, and the bond index fell on all 5 days since July when the Nifty fell more than 1%. The note covers rates, FX, flows and the balance of payments, sets three oil-led scenarios to March 2027 and ends with five dated range calls for 30 November. The bank is illustrative and the desk forecasts are marked as drafts; not investment research or advice.",
+    metrics: [
+      {
+        value: "0.07 to 0.45",
+        label: "Nifty and G-sec return correlation, 2025 to 2026",
+      },
+      {
+        value: "$136.4 bn",
+        label: "raised by the RBI swap window, over three times the desk's deficit estimate",
+      },
+      {
+        value: "1.0% / 1.5%",
+        label: "FY27 current account deficit, desk against IMF",
+      },
+    ],
+    findings: [
+      "Bonds no longer cushion falls in equities. Across the 5 falls since July the Nifty 50 averaged -1.64% a day and the G-sec index -0.41%",
+      "The deficit is an oil bill. Outside oil India earns a current account surplus of about $95 bn a year, and each $10 on Brent adds about $14.7 bn. The desk sees 1.0% of GDP for FY27 against the IMF's 1.5%",
+      "The RBI is tightening with the rate and with liquidity. The repo rate rose 25 bps to 5.50% on 7 October. The desk expects one more hike, to 5.75% in December, while one year OIS at 6.25% prices more",
+      "The balance of payments is funded with borrowed dollars. The swap window's $136.4 bn compares with a base deficit of $42.0 bn, a downside of $74.1 bn, the IMF's $60.9 bn and the 2013 window's $26.0 bn. Net forward sales reached $200.1 bn, 27% of reserves, with repayments running from 2029 to 2031",
+      "Oil decides the path to March 2027. Base 55%, upside 20%, downside 25% puts USD/INR at 97.5, 94.5 and 101.5 and the 10 year G-sec at 7.25%, 6.85% and 7.85%",
+    ],
+    figures: [
+      {
+        kind: "bars",
+        caption:
+          "What the RBI's swap window raised to 31 August against the FY27 deficit it has to fund, in US$ bn. The window covers even the desk's downside, which is why the note calls the balance of payments funded, and it does so with borrowed dollars that come due from 2029.",
+        source: "Finding 4; the report's slide 11, from RBI and IMF data",
+        data: [
+          {
+            label: "Swap window, to 31 Aug",
+            value: 136.4,
+            display: "$136.4 bn",
+            emphasis: true,
+          },
+          { label: "Desk downside deficit", value: 74.1, display: "$74.1 bn" },
+          { label: "IMF deficit, 1.5% of GDP", value: 60.9, display: "$60.9 bn" },
+          { label: "Desk base deficit", value: 42.0, display: "$42.0 bn" },
+          { label: "2013 FCNR(B) window", value: 26.0, display: "$26.0 bn" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "regulating-retail-options-boom",
     domain: "market-structure",
     title: "Regulating the Retail Options Boom",

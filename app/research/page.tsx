@@ -9,12 +9,12 @@ import WorkIndex from "@/components/WorkIndex";
 export const metadata: Metadata = {
   title: "Research",
   description:
-    "Research and publications by Anklesh Rawat: an equity initiation on Bharti Airtel, two SSRN working papers, one on SEBI's 2024–25 index derivatives reforms and one on social protection take-up in rural India, plus strategy and policy work on strategic metals, MSME credit, ESG value creation, river management, and currency markets.",
+    "Research and publications by Anklesh Rawat: equity initiations on Bharti Airtel and NephroPlus, a sample India markets note, two SSRN working papers, one on SEBI's 2024–25 index derivatives reforms and one on social protection take-up in rural India, plus strategy and policy work on strategic metals, MSME credit, ESG value creation, river management, and currency markets.",
   alternates: { canonical: "/research" },
   openGraph: {
     title: "Research · Anklesh Rawat",
     description:
-      "An equity initiation on Bharti Airtel, two SSRN working papers, plus strategy and policy work across metals, MSME credit, ESG, river management, and currency markets.",
+      "Equity initiations on Bharti Airtel and NephroPlus, a sample India markets note, two SSRN working papers, plus strategy and policy work across metals, MSME credit, ESG, river management, and currency markets.",
     type: "website",
     url: `${site.url}/research`,
   },
@@ -36,7 +36,7 @@ export default function ResearchPage() {
       <h1 className="font-serif text-display">Research</h1>
       <p className="mt-4 max-w-2xl leading-relaxed text-muted">
         {papers === 1 ? "A working paper" : `${papers} working papers`} on SSRN,
-        an equity initiation, and strategy, policy and market reports. Every
+        two equity initiations, and strategy, policy and market reports. Every
         item has a summary page and an open PDF.
       </p>
       <p className="mt-3 text-sm text-muted-2">

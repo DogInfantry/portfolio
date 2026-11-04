@@ -169,7 +169,7 @@ export const groups: Group[] = [
     key: "documents",
     title: "Reports and decks",
     blurb:
-      "Equity research, strategy and policy reports. Each opens as a PDF.",
+      "Equity research, markets, strategy and policy reports. Each opens as a PDF.",
     types: ["deck"],
   },
   {

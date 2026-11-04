@@ -112,6 +112,23 @@ dashboards, reports and decks, then working papers.
   is a Buy at Rs 2,317. In the style of the CFA Institute Research Challenge;
   not an entry, not investment advice.
   PDF: https://portfolio-five-rouge-90.vercel.app/research/bharti-airtel-initiation.pdf
+- [NephroPlus: Initiation of Coverage](https://portfolio-five-rouge-90.vercel.app/research/nephroplus-initiation):
+  15-page equity initiation on India's largest dialysis chain, 5 Oct 2026. HOLD,
+  12-month target Rs 605, 6.8% below the 1 Oct close of Rs 649; DCF value Rs 365.
+  The market pays a growth stock's multiple, but 76.5% of patients are on public
+  insurance and published scheme and tender rates reproduce about nine tenths of
+  an Indian session. A captive clinic earns 9.3% after tax against a 10.9% cost
+  of capital. Three outcomes weighted 35/45/20 (bear Rs 405, base Rs 660, bull
+  Rs 829). An independent student exercise in the format of the CFA Institute
+  Research Challenge; not investment advice.
+  PDF: https://portfolio-five-rouge-90.vercel.app/research/nephroplus-initiation.pdf
+- [India Markets Monthly: Bonds Have Stopped Hedging Equities](https://portfolio-five-rouge-90.vercel.app/research/india-markets-monthly-oct-2026):
+  Illustrative work sample, a 14-page monthly markets note written from public
+  data with data to 16 Oct 2026. Nifty 50 and 10 year G-sec return correlation
+  of 0.45 this year against 0.07 in 2025. Covers rates, FX, flows and the balance
+  of payments, three oil-led scenarios to March 2027 and five dated range calls
+  for 30 November. The bank is illustrative and desk forecasts are marked as
+  drafts; not investment research or advice.
 - [India's Critical Minerals & Green Steel Transition](https://portfolio-five-rouge-90.vercel.app/research/india-strategic-metals-transition):
   Strategic roadmap for the energy-transition value chain and mid-market steel.
 - [Bridging India's MSME Credit Gap](https://portfolio-five-rouge-90.vercel.app/research/msme-credit):
