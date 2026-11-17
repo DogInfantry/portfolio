@@ -97,11 +97,13 @@ open first.
   assumptions.
 
 - [Maha Navonmesh: Wiring Maharashtra's Innovation Money](https://portfolio-five-rouge-90.vercel.app/research/maha-navonmesh-tgc-2026):
-  30-page submission to The Governance Challenge 2026. Maharashtra earmarks about
-  Rs 2,920 Cr a year for innovation, 234 times the Rs 12.5 Cr reaching startups as
-  pilot orders. Proposes one pipeline with six levers at Rs 1,125 Cr a year, 52%
-  of the 0.5% earmark, with no new agency or tax. Model inputs are labelled
-  assumptions.
+  33-page submission to The Governance Challenge 2026, revised 18 November 2026
+  after external review. Maharashtra earmarks about Rs 2,920 Cr a year for
+  innovation, 234 times the Rs 12.5 Cr cap on today's Startup Week pilot orders.
+  Proposes one pipeline with six levers at Rs 1,125 Cr a year, 52% of the 0.5%
+  earmark, with no new agency or tax. The revision adds a legal route for Pilot
+  to Purchase, staffing for about 335 live contracts and returns kept in four
+  separate ledgers. Model inputs are labelled assumptions.
 
 ## Investment research
 

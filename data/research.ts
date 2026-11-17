@@ -226,16 +226,16 @@ export const research: ResearchDoc[] = [
     subtitle:
       "One pipeline to test, buy and scale deep tech by 2035, on money already earmarked",
     kind: "The Governance Challenge 2026 · submission",
-    pages: 30,
+    pages: 33,
     sizeMB: "1.3 MB",
     cover: "/research/covers/maha-navonmesh-tgc-2026.png",
     file: "/research/maha-navonmesh-tgc-2026.pdf",
     summary:
-      "A solution deck for The Governance Challenge 2026: Maharashtra earmarks about ₹2,920 Cr a year for innovation, 234 times the ₹12.5 Cr reaching startups as pilot orders. The proposed mission connects that money into one pipeline with six levers, one per lifecycle stage, run through MSInS and MITRA with no new agency or tax. It costs ₹1,125 Cr a year at full run, 52% of the 0.5% departmental earmark, and is applied to all six challenge sectors. Budget figures are sourced; model inputs and scores are labelled as assumptions or the author's assessment.",
+      "A solution deck for The Governance Challenge 2026: Maharashtra earmarks about ₹2,920 Cr a year for innovation, 234 times the ₹12.5 Cr cap on today's Startup Week pilot orders. The proposed mission connects that money into one pipeline with six levers, one per lifecycle stage, run through MSInS and MITRA with no new agency or tax. It costs ₹1,125 Cr a year at full run, 52% of the 0.5% departmental earmark, and is applied to all six challenge sectors. Revised after external review with a legal route for Pilot to Purchase, staffing for about 335 live contracts, and returns kept in four separate ledgers. Budget figures are sourced; model inputs and scores are labelled as assumptions or the author's assessment.",
     metrics: [
       {
         value: "234x",
-        label: "the ₹2,920 Cr earmark against the ₹12.5 Cr reaching startups as pilot orders",
+        label: "the ₹2,920 Cr earmark over the ₹12.5 Cr cap on today's pilot orders",
       },
       {
         value: "₹1,125 Cr",
@@ -250,7 +250,7 @@ export const research: ResearchDoc[] = [
       "The money exists but has no route. The 0.5% departmental rule gives ₹2,155 Cr and the 3.5% district plan share ₹765 Cr, and pilot orders take 0.4% of that pool",
       "State instruments stop short of buying. Across nine instruments since 2025, stage scores out of 18 are Conceive 5, Research 8, Test 4, Fund 7, Adopt 2 and Scale 3, and pilots stop at ₹25 lakh with the next order needing a fresh tender",
       "The state has will without capacity. It scores 90% on political salience and 25% on system capacity, a Shooting Star on Samagra's Governance Matrix, and the six levers move capacity from 3 to 11 points of 12",
-      "Pilot to Purchase is the central rule. Phases run to ₹25 lakh, ₹1.5 Cr and ₹25 Cr, with no fresh tender for the last if verified KPIs are met. 300 feasibility awards lead to 30 scale orders a year, 10% end to end against 58 of 548 (10.6%) at iDEX",
+      "Pilot to Purchase is the central rule. Phases run to ₹25 lakh, ₹1.5 Cr and ₹25 Cr, with no fresh tender for the last if verified KPIs are met. 300 feasibility awards lead to 30 scale orders a year, 8% to 10% end to end against 58 of 548 (10.6%) at iDEX",
       "The plan is tested against its own limits. With every cost assumption high it runs ₹1,580 Cr, 73% of the earmark. Four of five feasibility tests pass outright; delivery at scale passes only once DGCA and CDSCO agreements are signed",
     ],
     figures: [
