@@ -25,7 +25,13 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
  * top-level `slug:` key, which every project and document has exactly one of.
  */
 function entries(file) {
-  const src = readFileSync(join(root, "data", file), "utf8");
+  /* Line endings are normalised first. With core.autocrlf on Windows a branch
+     switch rewrites these files with CRLF, the split below then matches
+     nothing, and the canary fails a build whose data is fine. */
+  const src = readFileSync(join(root, "data", file), "utf8").replaceAll(
+    "\r\n",
+    "\n"
+  );
   const parts = src.split(/\n  \{\n    slug: "/).slice(1);
   /* Canary. The split above depends on exact indentation, so a reformat, a
      nested object gaining that indent, or a slug written with single quotes

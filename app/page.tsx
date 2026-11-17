@@ -19,20 +19,124 @@ const lanes = all.filter((g) => !g.compact);
 const earlier = all.find((g) => g.compact);
 const featured = lanes.reduce((n, g) => n + g.items.length, 0);
 
-const capabilities = [
+/**
+ * About is evidence, not adjectives.
+ *
+ * It used to be four grey paragraphs that restated the lanes above, beside
+ * three comma lists of skills nobody could check. Every claim below now names
+ * the piece that shows it. A slug that does not exist fails the build in `ref`,
+ * so a renamed or removed piece cannot leave a dead claim behind.
+ */
+const bySlug = new Map(work.map((w) => [w.slug, w]));
+function ref(slug: string, label: string) {
+  const item = bySlug.get(slug);
+  if (!item) throw new Error(`About links to unknown work: ${slug}`);
+  return { href: item.href, label };
+}
+
+const AIRTEL = ref("bharti-airtel-initiation", "Bharti Airtel initiation");
+const NEPHRO = ref("nephroplus-initiation", "NephroPlus initiation");
+const WIDEBODY = ref("india-widebody-window", "India's Wide-Body Window");
+const FSPULSE = ref("india-fs-pulse", "India FS Pulse");
+const GROUND = ref("datacentre-capacity-audit", "Ground Truth");
+const SIGNALS = ref("signals-before-storms", "Signals Before Storms");
+
+const practices = [
   {
-    label: "Strategy",
-    text: "Market sizing, market entry, industry and competitive analysis, financial modelling",
+    title: "The test is stated before the result",
+    text: "Both equity initiations print the rule that would change the rating. For Bharti Airtel it is the Jio Platforms price band: a midpoint above US$147 bn makes it a BUY.",
+    refs: [AIRTEL, NEPHRO],
   },
   {
-    label: "Valuation",
-    text: "DCF and reverse DCF, sum of the parts, scenario valuation, comparables",
+    title: "Results against the hypothesis are published",
+    text: "In the regime-switching study the model worked and the strategy did not. The aviation case began with the opposite recommendation and records the reversal in a pivot log.",
+    refs: [SIGNALS, WIDEBODY],
   },
   {
-    label: "Methods and tools",
-    text: "Python, difference-in-differences and event studies, Granger and CCM causal tests, public data pipelines, Git",
+    title: "Each number has a source",
+    text: "The payments case traces every figure to a committed dataset. The data centre audit cites each company figure by printed page, and its build fails if a published claim stops being true.",
+    refs: [FSPULSE, GROUND],
   },
 ];
+
+const skills = [
+  {
+    skill: "Market sizing and market entry",
+    detail:
+      "Demand to 2030 projected by three methods and reported as a band; yield headroom computed corridor by corridor.",
+    refs: [WIDEBODY],
+  },
+  {
+    skill: "Industry economics",
+    detail:
+      "Who earns the value in a payments network whose busiest half is priced at zero; announced capacity checked against filed documents.",
+    refs: [FSPULSE, GROUND],
+  },
+  {
+    skill: "Business case and financial modelling",
+    detail:
+      "Revenue, margin, breakeven and capital for a new business line; a state programme costed against its budget earmark.",
+    refs: [
+      ref("cipla-point-of-care-diagnostics", "Cipla diagnostics case"),
+      ref("maha-navonmesh-tgc-2026", "Maha Navonmesh"),
+    ],
+  },
+  {
+    skill: "Equity valuation",
+    detail:
+      "DCF and reverse DCF, valuation by part, peer multiples, Monte Carlo, and weighted outcomes with a price target.",
+    refs: [AIRTEL, NEPHRO],
+  },
+  {
+    skill: "Macro and markets",
+    detail:
+      "Rates, FX, flows and the balance of payments, with three scenarios and five dated range calls.",
+    refs: [ref("india-markets-monthly-oct-2026", "India Markets Monthly")],
+  },
+  {
+    skill: "Causal inference",
+    detail:
+      "Difference-in-differences with a within-market control; Granger and CCM tests of commodity links.",
+    refs: [
+      ref("regulating-retail-options-boom", "Retail options paper"),
+      ref("enso-macro-risk-desk", "ENSO Macro Risk Desk"),
+    ],
+  },
+  {
+    skill: "Backtesting",
+    detail:
+      "Walk-forward tests with transaction costs, a deflated scorecard and bootstrap confidence intervals.",
+    refs: [SIGNALS],
+  },
+  {
+    skill: "Primary research",
+    detail:
+      "A survey of 51 rural households across four social protection schemes, measured in one round.",
+    refs: [ref("awareness-without-uptake", "Awareness Without Uptake")],
+  },
+  {
+    skill: "Tools",
+    detail:
+      "Python, DuckDB, Git and GitHub Actions, used for data pipelines that rebuild each month.",
+    refs: [FSPULSE],
+  },
+];
+
+type Ref = { href: string; label: string };
+function Refs({ refs }: { refs: Ref[] }) {
+  return (
+    <>
+      {refs.map((r, i) => (
+        <span key={r.href}>
+          {i > 0 && ", "}
+          <Link href={r.href} className="lk text-accent">
+            {r.label}
+          </Link>
+        </span>
+      ))}
+    </>
+  );
+}
 
 export default function Home() {
   return (
@@ -139,48 +243,50 @@ export default function Home() {
         className="scroll-mt-24 border-t border-line py-12 sm:py-16"
       >
         <h2 className="font-serif text-display">About</h2>
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1.2fr_1fr]">
-          <div className="space-y-4 leading-relaxed text-muted">
-            <p>
-              I work on strategy and investment research, and hold an MBA from
-              IIM Bodh Gaya.
-            </p>
-            <p>
-              The strategy cases each start from a decision: where Indian
-              carriers should deploy their next 100 long-haul aircraft, who
-              earns the value in India&apos;s UPI network, and how much of
-              India&apos;s announced data centre capacity is switched on. They
-              are worked from public data and published with the code, so the
-              numbers can be checked.
-            </p>
-            <p>
-              The investment research includes initiations of coverage on
-              NephroPlus and on Bharti Airtel, which sets out in advance the
-              event that would change its rating, a sample India markets note,
-              and two SSRN working papers: one estimates what SEBI&apos;s
-              2024–25 index derivatives curbs did to retail participation, the
-              other asks why rural households who know about a benefit still do
-              not receive it.
-            </p>
-            <p>
-              Two pieces report results against their own starting hypothesis.
-              In the regime-switching study the model worked and the strategy
-              did not. The aviation case reversed its recommendation partway
-              through and records why.
-            </p>
-          </div>
+        <p className="mt-8 max-w-3xl font-serif text-xl leading-relaxed sm:text-2xl sm:leading-relaxed">
+          I work on strategy and investment research. Most pieces here start
+          from a decision someone has to make and end with a recommendation,
+          the numbers behind it, and the source of each number.
+        </p>
 
-          <dl className="space-y-6">
-            {capabilities.map((c) => (
-              <div key={c.label} className="border-t border-line pt-4">
-                <dt className="sc text-accent">{c.label}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-muted">
-                  {c.text}
-                </dd>
-              </div>
-            ))}
-          </dl>
+        <h3 className="mt-14 font-serif text-2xl tracking-tight">
+          How the work is done
+        </h3>
+        <div className="mt-6 grid gap-x-8 gap-y-8 md:grid-cols-3">
+          {practices.map((p) => (
+            <div key={p.title} className="border-t border-line-strong pt-4">
+              <h4 className="font-serif text-xl leading-snug tracking-tight">
+                {p.title}
+              </h4>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                {p.text}
+              </p>
+              <p className="mt-3 text-sm">
+                <Refs refs={p.refs} />
+              </p>
+            </div>
+          ))}
         </div>
+
+        <h3 className="mt-14 font-serif text-2xl tracking-tight">
+          Skills, and where each is shown
+        </h3>
+        <dl className="mt-6 border-t border-line-strong">
+          {skills.map((k) => (
+            <div
+              key={k.skill}
+              className="grid gap-x-8 gap-y-1 border-b border-line py-4 md:grid-cols-[14rem_1fr_15rem]"
+            >
+              <dt className="font-medium text-foreground">{k.skill}</dt>
+              <dd className="text-sm leading-relaxed text-muted">
+                {k.detail}
+              </dd>
+              <dd className="text-sm leading-relaxed max-md:mt-1">
+                <Refs refs={k.refs} />
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       {/* Contact */}
