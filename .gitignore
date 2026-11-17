@@ -42,3 +42,8 @@ next-env.d.ts
 
 # plugin scratch database, not project content
 /.claude/data/
+
+# local working notes, not published
+/README.md
+/CLAUDE.md
+/AGENTS.md
