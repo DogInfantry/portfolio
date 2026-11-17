@@ -13,6 +13,7 @@ const p = (slug: string, label: string) => ({ slug, label });
 const WIDEBODY = p("india-widebody-window", "India's Wide-Body Window");
 const FSPULSE = p("india-fs-pulse", "India FS Pulse");
 const GROUND = p("datacentre-capacity-audit", "Ground Truth");
+const SUN = p("sun-pharma-network-review", "Sun Pharma network review");
 const CIPLA = p("cipla-point-of-care-diagnostics", "Cipla diagnostics case");
 const MAHA = p("maha-navonmesh-tgc-2026", "Maha Navonmesh");
 const INDUSIND = p("indusind-protect", "IndusInd Protect");
@@ -30,7 +31,7 @@ export const skillGroups: SkillGroup[] = [
     title: "Strategy",
     skills: [
       { name: "Market sizing and market entry", proof: [WIDEBODY] },
-      { name: "Industry and value chain economics", proof: [FSPULSE, GROUND] },
+      { name: "Industry and value chain economics", proof: [FSPULSE, GROUND, SUN] },
       { name: "Competitive benchmarking", proof: [INDUSIND, GROUND] },
       { name: "Business case development", proof: [CIPLA, MAHA] },
       { name: "Go-to-market strategy", proof: [INDUSIND] },
@@ -43,7 +44,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "Financial modelling", proof: [CIPLA, AIRTEL] },
       { name: "DCF and reverse DCF valuation", proof: [AIRTEL, ENGINE] },
       { name: "Comparable company analysis", proof: [NEPHRO, AIRTEL] },
-      { name: "Scenario and sensitivity analysis", proof: [AIRTEL, MONTHLY] },
+      { name: "Scenario and sensitivity analysis", proof: [AIRTEL, MONTHLY, SUN] },
       { name: "Equity research and investment thesis", proof: [AIRTEL, NEPHRO] },
     ],
   },

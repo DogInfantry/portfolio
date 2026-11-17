@@ -271,6 +271,57 @@ export const research: ResearchDoc[] = [
     ],
   },
   {
+    slug: "sun-pharma-network-review",
+    domain: "product",
+    title: "Sun Pharma: Network and Portfolio Review",
+    subtitle:
+      "Optimise, not shrink, the US generics network, and wait for the tariff text before building in the US",
+    kind: "Independent strategy case · public data",
+    pages: 24,
+    sizeMB: "1.0 MB",
+    cover: "/research/covers/sun-pharma-network-review.png",
+    file: "/research/sun-pharma-network-review.pdf",
+    summary:
+      "A 10 page decision deck with an evidence appendix on how Sun Pharma should reset its US generics network before a planned US tariff on imported generics: 100% from August 2028 and 200% from August 2029, still with no implementing text. About $686M of US generic sales are imported and dutiable, and at 200% the duty equals 48% of all US generic sales before any pass through. The recommendation is to prune by molecule rather than by country, prepare exits and transfers now, commit when the tariff text lands, add contract manufacturing only against signed customers, and pay down the $3.5B of Organon debt due in 2028 first. Built from public filings, calls and regulator data only; segment margins, the customs ratio, pass through and probabilities are labelled assumptions with ranges. Not investment advice.",
+    metrics: [
+      {
+        value: "+$122M",
+        label: "optimise against defending every site, under the 200% plan",
+      },
+      {
+        value: "48%",
+        label: "of US generic sales owed as duty at 200%, before pass through",
+      },
+      { value: "-$214M", label: "value lost by building US plants now" },
+    ],
+    findings: [
+      "The US decline is lenalidomide, not the base. US sales fell $41M (-8.2%) in Q2 FY27, and the company says sales excluding lenalidomide rose slightly, so the network should be sized on the tariff and the sites rather than the last two quarters",
+      "The threat is a tariff on customs value. About $686M of US generic sales are imported, eight Indian sites sit under some form of FDA action, and paying the tariff while passing half on beats an own US line until the rate passes about 150%",
+      "Only differentiated products clear a 15% hurdle. 32% of FY30 US generic sales clear it, 70% are kept and repriced, and $212M of FY30 sales in the commodity tail and half the flagged site products are exited",
+      "Organon's price and its debt matter more than the network. Organon's own adviser valued it at $6.80 to $13.90 a share against $14 paid, and $3.5B of its debt falls due in 2028, while the network plan needs under 1% of free cash",
+      "Optimising pays if a tariff lands and onshoring now loses value. Probability weighted at a 10% WACC, optimise plus contract manufacturing is worth $455M, optimise alone $362M, defend all $302M and onshore now $88M",
+    ],
+    figures: [
+      {
+        kind: "bars",
+        caption:
+          "Net present value of four network options for US generics and contract manufacturing from FY28, probability weighted across three tariff outcomes, in US$ M. Contract manufacturing adds value only once customers are qualified; segment margins, pass through and the tariff chances are the author's assumptions with stated ranges.",
+        source: "Finding 5; the deck's page 9",
+        data: [
+          {
+            label: "Optimise + contract manufacturing",
+            value: 455,
+            display: "$455M",
+            emphasis: true,
+          },
+          { label: "Optimise", value: 362, display: "$362M" },
+          { label: "Defend all", value: 302, display: "$302M" },
+          { label: "Onshore now", value: 88, display: "$88M" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "cipla-point-of-care-diagnostics",
     domain: "product",
     title: "Cipla: A Point of Care Diagnostics Business",

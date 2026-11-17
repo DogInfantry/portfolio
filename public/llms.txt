@@ -55,6 +55,16 @@ open first.
   DGCA, Eurostat, IATA and World Bank data; the opposite recommendation was
   overturned mid-case and documented in a pivot log.
 
+- [Sun Pharma: Network and Portfolio Review](https://portfolio-five-rouge-90.vercel.app/research/sun-pharma-network-review):
+  24-page independent strategy case from public data. Optimise, not shrink, the
+  US generics network ahead of a planned US tariff on imported generics (100%
+  from August 2028, 200% from August 2029, no text yet). About $686M of US
+  generic sales are imported; at 200% the duty equals 48% of all US generic
+  sales before pass through. Probability weighted NPV: optimise plus contract
+  manufacturing $455M, optimise $362M, defend all $302M, onshore now $88M.
+  Organon's $3.5B of 2028 maturities come before the network plan. Margins,
+  pass through and probabilities are labelled assumptions.
+
 - [India FS Pulse](https://portfolio-five-rouge-90.vercel.app/projects/india-fs-pulse):
   Who captures the value in India's UPI when the busiest half of the network is
   priced at zero. In 2026 Q2 merchant payments were 63.9% of transactions but

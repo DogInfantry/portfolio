@@ -182,9 +182,10 @@ export const groups: Group[] = [
     key: "strategy",
     title: "Strategy cases",
     blurb:
-      "Commercial and public-sector decisions worked from public data: where to deploy a fleet, who earns the value in a payments network, how much announced capacity exists, and whether a new business line pays back. Three open as interactive analyses, two as decks.",
+      "Commercial and public-sector decisions worked from public data: where to deploy a fleet, who earns the value in a payments network, how a drug maker resets its US network before a tariff, how much announced capacity exists, and whether a new business line pays back. Three open as interactive analyses, three as decks.",
     slugs: [
       "india-widebody-window",
+      "sun-pharma-network-review",
       "india-fs-pulse",
       "datacentre-capacity-audit",
       "cipla-point-of-care-diagnostics",
