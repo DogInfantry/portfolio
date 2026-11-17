@@ -69,31 +69,6 @@ function ref(slug: string, label: string) {
   return { href: item.href, label };
 }
 
-const AIRTEL = ref("bharti-airtel-initiation", "Bharti Airtel initiation");
-const NEPHRO = ref("nephroplus-initiation", "NephroPlus initiation");
-const WIDEBODY = ref("india-widebody-window", "India's Wide-Body Window");
-const FSPULSE = ref("india-fs-pulse", "India FS Pulse");
-const GROUND = ref("datacentre-capacity-audit", "Ground Truth");
-const SIGNALS = ref("signals-before-storms", "Signals Before Storms");
-
-const practices = [
-  {
-    title: "The test is stated before the result",
-    text: "Both equity initiations print the rule that would change the rating. For Bharti Airtel it is the Jio Platforms price band: a midpoint above US$147 bn makes it a BUY.",
-    refs: [AIRTEL, NEPHRO],
-  },
-  {
-    title: "Results against the hypothesis are published",
-    text: "In the regime-switching study the model worked and the strategy did not. The aviation case began with the opposite recommendation and records the reversal in a pivot log.",
-    refs: [SIGNALS, WIDEBODY],
-  },
-  {
-    title: "Each number has a source",
-    text: "The payments case traces every figure to a committed dataset. The data centre audit cites each company figure by printed page, and its build fails if a published claim stops being true.",
-    refs: [FSPULSE, GROUND],
-  },
-];
-
 const skillCards = skillGroups.map((g) => ({
   ...g,
   skills: g.skills.map((k) => ({
@@ -102,12 +77,24 @@ const skillCards = skillGroups.map((g) => ({
   })),
 }));
 
-const quickFacts = [
-  { k: "Looking for", v: "Roles in strategy, consulting and investment research" },
+const quickFacts: { k: string; v: string; href?: string }[] = [
+  { k: "Role", v: "Strategy and investment research" },
   { k: "Education", v: site.education },
-  { k: "Focus", v: "Commercial strategy, equity research and Indian markets" },
-  { k: "Published", v: "Two working papers on SSRN" },
+  { k: "Looking for", v: "Roles in strategy, consulting and investment research" },
+  { k: "Published", v: "Two working papers on SSRN", href: site.ssrn },
+  { k: "Email", v: site.email, href: `mailto:${site.email}` },
+  { k: "LinkedIn", v: "Anklesh Rawat", href: site.linkedin },
 ];
+
+/** one plain line per lane for "What I make" in About */
+const makes: Record<string, string> = {
+  strategy:
+    "Decision decks and interactive analyses on market entry, value chains and new business lines.",
+  research:
+    "Equity initiations with a rating, a target and a valuation, plus a monthly markets note.",
+  papers:
+    "Policy evaluations and backtests that state the design first and report the result either way.",
+};
 
 type Ref = { href: string; label: string };
 function Refs({ refs }: { refs: Ref[] }) {
@@ -127,8 +114,6 @@ function Refs({ refs }: { refs: Ref[] }) {
 
 const button =
   "rounded-sm border border-line-strong bg-card px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent";
-const card =
-  "rounded-md border border-line-strong bg-card p-5 shadow-[var(--raise)]";
 
 export default function Home() {
   return (
@@ -361,52 +346,88 @@ export default function Home() {
       )}
 
       {/* About.
-          A statement and the quick facts a reader or an answer engine looks
-          for first, then skills grouped the way job descriptions group them,
-          each linked to the piece that shows it, then how the work is done. */}
+          Who this is in three sentences, the facts a reader looks for first,
+          what the work consists of, and the skills with the pieces that show
+          them. No dates and nothing that is not stated elsewhere on the site. */}
       <section
         id="about"
-        className="scroll-mt-24 border-t border-line py-12 sm:py-16"
+        className="scroll-mt-24 border-t-2 border-foreground pb-12 pt-8 sm:pb-16 sm:pt-10"
       >
-        <h2 className="font-serif text-display">About</h2>
-        <div className="mt-8 grid gap-x-12 gap-y-10 lg:grid-cols-[1.6fr_1fr]">
-          <p className="max-w-3xl font-serif text-xl leading-relaxed sm:text-2xl sm:leading-relaxed">
-            I work on strategy and investment research. Most pieces here start
-            from a decision someone has to make and end with a recommendation,
-            the numbers behind it, and the source of each number.
-          </p>
-          <dl className="grid content-start gap-y-4 border-t border-line-strong pt-4 text-sm">
+        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[1.5fr_1fr]">
+          <div>
+            <h2 className="font-serif text-chapter">About</h2>
+            <p className="mt-6 max-w-2xl font-serif text-xl leading-relaxed sm:text-2xl sm:leading-relaxed">
+              I&rsquo;m a strategy and investment research analyst with an MBA
+              from IIM Bodh Gaya. I take a business decision, such as where an
+              airline should fly its new wide-bodies or how a drug maker should
+              reset its US plants before a tariff, build the model from public
+              filings and data, and end with a recommendation and the numbers
+              behind it. I also write equity initiations and working papers, two
+              of which are on SSRN.
+            </p>
+          </div>
+          <dl className="content-start self-end text-sm lg:pb-1">
             {quickFacts.map((f) => (
-              <div key={f.k} className="grid grid-cols-[7rem_1fr] gap-x-4">
+              <div
+                key={f.k}
+                className="grid grid-cols-[7.5rem_1fr] gap-x-4 border-t border-line py-3"
+              >
                 <dt className="sc pt-0.5 text-muted-2">{f.k}</dt>
-                <dd className="leading-relaxed">{f.v}</dd>
+                <dd className="leading-relaxed">
+                  {f.href ? (
+                    <a
+                      href={f.href}
+                      {...(f.href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="lk text-accent"
+                    >
+                      {f.v}
+                    </a>
+                  ) : (
+                    f.v
+                  )}
+                </dd>
               </div>
             ))}
-            <div className="grid grid-cols-[7rem_1fr] gap-x-4">
-              <dt className="sc pt-0.5 text-muted-2">Contact</dt>
-              <dd>
-                <a href={`mailto:${site.email}`} className="lk text-accent">
-                  {site.email}
-                </a>
-              </dd>
-            </div>
           </dl>
         </div>
 
-        <h3 className="mt-16 font-serif text-2xl tracking-tight">
-          Skills, and where each is shown
-        </h3>
-        <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <h3 className="mt-16 font-serif text-2xl tracking-tight">What I make</h3>
+        <ol className="mt-4 border-t border-line-strong">
+          {lanes.map((g, i) => (
+            <li key={g.key} className="border-b border-line">
+              <a
+                href={`#${g.key}`}
+                className="group grid grid-cols-[3rem_1fr] gap-x-4 py-5 sm:grid-cols-[3rem_16rem_1fr_auto] sm:items-baseline"
+              >
+                <span className="tnum font-serif text-3xl font-light leading-none text-accent">
+                  {num(i)}
+                </span>
+                <span className="font-serif text-xl leading-snug tracking-tight transition-colors group-hover:text-accent">
+                  {g.title}
+                </span>
+                <span className="col-start-2 mt-1 leading-relaxed text-muted sm:col-start-auto sm:mt-0">
+                  {makes[g.key]}
+                </span>
+                <span className="sc tnum col-start-2 mt-2 text-muted-2 sm:col-start-auto sm:mt-0">
+                  {g.items.length} pieces <span aria-hidden="true">↓</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+
+        <h3 className="mt-16 font-serif text-2xl tracking-tight">Skills</h3>
+        <div className="mt-4 grid gap-x-10 gap-y-8 border-t border-line-strong pt-6 md:grid-cols-3">
           {skillCards.map((g) => (
-            <div key={g.title} className={card}>
-              <h4 className="font-serif text-lg tracking-tight">{g.title}</h4>
-              <ul className="mt-4 space-y-4">
+            <div key={g.title}>
+              <h4 className="sc text-muted-2">{g.title}</h4>
+              <ul className="mt-4 space-y-3">
                 {g.skills.map((k) => (
                   <li key={k.name}>
-                    <p className="text-sm font-medium leading-snug text-foreground">
-                      {k.name}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed">
+                    <p className="font-medium leading-snug">{k.name}</p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-muted">
                       <Refs refs={k.refs} />
                     </p>
                   </li>
@@ -414,39 +435,11 @@ export default function Home() {
               </ul>
             </div>
           ))}
-          <div className={card}>
-            <h4 className="font-serif text-lg tracking-tight">Tools</h4>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {tools.map((t) => (
-                <li
-                  key={t}
-                  className="rounded-sm border border-line bg-sunken px-2.5 py-1 text-sm"
-                >
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
-
-        <h3 className="mt-16 font-serif text-2xl tracking-tight">
-          How the work is done
-        </h3>
-        <div className="mt-6 grid gap-x-8 gap-y-8 md:grid-cols-3">
-          {practices.map((p) => (
-            <div key={p.title} className="border-t border-line-strong pt-4">
-              <h4 className="font-serif text-xl leading-snug tracking-tight">
-                {p.title}
-              </h4>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {p.text}
-              </p>
-              <p className="mt-3 text-sm">
-                <Refs refs={p.refs} />
-              </p>
-            </div>
-          ))}
-        </div>
+        <p className="mt-8 border-t border-line pt-4 leading-relaxed">
+          <span className="sc mr-3 text-muted-2">Tools</span>
+          {tools.join(" · ")}
+        </p>
       </section>
 
       {/* Contact */}
