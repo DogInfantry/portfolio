@@ -8,6 +8,32 @@
 
 Site: https://portfolio-five-rouge-90.vercel.app
 
+## Quick facts
+
+- Looking for: roles in strategy, consulting and investment research
+- Education: MBA, IIM Bodh Gaya
+- Focus: commercial strategy, equity research and Indian markets
+- Published: two working papers on SSRN
+- Tools: Excel, PowerPoint, SQL, Power BI / Tableau, Python, DuckDB, Git, AI tools and LLMs
+
+## Skills, with the work that shows each
+
+- Strategy: market sizing and market entry (India's Wide-Body Window);
+  industry and value chain economics (India FS Pulse, Ground Truth);
+  competitive benchmarking (IndusInd Protect, Ground Truth); business case
+  development (Cipla diagnostics case, Maha Navonmesh); go-to-market strategy
+  (IndusInd Protect); hypothesis-driven problem solving (India's Wide-Body
+  Window, Signals Before Storms).
+- Finance and valuation: financial modelling (Cipla diagnostics case, Bharti
+  Airtel); DCF and reverse DCF valuation (Bharti Airtel, Sellside Research
+  Engine); comparable company analysis (NephroPlus, Bharti Airtel); scenario
+  and sensitivity analysis (Bharti Airtel, India Markets Monthly); equity
+  research and investment thesis (Bharti Airtel, NephroPlus).
+- Research methods: causal inference with difference-in-differences (retail
+  options paper, ENSO Macro Risk Desk); backtesting (Signals Before Storms);
+  primary research with surveys and interviews (Awareness Without Uptake,
+  IndusInd Protect); macro and markets analysis (India Markets Monthly).
+
 Everything below is also browsable as one filterable index at
 https://portfolio-five-rouge-90.vercel.app/work, narrowable by subject
 (?domain=credit, equities, macro, product, quant, sustainable, climate,

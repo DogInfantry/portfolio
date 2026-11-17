@@ -38,6 +38,8 @@ export type WorkItem = {
   imageKind: "screenshot" | "cover" | "figure";
   /** short provenance line under the title */
   meta: string;
+  /** what the work concluded, in one sentence, quoted from its first finding */
+  answer?: string;
   /**
    * Lowercased haystack for the index search box. Derived here, never authored.
    *
@@ -53,6 +55,21 @@ export type WorkItem = {
    */
   search: string;
 };
+
+/**
+ * The first sentence of an item's first finding, as the card's answer line.
+ * Findings are written claim first, so the opening sentence is the conclusion;
+ * the "The answer:" style lead-ins are dropped because the card already says so.
+ */
+export function firstSentence(text?: string) {
+  if (!text) return undefined;
+  const cut = text.indexOf(". ");
+  const s = (cut === -1 ? text : text.slice(0, cut + 1)).replace(
+    /^The (answer|finding|headline): /,
+    ""
+  );
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 
 const haystack = (...parts: (string | readonly string[] | undefined)[]) =>
   parts
@@ -94,6 +111,7 @@ const fromProjects: WorkItem[] = projects.map((p) => {
     image: p.thumbnail ?? p.screenshot ?? p.cover,
     imageKind: p.thumbnail ? "figure" : p.screenshot ? "screenshot" : "cover",
     meta: p.fact,
+    answer: firstSentence(p.highlights[0]),
     search: haystack(
       p.title,
       p.tagline,
@@ -120,6 +138,7 @@ const fromResearch: WorkItem[] = research.map((d) => ({
   image: d.cover,
   imageKind: "cover",
   meta: `${d.kind} · ${d.pages} pp`,
+  answer: firstSentence(d.findings?.[0]),
   search: haystack(
     d.title,
     d.subtitle,
@@ -228,6 +247,17 @@ export function groupItems(items: WorkItem[]) {
       return { ...g, items: picked };
     })
     .filter((g) => g.items.length > 0);
+}
+
+/**
+ * A case page's one-line answer: the lane's curated finding for a lane lead,
+ * otherwise the first sentence of the piece's first finding.
+ */
+export function answerFor(slug: string, firstFinding?: string) {
+  return (
+    groups.find((g) => g.slugs?.[0] === slug)?.finding ??
+    firstSentence(firstFinding)
+  );
 }
 
 /** Domains that actually have work behind them, in the palette's slot order. */

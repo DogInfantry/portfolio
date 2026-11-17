@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/data/site";
+import { knowsAbout } from "@/data/skills";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -31,27 +32,8 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "Portfolio of Anklesh Rawat (MBA, IIM Bodh Gaya): strategy cases and investment research. Commercial strategy cases on aviation fleet deployment, payments economics and data centre capacity, equity initiations on Bharti Airtel and NephroPlus, and two SSRN working papers, on SEBI's 2024–25 index derivatives reforms and on social protection take-up in rural India.",
-  keywords: [
-    "Anklesh Rawat",
-    "commercial strategy",
-    "market entry strategy",
-    "corporate finance",
-    "investment research",
-    "payments economics",
-    "policy research",
-    "equity research",
-    "credit analysis",
-    "covenant monitoring",
-    "financial modeling",
-    "derivatives regulation",
-    "SEBI index derivatives reforms",
-    "difference-in-differences",
-    "capital markets",
-    "sustainable finance",
-    "product strategy",
-    "IIM Bodh Gaya",
-  ],
+    "Anklesh Rawat is a strategy and investment research analyst (MBA, IIM Bodh Gaya), open to roles in strategy, consulting and investment research. Strategy cases on aviation, payments and data centres, equity initiations on Bharti Airtel and NephroPlus, and two SSRN working papers.",
+  keywords: [site.name, "IIM Bodh Gaya", ...knowsAbout],
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   alternates: { canonical: "/" },
@@ -72,28 +54,20 @@ export const metadata: Metadata = {
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${site.url}/#person`,
   name: site.name,
   url: site.url,
   email: `mailto:${site.email}`,
   jobTitle: "Strategy & Investment Research Analyst",
   description:
-    "Works on strategy cases and investment research, publishing each piece as an interactive analysis, a report or a working paper.",
+    "Strategy and investment research analyst, open to roles in strategy, consulting and investment research. Publishes each piece as an interactive analysis, a report or a working paper.",
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Indian Institute of Management Bodh Gaya",
   },
   identifier: site.orcid,
   sameAs: [site.linkedin, site.github, site.ssrn, site.orcid],
-  knowsAbout: [
-    "Investment research",
-    "Equity valuation",
-    "Credit and covenant analysis",
-    "Derivatives regulation",
-    "Causal inference",
-    "Capital markets",
-    "Sustainable finance",
-    "Product strategy",
-  ],
+  knowsAbout,
 };
 
 /**

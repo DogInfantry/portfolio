@@ -164,7 +164,7 @@ export default function WorkIndex({
     [state.q]
   );
 
-  /** query applied, facets not: this is what the matrix counts */
+  /** query applied, facets not: this is what the chip counts show */
   const base = useMemo(
     () =>
       tokens.length
@@ -319,9 +319,6 @@ export default function WorkIndex({
           types={types}
           selectedDomains={state.domains}
           selectedTypes={state.types}
-          /* a matrix of seven dots over two columns is a table with a
-             decorative column, so /research degrades to a plain chip list */
-          showCounts={rows.length > 10}
           onToggleDomain={(k) =>
             commit({
               domains: state.domains.includes(k)

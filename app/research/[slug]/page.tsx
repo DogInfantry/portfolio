@@ -6,6 +6,8 @@ import { asset } from "@/data/asset";
 import { getResearchDoc, research } from "@/data/research";
 import { getDomain, domainVar } from "@/data/domains";
 import { site } from "@/data/site";
+import { answerFor } from "@/data/work";
+import AtAGlance from "@/components/AtAGlance";
 import Figure from "@/components/Figure";
 import JsonLd from "@/components/JsonLd";
 import StatTiles from "@/components/charts/StatTiles";
@@ -55,6 +57,7 @@ export default async function ResearchDocPage({
   const url = `${site.url}/research/${doc.slug}`;
   const domain = getDomain(doc.domain);
   const hue = domainVar(doc.domain);
+  const answer = answerFor(doc.slug, doc.findings?.[0]);
 
   const jsonLd = pub
     ? {
@@ -138,6 +141,7 @@ export default async function ResearchDocPage({
         <p className="mt-4 font-serif text-lg italic leading-relaxed text-muted">
           {doc.subtitle}
         </p>
+        <AtAGlance slug={doc.slug} answer={answer} hue={hue} />
         {pub && (
           <p className="mt-4 text-sm leading-relaxed text-muted">
             {pub.authors.join(" · ")}

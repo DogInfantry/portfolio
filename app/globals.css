@@ -200,45 +200,6 @@ footer {
    not flash the wrong one. There is one index per page, which is why the
    attribute can live on the root element.
 --------------------------------------------------------------------------- */
-/* Below sm the subject-by-form matrix degrades to a wrapping row of subject
-   chips: the table parts are re-laid out as blocks and the counts drop away,
-   so the same markup serves both without a second copy of it and without any
-   state. Twenty seven cells does not fit 375px; nine chips does. */
-@media (max-width: 639px) {
-  .facet table,
-  .facet tbody,
-  .facet tr,
-  .facet th {
-    display: block;
-  }
-  .facet thead,
-  .facet td {
-    display: none;
-  }
-  .facet tbody {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .facet tr {
-    border: 0;
-    background: none;
-  }
-  .facet th[scope="row"] {
-    padding: 0;
-  }
-  .facet th[scope="row"] button {
-    width: auto;
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    padding: 6px 12px;
-  }
-  .facet th[scope="row"] button[aria-pressed="true"] {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-  }
-}
-
 .wi-table {
   display: none;
 }

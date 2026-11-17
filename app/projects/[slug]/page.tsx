@@ -6,7 +6,8 @@ import { asset } from "@/data/asset";
 import { getProject, projects } from "@/data/projects";
 import { getDomain, domainVar } from "@/data/domains";
 import { site } from "@/data/site";
-import { projectTypeLabel } from "@/data/work";
+import { answerFor, projectTypeLabel } from "@/data/work";
+import AtAGlance from "@/components/AtAGlance";
 import BrowserFrame from "@/components/BrowserFrame";
 import DocCover from "@/components/DocCover";
 import Figure from "@/components/Figure";
@@ -55,6 +56,7 @@ export default async function ProjectPage({
   const url = `${site.url}/projects/${project.slug}`;
   const domain = getDomain(project.domain);
   const hue = domainVar(project.domain);
+  const answer = answerFor(project.slug, project.highlights[0]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -62,6 +64,7 @@ export default async function ProjectPage({
     name: project.title,
     headline: project.tagline,
     description: project.description,
+    ...(answer ? { abstract: answer } : {}),
     about: domain.label,
     keywords: project.stack.join(", "),
     author: { "@type": "Person", name: site.name, url: site.url },
@@ -127,6 +130,7 @@ export default async function ProjectPage({
         <p className="mt-4 text-lg leading-relaxed text-muted">
           {project.tagline}
         </p>
+        <AtAGlance slug={project.slug} answer={answer} hue={hue} />
         {/* The overview paragraph used to sit under an "Overview" heading below
             the numbers, where it restated the tagline to a reader who had not
             been given a single figure yet. As an unlabelled lede it is read. */}

@@ -69,97 +69,142 @@ export function WorkMedia({
 }
 
 /**
- * One card shape for every artefact: dashboard, working paper or report.
+ * One card for every artefact, read as question, answer, number.
  *
- * Reading order is hue rule, media, title, outcome, one number, caption row.
- * Taxonomy is a caption, not a header: the domain and the artefact type used to
- * sit above the title, which put two lines of small caps between the reader and
- * the thing they came for.
+ * A recruiter skimming the grid gets three things per piece without opening
+ * it: what was asked (`outcome`), what the work concluded (`answer`, or the
+ * lane's curated `finding` on a lead card) and one number with its label.
+ * Taxonomy sits at the foot as a caption, never above the title.
  *
- * Three earlier faults, all measured rather than felt:
+ * `lead` is the lane's first piece on the home page: same card, bigger type,
+ * the lane's finding and two numbers. Every card is a container query
+ * box, so once the grid makes it wide (the lead, or a card stretched to close
+ * a row) it turns into an image-left layout by itself instead of a stretched
+ * portrait card.
  *
- * The media slot and DocCover disagreed on aspect ratio, 16/10 against 16/9, so
- * cards in the same row had different heights. They match now.
- *
- * Six of the sixteen images are portrait A4 first pages, and object-cover
- * cropped them into a landscape box, so a reader saw the top strip of a title
- * page. Covers are contained on a sunken plate now, which reads as a page on a
- * desk. Screenshots and figures are genuinely landscape and still fill.
- *
- * The card carried two metrics in a two-column table, which nobody reads at
- * 320px, and a "Case study" link to the same destination as the overlay that
- * already makes the whole card clickable, which was a second tab stop to one
- * place. One metric, one link, and the affordance text is decorative.
+ * Covers are contained on a sunken plate so an A4 first page reads as a page;
+ * screenshots and figures fill. The whole card is one overlay link; the
+ * external link and the subject filter sit above it.
  */
 export default function WorkCard({
   item,
   headingLevel = 3,
+  lead = false,
+  finding,
+  eager = false,
 }: {
   item: WorkItem;
   headingLevel?: 3 | 4;
+  lead?: boolean;
+  /** a lane's curated conclusion; replaces the derived answer on a lead */
+  finding?: string;
+  eager?: boolean;
 }) {
   const domain = getDomain(item.domain);
   const hue = domainVar(item.domain);
   const metric = item.metrics[0];
+  const answer = finding ?? item.answer;
   const Heading = `h${headingLevel}` as const;
   return (
     <article
       data-slug={item.slug}
-      className="group relative flex h-full flex-col overflow-hidden rounded-md border border-line-strong bg-card shadow-[var(--raise)] transition-colors hover:border-accent"
+      className="@container group relative flex h-full flex-col overflow-hidden rounded-md border border-line-strong bg-card shadow-[var(--raise)] transition-[border-color,box-shadow] hover:border-accent hover:shadow-[var(--shadow-lift)]"
     >
       <span
         aria-hidden="true"
-        className="block h-[3px] w-full"
+        className="block h-[3px] w-full shrink-0"
         style={{ background: hue }}
       />
 
-      <WorkMedia
-        item={item}
-        sizes="(min-width: 1024px) 368px, (min-width: 640px) 50vw, 100vw"
-      />
+      <div className="flex flex-1 flex-col @2xl:grid @2xl:grid-cols-[1.1fr_1fr]">
+        <div className="bg-sunken @2xl:flex @2xl:items-center">
+          <WorkMedia
+            item={item}
+            eager={eager}
+            sizes={
+              lead
+                ? "(min-width: 1024px) 600px, 100vw"
+                : "(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
+            }
+          />
+        </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <Heading className="font-serif text-xl leading-snug tracking-tight sm:line-clamp-2">
-          <Link href={item.href} className="transition-colors hover:text-accent">
-            {/* the whole card is not a link: it holds two destinations, and a
-                nested anchor for the second one would be invalid */}
-            <span className="absolute inset-0 z-0" aria-hidden="true" />
-            {item.title}
-          </Link>
-        </Heading>
+        <div className={`flex flex-1 flex-col ${lead ? "p-6 sm:p-8" : "p-6"}`}>
+          <Heading
+            className={`font-serif leading-snug tracking-tight ${
+              lead ? "text-2xl sm:text-3xl" : "text-xl"
+            }`}
+          >
+            <Link href={item.href} className="transition-colors hover:text-accent">
+              <span className="absolute inset-0 z-0" aria-hidden="true" />
+              {item.title}
+            </Link>
+          </Heading>
 
-        <p className="mt-3 text-sm leading-relaxed text-muted sm:line-clamp-2">
-          {item.outcome}
-        </p>
+          <p
+            className={`mt-3 leading-relaxed text-muted ${
+              lead ? "" : "text-sm"
+            }`}
+          >
+            {item.outcome}
+          </p>
 
-        {metric && (
-          <dl className="mt-auto pt-6">
-            <dd className="tnum text-xl font-semibold leading-none tracking-tight text-foreground">
-              {metric.value}
-            </dd>
-            <dt className="sc mt-2 text-muted-2">{metric.label}</dt>
-          </dl>
-        )}
+          {answer && (
+            <p
+              className={`mt-4 border-l-2 pl-3 leading-relaxed text-foreground ${
+                lead ? "text-lg" : "text-sm line-clamp-4"
+              }`}
+              style={{ borderColor: hue }}
+            >
+              {answer}
+            </p>
+          )}
 
-        {/* Two deliberate lines rather than one wrapping row. The subject and
-            the artefact together need about 290px inside a 253px slot, so a
-            single row wrapped on the long domain names and not the short ones,
-            which left the caption one line tall on some cards in a row and two
-            on others. Fixed at two, it is even across the grid. */}
-        <div className="mt-4 border-t border-line pt-3">
-          <div className="flex items-baseline justify-between gap-3">
-            <p className="sc flex min-w-0 items-center gap-x-2 text-muted">
-              <span
-                aria-hidden="true"
-                className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
-                style={{ background: hue }}
-              />
+          {lead && item.metrics.length > 1 ? (
+            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5">
+              {item.metrics.slice(0, 2).map((m) => (
+                <div key={m.label}>
+                  <dd className="tnum text-2xl font-semibold leading-none tracking-tight text-foreground">
+                    {m.value}
+                  </dd>
+                  <dt className="sc mt-2 text-muted-2">{m.label}</dt>
+                </div>
+              ))}
+            </dl>
+          ) : metric && (
+            <dl className={lead ? "mt-6" : "mt-auto pt-6"}>
+              <dd
+                className={`tnum font-semibold leading-none tracking-tight text-foreground ${
+                  lead ? "text-3xl" : "text-xl"
+                }`}
+              >
+                {metric.value}
+              </dd>
+              <dt className="sc mt-2 text-muted-2">{metric.label}</dt>
+            </dl>
+          )}
+
+          <div
+            className={`flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-line pt-3 ${
+              metric ? "mt-5" : "mt-auto"
+            }`}
+          >
+            <p className="sc flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-muted">
               <Link
                 href={`/work?domain=${item.domain}`}
-                className="relative z-10 truncate transition-colors hover:text-accent"
+                className="relative z-10 flex items-center gap-2 transition-colors hover:text-accent"
               >
+                <span
+                  aria-hidden="true"
+                  className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                  style={{ background: hue }}
+                />
                 {domain.label}
               </Link>
+              <span className="flex items-center gap-1.5 text-muted-2">
+                <Glyph type={item.type} className="h-3 w-3" />
+                {item.typeLabel}
+              </span>
             </p>
 
             {item.external && (
@@ -167,17 +212,12 @@ export default function WorkCard({
                 href={item.external.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="lk relative z-10 shrink-0 text-sm font-medium text-muted"
+                className="lk relative z-10 shrink-0 text-sm font-medium text-accent"
               >
                 {item.external.label} <span aria-hidden="true">↗</span>
               </a>
             )}
           </div>
-
-          <p className="sc mt-1.5 flex items-center gap-1.5 text-muted-2">
-            <Glyph type={item.type} className="h-3 w-3" />
-            {item.typeLabel}
-          </p>
         </div>
       </div>
     </article>
