@@ -150,6 +150,15 @@
   --text-hero: clamp(2.75rem, 1.7rem + 4.4vw, 3.75rem);
   --text-hero--line-height: 1.04;
   --text-hero--letter-spacing: -0.022em;
+
+  /* the name in the home masthead, and the title of each lane's opener */
+  --text-masthead: clamp(3.25rem, 1.6rem + 6.4vw, 5.75rem);
+  --text-masthead--line-height: 0.95;
+  --text-masthead--letter-spacing: -0.03em;
+
+  --text-chapter: clamp(2.375rem, 1.6rem + 3.2vw, 3.5rem);
+  --text-chapter--line-height: 1;
+  --text-chapter--letter-spacing: -0.022em;
 }
 
 html {

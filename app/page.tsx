@@ -37,6 +37,26 @@ function span(i: number, n: number) {
   return `${MD[md]} ${md === 2 || lg > 1 ? LG[lg] : ""}`;
 }
 
+/** lane numeral: 01, 02, 03 */
+const num = (i: number) => String(i + 1).padStart(2, "0");
+
+/** "3 interactive analyses · 3 reports", counted from the lane's own items */
+function formats(items: { typeLabel: string }[]) {
+  const counts = new Map<string, number>();
+  for (const { typeLabel } of items)
+    counts.set(typeLabel, (counts.get(typeLabel) ?? 0) + 1);
+  return [...counts]
+    .map(([label, n]) => {
+      const l = label.toLowerCase();
+      const plural = l.endsWith("analysis") ? l.replace(/analysis$/, "analyses") : `${l}s`;
+      return `${n} ${n === 1 ? l : plural}`;
+    })
+    .join(" · ");
+}
+
+/** short name for the lane's piece list: the part of the title before a colon */
+const short = (title: string) => title.split(":")[0];
+
 /**
  * About is evidence, not adjectives. Every skill names the piece that shows
  * it, and a slug that does not exist fails the build here, so a renamed or
@@ -130,27 +150,39 @@ export default function Home() {
 
           The entry animation is CSS. Nothing here sets opacity to 0 outside a
           keyframe, so a failed or slow bundle cannot leave the page blank. */}
-      <section className="pb-10 pt-12 sm:pb-14 sm:pt-20">
-        <h1
-          className="enter max-w-3xl font-serif text-hero"
+      <section className="pb-12 pt-8 sm:pb-16 sm:pt-12">
+        {/* Masthead line: what the site covers and the degree, set like the
+            dateline of a journal issue across the full width. */}
+        <div
+          className="enter sc flex flex-wrap justify-between gap-x-6 gap-y-1 border-t-4 border-foreground pt-3 text-muted"
           style={{ "--i": 0 } as React.CSSProperties}
+        >
+          <span>{site.role}</span>
+          <span>{site.education}</span>
+        </div>
+        <div className="mt-10 grid gap-12 sm:mt-14 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
+        <div>
+        <h1
+          className="enter font-serif text-masthead"
+          style={{ "--i": 1 } as React.CSSProperties}
         >
           {site.name}
         </h1>
         <p
-          className="enter mt-4 max-w-2xl font-serif text-xl italic leading-snug text-accent sm:text-2xl"
-          style={{ "--i": 1 } as React.CSSProperties}
-        >
-          Strategy and investment research. {site.education}.
-        </p>
-        <p
-          className="enter mt-6 max-w-2xl text-lg leading-relaxed text-muted"
+          className="enter mt-6 max-w-xl font-serif text-xl italic leading-snug sm:text-2xl"
           style={{ "--i": 2 } as React.CSSProperties}
         >
-          Strategy cases, equity initiations and working papers, each built
-          from public data and each ending in a recommendation with the numbers
-          behind it. Open to roles in strategy, consulting and investment
-          research.
+          <span className="text-accent">
+            Strategy cases, equity initiations and working papers,
+          </span>{" "}
+          each built from public data and each ending in a recommendation with
+          the numbers behind it.
+        </p>
+        <p
+          className="enter mt-4 max-w-xl leading-relaxed text-muted"
+          style={{ "--i": 2 } as React.CSSProperties}
+        >
+          Open to roles in strategy, consulting and investment research.
         </p>
         <div
           className="enter mt-8 flex flex-wrap items-center gap-3"
@@ -175,34 +207,54 @@ export default function Home() {
           </a>
         </div>
         <p
-          className="enter sc mt-6 max-w-3xl leading-loose text-muted-2"
+          className="enter sc mt-8 max-w-xl leading-loose text-muted-2"
           style={{ "--i": 4 } as React.CSSProperties}
         >
           {headlineSkills.join(" · ")}
         </p>
+        </div>
+
+        {/* Contents: one row per lane, with the finding its lead piece
+            reached, so a reader can pick a lane before scrolling. */}
         <nav
-          aria-label="Work, by group"
-          className="enter mt-12 grid gap-x-8 gap-y-6 sm:grid-cols-3"
+          aria-label="Contents"
+          className="enter lg:border-l lg:border-line-strong lg:pl-10"
           style={{ "--i": 5 } as React.CSSProperties}
         >
-          {lanes.map((g) => (
-            <a
-              key={g.key}
-              href={`#${g.key}`}
-              className="group block border-t border-line-strong pt-4 transition-colors hover:border-accent"
-            >
-              <span className="block font-serif text-xl leading-snug tracking-tight transition-colors group-hover:text-accent">
-                {g.title}
-              </span>
-              <span className="mt-1 block text-sm leading-snug text-muted">
-                Starts with {g.items[0].title}
-              </span>
-              <span className="sc tnum mt-2 block text-muted-2">
-                {g.items.length} pieces <span aria-hidden="true">↓</span>
-              </span>
-            </a>
-          ))}
+          <p className="sc border-b border-line-strong pb-3 text-muted">
+            Contents
+          </p>
+          <ol>
+            {lanes.map((g, i) => (
+              <li key={g.key} className="border-b border-line">
+                <a
+                  href={`#${g.key}`}
+                  className="group grid grid-cols-[3.25rem_1fr] gap-x-3 py-5"
+                >
+                  <span className="tnum font-serif text-4xl font-light leading-none text-accent">
+                    {num(i)}
+                  </span>
+                  <span>
+                    <span className="flex items-baseline justify-between gap-3">
+                      <span className="font-serif text-xl leading-snug tracking-tight transition-colors group-hover:text-accent">
+                        {g.title}
+                      </span>
+                      <span className="sc tnum shrink-0 text-muted-2">
+                        {g.items.length} <span aria-hidden="true">↓</span>
+                      </span>
+                    </span>
+                    {g.finding && (
+                      <span className="mt-1.5 line-clamp-2 block text-sm leading-relaxed text-muted">
+                        {g.finding}
+                      </span>
+                    )}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
         </nav>
+        </div>
       </section>
 
       {/* #work and #projects are kept on the first lane so older links and
@@ -212,7 +264,7 @@ export default function Home() {
         <section
           key={g.key}
           id={g.key}
-          className="scroll-mt-24 border-t border-line py-12 sm:py-16"
+          className="scroll-mt-24 border-t-2 border-foreground pb-12 pt-8 sm:pb-16 sm:pt-10"
         >
           {i === 0 && (
             <>
@@ -220,11 +272,69 @@ export default function Home() {
               <span id="projects" className="vh scroll-mt-24" />
             </>
           )}
-          <h2 className="font-serif text-display">{g.title}</h2>
-          <p className="mt-4 max-w-2xl leading-relaxed text-muted">{g.blurb}</p>
+          {/* Chapter opener: numeral and title on the left, what the lane
+              covers and what is in it on the right. */}
+          <div className="grid gap-6 lg:grid-cols-[1fr_1.4fr] lg:gap-14">
+            <div>
+              <span
+                aria-hidden="true"
+                className="tnum block font-serif text-5xl font-light leading-none text-accent"
+              >
+                {num(i)}
+              </span>
+              <h2 className="mt-4 max-w-md font-serif text-chapter">{g.title}</h2>
+            </div>
+            <div className="lg:pt-2">
+              <p className="text-lg leading-relaxed">{g.blurb}</p>
+              <div className="mt-6 border-t border-line pt-4">
+                <p className="sc text-muted-2">
+                  Inside <span className="tnum ml-2 text-muted">{formats(g.items)}</span>
+                </p>
+                <p className="mt-2 leading-relaxed">
+                  {g.items.map((item, j) => (
+                    <span key={item.slug}>
+                      {j > 0 && <span aria-hidden="true" className="text-muted-2"> · </span>}
+                      <a href={`#${item.slug}`} className="lk text-accent">
+                        {short(item.title)}
+                      </a>
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Running head. Sticky inside its own section, so it rides under the
+              nav only while this lane is on screen and the next lane's head
+              takes over. CSS only, nothing animates. */}
+          <div className="sticky top-14 z-40 -mx-5 mt-10 border-y border-line bg-background/90 px-5 backdrop-blur">
+            <div className="sc tnum flex h-10 items-center justify-between gap-4">
+              <span>
+                <span className="text-accent">{num(i)}</span>
+                <span className="ml-2">{g.title.split(" and ")[0]}</span>
+                <span className="ml-2 hidden text-muted-2 sm:inline">
+                  · {g.items.length} pieces
+                </span>
+              </span>
+              <span className="hidden gap-5 text-muted md:flex">
+                {lanes.map((o, k) =>
+                  k === i ? null : (
+                    <a key={o.key} href={`#${o.key}`} className="transition-colors hover:text-accent">
+                      {num(k)} {o.title.split(" and ")[0]} {k > i ? "↓" : "↑"}
+                    </a>
+                  )
+                )}
+              </span>
+            </div>
+          </div>
+
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {g.items.map((item, j) => (
-              <div key={item.slug} className={span(j, g.items.length)}>
+              <div
+                key={item.slug}
+                id={item.slug}
+                className={`scroll-mt-28 ${span(j, g.items.length)}`}
+              >
                 <WorkCard
                   item={item}
                   lead={j === 0}

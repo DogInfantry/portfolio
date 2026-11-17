@@ -182,7 +182,7 @@ export const groups: Group[] = [
     key: "strategy",
     title: "Strategy cases",
     blurb:
-      "Commercial and public-sector decisions worked from public data: where to deploy a fleet, who earns the value in a payments network, how a drug maker resets its US network before a tariff, how much announced capacity exists, and whether a new business line pays back. Three open as interactive analyses, three as decks.",
+      "Business and public-sector decisions worked from public data: where to deploy a fleet, how a drug maker resets its US network before a tariff, who earns the value in UPI, how much announced data centre capacity exists, and whether a new business line pays back.",
     slugs: [
       "india-widebody-window",
       "sun-pharma-network-review",
@@ -198,7 +198,7 @@ export const groups: Group[] = [
     key: "research",
     title: "Investment research",
     blurb:
-      "Two equity initiations with a rating, a target and the test that would change it, a sample monthly markets note, and a valuation tool covering DCF and reverse DCF.",
+      "Two equity initiations, each with a rating, a target and the test that would change it, a sample monthly markets note, and a DCF and reverse DCF valuation tool.",
     slugs: [
       "bharti-airtel-initiation",
       "nephroplus-initiation",
