@@ -6,6 +6,7 @@ import { asset } from "@/data/asset";
 import { getProject, projects } from "@/data/projects";
 import { getDomain, domainVar } from "@/data/domains";
 import { site } from "@/data/site";
+import { projectTypeLabel } from "@/data/work";
 import BrowserFrame from "@/components/BrowserFrame";
 import DocCover from "@/components/DocCover";
 import Figure from "@/components/Figure";
@@ -138,7 +139,7 @@ export default async function ProjectPage({
               rel="noopener noreferrer"
               className="rounded-sm bg-accent px-5 py-2 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
             >
-              Open the dashboard <span aria-hidden="true">↗</span>
+              Open the analysis <span aria-hidden="true">↗</span>
             </a>
           )}
           {project.github && (
@@ -181,9 +182,9 @@ export default async function ProjectPage({
           </dd>
         </div>
         <div>
-          <dt className="sc text-muted-2">Artefact</dt>
+          <dt className="sc text-muted-2">Form</dt>
           <dd className="mt-1 text-sm text-muted">
-            {project.live ? "Dashboard" : project.doc ? "Report" : "Repository"}
+            {projectTypeLabel(project)}
           </dd>
         </div>
         <div className="col-span-2 sm:col-span-1">
@@ -191,7 +192,7 @@ export default async function ProjectPage({
           <dd className="mt-1 text-sm text-muted">{project.fact}</dd>
         </div>
         <div className="col-span-2 sm:col-span-1">
-          <dt className="sc text-muted-2">Stack</dt>
+          <dt className="sc text-muted-2">Tools</dt>
           <dd className="mt-1 text-sm text-muted">
             {project.stack.join(" · ")}
           </dd>

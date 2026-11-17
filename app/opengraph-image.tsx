@@ -16,9 +16,9 @@ export default function Image() {
     (
       <OgCard
         hue={OG.accent}
-        kicker="Investment research · Strategy"
-        title="Strategy, finance and research, live and explorable."
-        outcome="Market entry cases, payments economics, covenant surveillance and derivatives regulation, published as dashboards you can open and papers you can read."
+        kicker="Strategy · Investment research"
+        title="Strategy cases and investment research"
+        outcome="Cases on aviation fleet deployment, payments economics and data centre capacity, equity initiations on Bharti Airtel and NephroPlus, and two working papers."
         metrics={[
           { value: `${work.length}`, label: "pieces of published work" },
           { value: "2", label: "working papers on SSRN" },

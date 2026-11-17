@@ -327,6 +327,7 @@ export const research: ResearchDoc[] = [
     kind: "SSRN working paper",
     pages: 34,
     sizeMB: "0.5 MB",
+    cover: "/research/covers/regulating-retail-options-boom.png",
     file: "/research/regulating-retail-options-boom.pdf",
     summary:
       "A difference-in-differences evaluation of SEBI's 2024–25 index derivatives curbs, using untargeted stock options as a within-market control across a 48-month NSE and BSE panel. Index-options notional turnover fell 37–43% below its counterfactual path, premium turnover fell far less, and the smallest retail traders exited hardest.",

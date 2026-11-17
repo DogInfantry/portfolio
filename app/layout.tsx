@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "Portfolio of Anklesh Rawat (MBA, IIM Bodh Gaya): strategy, finance, investment research and quantitative work. Two SSRN working papers, on SEBI's 2024–25 index derivatives reforms and on social protection take-up in rural India. Commercial strategy cases, covenant surveillance, payments economics, equity research engines, capital markets intelligence, climate macro and sustainable finance.",
+    "Portfolio of Anklesh Rawat (MBA, IIM Bodh Gaya): strategy cases and investment research. Commercial strategy cases on aviation fleet deployment, payments economics and data centre capacity, equity initiations on Bharti Airtel and NephroPlus, and two SSRN working papers, on SEBI's 2024–25 index derivatives reforms and on social protection take-up in rural India.",
   keywords: [
     "Anklesh Rawat",
     "commercial strategy",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${site.name} · ${site.role}`,
     description:
-      "Commercial strategy cases, covenant surveillance, payments economics, equity research engines, capital markets intelligence, and two SSRN working papers.",
+      "Commercial strategy cases, two equity initiations, a markets note, and two SSRN working papers.",
     type: "website",
     url: site.url,
     siteName: site.name,
@@ -75,9 +75,9 @@ const personJsonLd = {
   name: site.name,
   url: site.url,
   email: `mailto:${site.email}`,
-  jobTitle: "Investment Research & Strategy Analyst",
+  jobTitle: "Strategy & Investment Research Analyst",
   description:
-    "Finance and strategy generalist working across investment research, management-consulting-style problem-solving, and financial analysis, publishing each analysis as a live dashboard, paper, or case study.",
+    "Works on strategy cases and investment research, publishing each piece as an interactive analysis, a report or a working paper.",
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Indian Institute of Management Bodh Gaya",

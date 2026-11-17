@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getProject, projects } from "@/data/projects";
 import { getDomain } from "@/data/domains";
 import { site } from "@/data/site";
+import { projectTypeLabel } from "@/data/work";
 import { OgCard, OG_SIZE, DOMAIN_HEX } from "@/components/OgCard";
 
 export const size = OG_SIZE;
@@ -33,7 +34,7 @@ export default async function Image({
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) notFound();
-  const type = p.live ? "Dashboard" : p.doc ? "Report" : "Repository";
+  const type = projectTypeLabel(p);
   return new ImageResponse(
     (
       <OgCard

@@ -15,7 +15,7 @@ import { domains, getDomain, type DomainKey } from "./domains";
 export type ArtifactType = "app" | "paper" | "deck" | "code";
 
 export const artifactTypes: { key: ArtifactType; label: string }[] = [
-  { key: "app", label: "Dashboard" },
+  { key: "app", label: "Interactive analysis" },
   { key: "paper", label: "Working paper" },
   { key: "deck", label: "Report" },
   { key: "code", label: "Repository" },
@@ -61,10 +61,19 @@ const haystack = (...parts: (string | readonly string[] | undefined)[]) =>
     .join(" ")
     .toLowerCase();
 
+/**
+ * The one place a project's format is named. The label says how the work is
+ * read, not how it was built: an analysis the reader can click through is an
+ * "Interactive analysis", and the Python behind it is listed under Tools on its
+ * own page. "Dashboard" on ten items made casework read as software builds.
+ */
+export function projectTypeLabel(p: { live?: string; doc?: string }) {
+  return p.live ? "Interactive analysis" : p.doc ? "Report" : "Repository";
+}
+
 const fromProjects: WorkItem[] = projects.map((p) => {
   const type: ArtifactType = p.live ? "app" : p.doc ? "deck" : "code";
-  const typeLabel =
-    type === "app" ? "Dashboard" : type === "deck" ? "Report" : "Repository";
+  const typeLabel = projectTypeLabel(p);
   const external = p.live
     ? { href: p.live, label: "Live" }
     : p.github
@@ -126,66 +135,85 @@ const fromResearch: WorkItem[] = research.map((d) => ({
 export const work: WorkItem[] = [...fromProjects, ...fromResearch];
 
 /**
- * The index is grouped and ordered, not flat.
+ * The index is grouped by what a reader is hiring for, not by file format.
  *
- * A single grid of sixteen cards reads as a pile: a reader cannot tell a
- * working paper from a weekend repo without opening both. The first group is
- * curated by hand because "what should someone look at first" is an editorial
- * judgement and not a property of the artefact. The rest fall out by what the
- * artefact is.
+ * It used to be "Selected work" and then Dashboards, Reports and Working
+ * papers. That sorted by artefact, so a reader could not tell which kind of
+ * role the work was for, and every piece carried the same weight. The three
+ * lanes below are curated by hand and ordered: the first slug in each is the
+ * lane's lead piece, shown large on the home page with its `finding`.
+ *
+ * The last group has no slugs and takes whatever no lane claimed, so a new item
+ * that nobody has placed yet still shows up in the index instead of vanishing.
  */
 export type Group = {
   key: string;
   title: string;
   blurb: string;
-  /** explicit, ordered membership; wins over `types` */
+  /** explicit, ordered membership; a group without it takes the remainder */
   slugs?: string[];
-  types?: ArtifactType[];
+  /** what the lead piece concluded, quoted from that item's own copy */
+  finding?: string;
+  /** rendered as a plain list rather than cards */
+  compact?: boolean;
 };
 
 export const groups: Group[] = [
   {
-    key: "selected",
-    title: "Selected work",
+    key: "strategy",
+    title: "Strategy cases",
     blurb:
-      "The six to open first: an equity initiation on Bharti Airtel, two commercial strategy cases, an audit of India's data centre buildout, a causal test of El Niño commodity trades, and a quant study whose strategy failed out of sample.",
+      "Commercial and public-sector decisions worked from public data: where to deploy a fleet, who earns the value in a payments network, how much announced capacity exists, and whether a new business line pays back. Three open as interactive analyses, two as decks.",
     slugs: [
-      "bharti-airtel-initiation",
       "india-widebody-window",
       "india-fs-pulse",
       "datacentre-capacity-audit",
-      "enso-macro-risk-desk",
-      "signals-before-storms",
+      "cipla-point-of-care-diagnostics",
+      "maha-navonmesh-tgc-2026",
     ],
+    finding:
+      "Compete with the Gulf hubs, do not fly more aircraft to them. Europe first, North America second, Gulf capacity roughly flat.",
   },
   {
-    key: "builds",
-    title: "Dashboards",
+    key: "research",
+    title: "Investment research",
     blurb:
-      "Interactive dashboards on public data. Each starts from one question and shows the data and method behind its answer.",
-    types: ["app", "code"],
-  },
-  {
-    key: "documents",
-    title: "Reports and decks",
-    blurb:
-      "Equity research, markets, strategy and policy reports. Each opens as a PDF.",
-    types: ["deck"],
+      "Two equity initiations with a rating, a target and the test that would change it, a sample monthly markets note, and a valuation tool covering DCF and reverse DCF.",
+    slugs: [
+      "bharti-airtel-initiation",
+      "nephroplus-initiation",
+      "india-markets-monthly-oct-2026",
+      "sellside-research-engine",
+    ],
+    finding:
+      "HOLD, with a 12-month target of Rs 1,946. At Rs 1,833 the market already prices India ARPU growth of 9.5% a year to FY31, against 5.7% in the forecast.",
   },
   {
     key: "papers",
-    title: "Working papers",
+    title: "Working papers and quant studies",
     blurb:
-      "Working papers on SSRN. Each states its design up front and reports results whether or not they support the hypothesis.",
-    types: ["paper"],
+      "Two working papers on SSRN and two quantitative studies. Each states its design up front and reports the result whether or not it supports the hypothesis.",
+    slugs: [
+      "regulating-retail-options-boom",
+      "awareness-without-uptake",
+      "enso-macro-risk-desk",
+      "signals-before-storms",
+    ],
+    finding:
+      "Index-options notional turnover fell 37–43% below its counterfactual path, premium turnover fell far less, and the smallest retail traders exited hardest.",
+  },
+  {
+    key: "earlier",
+    title: "Earlier work",
+    blurb: "Older decks and analyses, kept for reference.",
+    compact: true,
   },
 ];
 
 /**
  * Assign every item to the first group that claims it, so a piece of work
- * appears exactly once no matter how many groups could hold it. Empty groups
- * drop out, which is what keeps a filtered view from showing a heading over
- * nothing.
+ * appears exactly once. Empty groups drop out, which is what keeps a filtered
+ * view, or the research-only index, from showing a heading over nothing.
  */
 export function groupItems(items: WorkItem[]) {
   const taken = new Set<string>();
@@ -195,9 +223,7 @@ export function groupItems(items: WorkItem[]) {
         ? g.slugs
             .map((slug) => items.find((w) => w.slug === slug))
             .filter((w): w is WorkItem => Boolean(w))
-        : items.filter(
-            (w) => !taken.has(w.slug) && (g.types?.includes(w.type) ?? false)
-          );
+        : items.filter((w) => !taken.has(w.slug));
       for (const w of picked) taken.add(w.slug);
       return { ...g, items: picked };
     })

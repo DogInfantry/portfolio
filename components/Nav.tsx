@@ -67,7 +67,7 @@ export default function Nav() {
             Anklesh Rawat
           </Link>
           <span className="sc hidden border-l border-line pl-3 text-muted lg:inline">
-            Investment Research · Strategy · Financial Analysis
+            Strategy · Investment Research
           </span>
         </div>
 

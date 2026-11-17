@@ -6,7 +6,7 @@
 export const site = {
   url: "https://portfolio-five-rouge-90.vercel.app",
   name: "Anklesh Rawat",
-  role: "Investment Research, Strategy & Financial Analysis",
+  role: "Strategy & Investment Research",
   education: "MBA, IIM Bodh Gaya",
   email: "anklesh.r@merinth.in",
   linkedin: "https://www.linkedin.com/in/anklesh-rawat-00508a1aa/",

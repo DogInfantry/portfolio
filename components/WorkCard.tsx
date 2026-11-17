@@ -7,6 +7,68 @@ import { domainVar, getDomain } from "@/data/domains";
 import type { WorkItem } from "@/data/work";
 
 /**
+ * The 16:10 media slot, shared by the card and the lane lead on the home page
+ * so a cover is contained and a screenshot fills in both places by one rule.
+ */
+export function WorkMedia({
+  item,
+  sizes,
+  eager = false,
+}: {
+  item: WorkItem;
+  sizes: string;
+  /** the first image on a page should not wait for scroll */
+  eager?: boolean;
+}) {
+  const isCover = item.imageKind === "cover";
+  /* An SVG is already resolution independent, so the raster optimizer has
+     nothing to do and Next refuses to run it without dangerouslyAllowSVG. That
+     flag also loosens remote SVG handling, which is not a trade worth making
+     for one local file we authored ourselves. */
+  const isVector = item.image?.endsWith(".svg") ?? false;
+
+  if (!item.image) {
+    /* A card with no thumbnail reads as an afterthought beside one that has
+       it, so a document without cover art gets a typographic stand-in rather
+       than an empty slot. */
+    return <DocCover title={item.outcome} kind={item.meta} />;
+  }
+
+  return (
+    <div
+      className={`relative aspect-[16/10] w-full overflow-hidden bg-sunken ${
+        isCover ? "p-4" : ""
+      }`}
+    >
+      <Image
+        src={asset(item.image)}
+        alt={
+          item.imageKind === "screenshot"
+            ? `${item.title}, application screenshot`
+            : isCover
+              ? `${item.title}, first page`
+              : `${item.title}, an exhibit from the analysis`
+        }
+        fill
+        unoptimized={isVector}
+        loading={eager ? "eager" : undefined}
+        sizes={sizes}
+        /* A chart is contained, never cropped. The exhibit is 720x470 against
+           a 16:10 slot, so object-cover would take about four per cent off the
+           bottom, which is exactly where its axis label sits. Raster
+           screenshots still fill, because losing a few pixels of a dashboard
+           costs nothing. */
+        className={
+          isCover || isVector
+            ? "object-contain object-top p-2"
+            : "object-cover object-top"
+        }
+      />
+    </div>
+  );
+}
+
+/**
  * One card shape for every artefact: dashboard, working paper or report.
  *
  * Reading order is hue rule, media, title, outcome, one number, caption row.
@@ -40,13 +102,6 @@ export default function WorkCard({
   const hue = domainVar(item.domain);
   const metric = item.metrics[0];
   const Heading = `h${headingLevel}` as const;
-  const isCover = item.imageKind === "cover";
-  /* An SVG is already resolution independent, so the raster optimizer has
-     nothing to do and Next refuses to run it without dangerouslyAllowSVG. That
-     flag also loosens remote SVG handling, which is not a trade worth making
-     for one local file we authored ourselves. */
-  const isVector = item.image?.endsWith(".svg") ?? false;
-
   return (
     <article
       data-slug={item.slug}
@@ -58,43 +113,10 @@ export default function WorkCard({
         style={{ background: hue }}
       />
 
-      {item.image ? (
-        <div
-          className={`relative aspect-[16/10] w-full overflow-hidden bg-sunken ${
-            isCover ? "p-4" : ""
-          }`}
-          /* the exhibit carries its own dark ground, so it sits on the plate as
-             a picture rather than blending into a light theme behind it */
-        >
-          <Image
-            src={asset(item.image)}
-            alt={
-              item.imageKind === "screenshot"
-                ? `${item.title}, application screenshot`
-                : isCover
-                  ? `${item.title}, first page`
-                  : `${item.title}, an exhibit from the analysis`
-            }
-            fill
-            unoptimized={isVector}
-            sizes="(min-width: 1024px) 368px, (min-width: 640px) 50vw, 100vw"
-            /* A chart is contained, never cropped. The exhibit is 720x470
-               against a 16:10 slot, so object-cover would take about four per
-               cent off the bottom, which is exactly where its axis label sits.
-               Raster screenshots still fill, because losing a few pixels of a
-               dashboard costs nothing. */
-            className={
-              isCover || isVector
-                ? "object-contain object-top p-2"
-                : "object-cover object-top"
-            }
-          />
-        </div>
-      ) : (
-        /* A card with no thumbnail reads as an afterthought beside one that has
-           it, so a document without cover art gets a typographic stand-in rather than an empty slot. */
-        <DocCover title={item.outcome} kind={item.meta} />
-      )}
+      <WorkMedia
+        item={item}
+        sizes="(min-width: 1024px) 368px, (min-width: 640px) 50vw, 100vw"
+      />
 
       <div className="flex flex-1 flex-col p-6">
         <Heading className="font-serif text-xl leading-snug tracking-tight sm:line-clamp-2">

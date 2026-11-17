@@ -1,20 +1,109 @@
 # Anklesh Rawat
 
-> Investment research, strategy, and financial analysis. MBA, IIM Bodh Gaya.
-> Work spans credit, equities, macro, market structure, climate macro,
-> sustainable finance, and product strategy. Each analysis is published as
-> something openly inspectable: a live dashboard, a working paper, or a case
-> study. Contact: anklesh.r@merinth.in
+> Strategy and investment research. MBA, IIM Bodh Gaya. The work is in three
+> groups: strategy cases, investment research, and working papers with
+> quantitative studies. Each piece is published as something openly
+> inspectable: an interactive analysis, a report, or a working paper.
+> Contact: anklesh.r@merinth.in
 
 Site: https://portfolio-five-rouge-90.vercel.app
 
 Everything below is also browsable as one filterable index at
 https://portfolio-five-rouge-90.vercel.app/work, narrowable by subject
 (?domain=credit, equities, macro, product, quant, sustainable, climate,
-market-structure, policy). The index is grouped and ordered: selected work,
-dashboards, reports and decks, then working papers.
+market-structure, policy). The index follows the same order as this file:
+strategy cases, investment research, working papers and quant studies, then
+earlier work. The first item in each of the first three groups is the one to
+open first.
 
-## Publications
+## Strategy cases
+
+- [India's Wide-Body Window](https://portfolio-five-rouge-90.vercel.app/projects/india-widebody-window):
+  Commercial aviation market-entry case. Where 60 A350-900s on firm order and 40
+  unconverted purchase rights should be deployed through 2030. The answer is to
+  compete with the Gulf hubs rather than fly more aircraft to them: the Gulf
+  carries 50.9% of India's international traffic yet is the only corridor with
+  negative yield headroom (-4.3% against Europe +21.3% and North America
+  +31.5%), 8.5M of its passengers a year are only connecting through it, and
+  remaining treaty room would absorb about 4% of the order book. Computed from
+  DGCA, Eurostat, IATA and World Bank data; the opposite recommendation was
+  overturned mid-case and documented in a pivot log.
+
+- [India FS Pulse](https://portfolio-five-rouge-90.vercel.app/projects/india-fs-pulse):
+  Who captures the value in India's UPI when the busiest half of the network is
+  priced at zero. In 2026 Q2 merchant payments were 63.9% of transactions but
+  23.0% of value and earned Rs 0 under zero-MDR, where 30bps would have been
+  Rs 3,144 crore a quarter. PhonePe (45.9%) and Google Pay (32.3%) both sit above
+  the 30% NPCI cap. Private against public bank margin gap of 114 bps. Seven
+  public sources, refreshed monthly by CI, every figure traced to a committed
+  dataset.
+
+- [Ground Truth](https://portfolio-five-rouge-90.vercel.app/projects/datacentre-capacity-audit):
+  Forensic read of India's data centre buildout, announced against delivered.
+  10.6 GW announced across 8 operators against 619 MW live, which is 5.8% of the
+  announcement and a factor of 17 between the two numbers. Only 2 of 8 operators
+  are traced to a primary filing; the rest carry a secondary or unverified tag on
+  every row. One prospectus defines built capacity as the maximum IT load a
+  facility is engineered to support, so nothing has to be constructed for the
+  number to be true. Anant Raj announces 307 MW, calls 28 MW operational and
+  reports 8 MW handed to customers. Reading all 433 pages of Techno Electric's
+  annual report yields 896.35 mn of overdue receivables the auditor flagged and
+  194.59 mn moved from payables into borrowings with no cash moving, against no
+  segment disclosure at all. 104 published claims are pinned as build invariants,
+  so a claim that stops being true fails the build.
+  Live: https://datacenter-capacity-audit.vercel.app/
+  Code: https://github.com/DogInfantry/datacentre-announced-vs-delivered
+
+- [Cipla: A Point of Care Diagnostics Business](https://portfolio-five-rouge-90.vercel.app/research/cipla-point-of-care-diagnostics):
+  Cipla Ascend Season 2, Round 1 submission. Base case of Rs 615 Cr FY32 revenue
+  at a 19% EBITDA margin, breakeven in FY30, on Rs 954 Cr of capital, 10% of net
+  cash, starting with a 50 clinic pilot. Scores and model inputs are labelled
+  assumptions.
+
+- [Maha Navonmesh: Wiring Maharashtra's Innovation Money](https://portfolio-five-rouge-90.vercel.app/research/maha-navonmesh-tgc-2026):
+  30-page submission to The Governance Challenge 2026. Maharashtra earmarks about
+  Rs 2,920 Cr a year for innovation, 234 times the Rs 12.5 Cr reaching startups as
+  pilot orders. Proposes one pipeline with six levers at Rs 1,125 Cr a year, 52%
+  of the 0.5% earmark, with no new agency or tax. Model inputs are labelled
+  assumptions.
+
+## Investment research
+
+- [Bharti Airtel: Initiation of Coverage](https://portfolio-five-rouge-90.vercel.app/research/bharti-airtel-initiation):
+  15-page equity initiation, 8 Oct 2026. HOLD, 12-month target Rs 1,946, 6.2%
+  above the 7 Oct close of Rs 1,833. Valued part by part (India mobile, Airtel
+  Africa, Indus Towers, Bharti Hexacom); the DCF by part is Rs 1,338 and the
+  price needs India ARPU to grow 9.5% a year to FY31 against 5.7% forecast.
+  Three dated outcomes weighted 30/43/27 (bear Rs 1,709, base Rs 1,947, bull
+  Rs 2,209), with the Jio price band rule printed in advance. Street consensus
+  is a Buy at Rs 2,317. In the style of the CFA Institute Research Challenge;
+  not an entry, not investment advice.
+  PDF: https://portfolio-five-rouge-90.vercel.app/research/bharti-airtel-initiation.pdf
+
+- [NephroPlus: Initiation of Coverage](https://portfolio-five-rouge-90.vercel.app/research/nephroplus-initiation):
+  15-page equity initiation on India's largest dialysis chain, 5 Oct 2026. HOLD,
+  12-month target Rs 605, 6.8% below the 1 Oct close of Rs 649; DCF value Rs 365.
+  The market pays a growth stock's multiple, but 76.5% of patients are on public
+  insurance and published scheme and tender rates reproduce about nine tenths of
+  an Indian session. A captive clinic earns 9.3% after tax against a 10.9% cost
+  of capital. Three outcomes weighted 35/45/20 (bear Rs 405, base Rs 660, bull
+  Rs 829). An independent student exercise in the format of the CFA Institute
+  Research Challenge; not investment advice.
+  PDF: https://portfolio-five-rouge-90.vercel.app/research/nephroplus-initiation.pdf
+
+- [India Markets Monthly: Bonds Have Stopped Hedging Equities](https://portfolio-five-rouge-90.vercel.app/research/india-markets-monthly-oct-2026):
+  Illustrative work sample, a 14-page monthly markets note written from public
+  data with data to 16 Oct 2026. Nifty 50 and 10 year G-sec return correlation
+  of 0.45 this year against 0.07 in 2025. Covers rates, FX, flows and the balance
+  of payments, three oil-led scenarios to March 2027 and five dated range calls
+  for 30 November. The bank is illustrative and desk forecasts are marked as
+  drafts; not investment research or advice.
+
+- [Sellside Research Engine](https://portfolio-five-rouge-90.vercel.app/projects/sellside-research-engine):
+  Equity research terminal with DCF and reverse-DCF valuation, a five-pillar
+  composite rating, eight risk metrics, and NLP scoring of management commentary.
+
+## Working papers and quant studies
 
 - [Regulating the Retail Options Boom](https://portfolio-five-rouge-90.vercel.app/research/regulating-retail-options-boom):
   SSRN working paper (July 2026), with Shreshtha Rawat. Difference-in-differences
@@ -38,108 +127,32 @@ dashboards, reports and decks, then working papers.
   (69.2%) and administrative distance (57.7%) outranked lack of information
   (30.8%). SSRN: https://papers.ssrn.com/abstract=7239538
 
-## Projects
-
-- [Ground Truth](https://portfolio-five-rouge-90.vercel.app/projects/datacentre-capacity-audit):
-  Forensic read of India's data centre buildout, announced against delivered.
-  10.6 GW announced across 8 operators against 619 MW live, which is 5.8% of the
-  announcement and a factor of 17 between the two numbers. Only 2 of 8 operators
-  are traced to a primary filing; the rest carry a secondary or unverified tag on
-  every row. One prospectus defines built capacity as the maximum IT load a
-  facility is engineered to support, so nothing has to be constructed for the
-  number to be true. Anant Raj announces 307 MW, calls 28 MW operational and
-  reports 8 MW handed to customers. Reading all 433 pages of Techno Electric's
-  annual report yields 896.35 mn of overdue receivables the auditor flagged and
-  194.59 mn moved from payables into borrowings with no cash moving, against no
-  segment disclosure at all. 104 published claims are pinned as build invariants,
-  so a claim that stops being true fails the build.
-  Live: https://datacenter-capacity-audit.vercel.app/
-  Code: https://github.com/DogInfantry/datacentre-announced-vs-delivered
-
-- [India's Wide-Body Window](https://portfolio-five-rouge-90.vercel.app/projects/india-widebody-window):
-  Commercial aviation market-entry case. Where 60 A350-900s on firm order and 40
-  unconverted purchase rights should be deployed through 2030. The answer is to
-  compete with the Gulf hubs rather than fly more aircraft to them: the Gulf
-  carries 50.9% of India's international traffic yet is the only corridor with
-  negative yield headroom (-4.3% against Europe +21.3% and North America
-  +31.5%), 8.5M of its passengers a year are only connecting through it, and
-  remaining treaty room would absorb about 4% of the order book. Computed from
-  DGCA, Eurostat, IATA and World Bank data; the opposite recommendation was
-  overturned mid-case and documented in a pivot log.
-- [India FS Pulse](https://portfolio-five-rouge-90.vercel.app/projects/india-fs-pulse):
-  Who captures the value in India's UPI when the busiest half of the network is
-  priced at zero. In 2026 Q2 merchant payments were 63.9% of transactions but
-  23.0% of value and earned Rs 0 under zero-MDR, where 30bps would have been
-  Rs 3,144 crore a quarter. PhonePe (45.9%) and Google Pay (32.3%) both sit above
-  the 30% NPCI cap. Private against public bank margin gap of 114 bps. Seven
-  public sources, refreshed monthly by CI, every figure traced to a committed
-  dataset.
-- [Sellside Research Engine](https://portfolio-five-rouge-90.vercel.app/projects/sellside-research-engine):
-  Equity research terminal with DCF and reverse-DCF valuation, a five-pillar
-  composite rating, eight risk metrics, and NLP scoring of management commentary.
-- [Capital Markets Intelligence Platform](https://portfolio-five-rouge-90.vercel.app/projects/capital-markets-intelligence):
-  Six open-data models: cross-asset regime scoring, yield-curve decomposition,
-  IPO event studies across 25 offerings, M&A pipeline screening, sovereign risk.
 - [ENSO Macro Risk Desk](https://portfolio-five-rouge-90.vercel.app/projects/enso-macro-risk-desk):
   Commodity risk desk built on the El Nino-Southern Oscillation, with Granger and
   CCM causal testing of every headline ENSO-to-commodity trade.
+- [Signals Before Storms](https://portfolio-five-rouge-90.vercel.app/projects/signals-before-storms):
+  HMM regime overlay for tactical asset allocation, graded on 1,814 out-of-sample
+  days across India and the US. Published as a negative result with a diagnosis:
+  the states order volatility and not return, so no book separates from 60/40 or
+  equal weight on Sharpe, though max drawdown falls to -6.2% from -23.7%.
+
+## Earlier work
+
+- [Capital Markets Intelligence Platform](https://portfolio-five-rouge-90.vercel.app/projects/capital-markets-intelligence):
+  Six open-data models: cross-asset regime scoring, yield-curve decomposition,
+  IPO event studies across 25 offerings, M&A pipeline screening, sovereign risk.
 - [Dynamic Debt Covenant Surveillance Engine](https://portfolio-five-rouge-90.vercel.app/projects/debt-covenant-surveillance):
   AST-safe covenant monitoring over live SEC filings across $263B of issuer debt,
   with cross-default cascade simulation and macro shock sensitivity.
 - [India Sustainable Finance Transition Dashboard](https://portfolio-five-rouge-90.vercel.app/projects/sustainable-finance-india):
   Green bond issuance, SEBI and RBI frameworks, and transition finance for
   India's hard-to-abate sectors.
-- [Signals Before Storms](https://portfolio-five-rouge-90.vercel.app/projects/signals-before-storms):
-  HMM regime overlay for tactical asset allocation, graded on 1,814 out-of-sample
-  days across India and the US. Published as a negative result with a diagnosis:
-  the states order volatility and not return, so no book separates from 60/40 or
-  equal weight on Sharpe, though max drawdown falls to -6.2% from -23.7%.
 - [IndusInd Protect: Bancassurance Product Case Study](https://portfolio-five-rouge-90.vercel.app/projects/indusind-protect):
   Product case study for an in-app insurance layer: 60-respondent survey and
   interviews, a benchmark of five competitors (PolicyBazaar, Acko, Digit, ICICI
   Lombard, SBI General), three personas, RICE-scored feature ranking, wireframes
   and prototype, and a 42-month go-to-market plan.
 
-## Research reports
-
-- [Bharti Airtel: Initiation of Coverage](https://portfolio-five-rouge-90.vercel.app/research/bharti-airtel-initiation):
-  15-page equity initiation, 8 Oct 2026. HOLD, 12-month target Rs 1,946, 6.2%
-  above the 7 Oct close of Rs 1,833. Valued part by part (India mobile, Airtel
-  Africa, Indus Towers, Bharti Hexacom); the DCF by part is Rs 1,338 and the
-  price needs India ARPU to grow 9.5% a year to FY31 against 5.7% forecast.
-  Three dated outcomes weighted 30/43/27 (bear Rs 1,709, base Rs 1,947, bull
-  Rs 2,209), with the Jio price band rule printed in advance. Street consensus
-  is a Buy at Rs 2,317. In the style of the CFA Institute Research Challenge;
-  not an entry, not investment advice.
-  PDF: https://portfolio-five-rouge-90.vercel.app/research/bharti-airtel-initiation.pdf
-- [NephroPlus: Initiation of Coverage](https://portfolio-five-rouge-90.vercel.app/research/nephroplus-initiation):
-  15-page equity initiation on India's largest dialysis chain, 5 Oct 2026. HOLD,
-  12-month target Rs 605, 6.8% below the 1 Oct close of Rs 649; DCF value Rs 365.
-  The market pays a growth stock's multiple, but 76.5% of patients are on public
-  insurance and published scheme and tender rates reproduce about nine tenths of
-  an Indian session. A captive clinic earns 9.3% after tax against a 10.9% cost
-  of capital. Three outcomes weighted 35/45/20 (bear Rs 405, base Rs 660, bull
-  Rs 829). An independent student exercise in the format of the CFA Institute
-  Research Challenge; not investment advice.
-  PDF: https://portfolio-five-rouge-90.vercel.app/research/nephroplus-initiation.pdf
-- [India Markets Monthly: Bonds Have Stopped Hedging Equities](https://portfolio-five-rouge-90.vercel.app/research/india-markets-monthly-oct-2026):
-  Illustrative work sample, a 14-page monthly markets note written from public
-  data with data to 16 Oct 2026. Nifty 50 and 10 year G-sec return correlation
-  of 0.45 this year against 0.07 in 2025. Covers rates, FX, flows and the balance
-  of payments, three oil-led scenarios to March 2027 and five dated range calls
-  for 30 November. The bank is illustrative and desk forecasts are marked as
-  drafts; not investment research or advice.
-- [Maha Navonmesh: Wiring Maharashtra's Innovation Money](https://portfolio-five-rouge-90.vercel.app/research/maha-navonmesh-tgc-2026):
-  30-page submission to The Governance Challenge 2026. Maharashtra earmarks about
-  Rs 2,920 Cr a year for innovation, 234 times the Rs 12.5 Cr reaching startups as
-  pilot orders. Proposes one pipeline with six levers at Rs 1,125 Cr a year, 52%
-  of the 0.5% earmark, with no new agency or tax. Model inputs are labelled
-  assumptions.
-- [Cipla: A Point of Care Diagnostics Business](https://portfolio-five-rouge-90.vercel.app/research/cipla-point-of-care-diagnostics):
-  Cipla Ascend Season 2, Round 1 submission. Base case of Rs 615 Cr FY32 revenue
-  at a 19% EBITDA margin, breakeven in FY30, on Rs 954 Cr of capital, 10% of net
-  cash, starting with a 50 clinic pilot. Scores and model inputs are labelled
-  assumptions.
 - [India's Critical Minerals & Green Steel Transition](https://portfolio-five-rouge-90.vercel.app/research/india-strategic-metals-transition):
   Strategic roadmap for the energy-transition value chain and mid-market steel.
 - [Bridging India's MSME Credit Gap](https://portfolio-five-rouge-90.vercel.app/research/msme-credit):

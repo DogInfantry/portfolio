@@ -10,7 +10,7 @@ export const dynamic = "force-static";
 
 export const contentType = "image/png";
 export const alt =
-  "The full work index: dashboards, working papers and reports.";
+  "The full work index: strategy cases, investment research, working papers and earlier work.";
 
 export default function Image() {
   return new ImageResponse(
@@ -19,10 +19,10 @@ export default function Image() {
         hue={OG.accent}
         kicker="The index"
         title="Every piece of work, in one place"
-        outcome="Live analytical apps, working papers, strategy decks and open code. Filter by subject or by artefact, or read the whole shelf as one table."
+        outcome="Strategy cases, investment research, working papers and earlier work. Filter by subject or by form, or read it all as one table."
         metrics={[
           { value: `${work.length}`, label: "pieces across nine subjects" },
-          { value: `${work.filter((w) => w.type === "app").length}`, label: "open as live dashboards" },
+          { value: `${work.filter((w) => w.type === "app").length}`, label: "open as interactive analyses" },
         ]}
         host={`${site.url.replace(/^https?:\/\//, "")}/work`}
       />

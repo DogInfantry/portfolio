@@ -40,7 +40,7 @@ export default function ResearchPage() {
         item has a summary page and an open PDF.
       </p>
       <p className="mt-3 text-sm text-muted-2">
-        Looking for the dashboards as well?{" "}
+        Looking for the interactive analyses as well?{" "}
         <Link href="/work" className="lk text-accent">
           The full work index has everything
         </Link>
