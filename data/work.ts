@@ -187,10 +187,10 @@ export const groups: Group[] = [
       "india-widebody-window",
       "sun-pharma-network-review",
       "pb-fintech-commission-caps",
+      "maha-navonmesh-tgc-2026",
       "india-fs-pulse",
       "datacentre-capacity-audit",
       "cipla-point-of-care-diagnostics",
-      "maha-navonmesh-tgc-2026",
     ],
     finding:
       "Compete with the Gulf hubs, do not fly more aircraft to them. Europe first, North America second, Gulf capacity roughly flat.",

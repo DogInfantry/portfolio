@@ -225,13 +225,13 @@ export const research: ResearchDoc[] = [
     title: "Maha Navonmesh: Wiring Maharashtra's Innovation Money",
     subtitle:
       "One pipeline to test, buy and scale deep tech by 2035, on money already earmarked",
-    kind: "The Governance Challenge 2026 · submission",
-    pages: 33,
-    sizeMB: "1.3 MB",
+    kind: "The Governance Challenge 2026 · independent entry",
+    pages: 53,
+    sizeMB: "2.9 MB",
     cover: "/research/covers/maha-navonmesh-tgc-2026.png",
     file: "/research/maha-navonmesh-tgc-2026.pdf",
     summary:
-      "A solution deck for The Governance Challenge 2026: Maharashtra earmarks about ₹2,920 Cr a year for innovation, 234 times the ₹12.5 Cr cap on today's Startup Week pilot orders. The proposed mission connects that money into one pipeline with six levers, one per lifecycle stage, run through MSInS and MITRA with no new agency or tax. It costs ₹1,125 Cr a year at full run, 52% of the 0.5% departmental earmark, and is applied to all six challenge sectors. Revised after external review with a legal route for Pilot to Purchase, staffing for about 335 live contracts, and returns kept in four separate ledgers. Budget figures are sourced; model inputs and scores are labelled as assumptions or the author's assessment.",
+      "A solution deck for The Governance Challenge 2026: Maharashtra earmarks about ₹2,920 Cr a year for innovation, 234 times the ₹12.5 Cr cap on today's Startup Week pilot orders. The proposed mission connects that money into one pipeline with six levers, one per lifecycle stage, run through MSInS and MITRA with no new agency or tax. It costs ₹1,125 Cr a year at full run, 52% of the 0.5% departmental earmark, and is applied to all six challenge sectors. By 1 May 2035 it yields 207 scale orders from 690 field pilots. An 18 page deck is backed by a 34 page evidence annexure with a legal route for Pilot to Purchase, staffing for about 335 live contracts, returns kept in four ledgers that are never added, and a fact check log of ten corrected figures. Budget figures are sourced; model inputs and scores are labelled as assumptions or the author's assessment. Not commissioned, reviewed or endorsed by Samagra or the Government of Maharashtra.",
     metrics: [
       {
         value: "234x",
