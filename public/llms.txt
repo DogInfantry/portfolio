@@ -19,15 +19,18 @@ Site: https://portfolio-five-rouge-90.vercel.app
 ## Skills, with the work that shows each
 
 - Strategy: market sizing and market entry (India's Wide-Body Window);
-  industry and value chain economics (India FS Pulse, Ground Truth);
+  industry and value chain economics (India FS Pulse, Ground Truth, Sun
+  Pharma network review, PB Fintech commission caps);
   competitive benchmarking (IndusInd Protect, Ground Truth); business case
   development (Cipla diagnostics case, Maha Navonmesh); go-to-market strategy
   (IndusInd Protect); hypothesis-driven problem solving (India's Wide-Body
-  Window, Signals Before Storms).
+  Window, PB Fintech commission caps, Signals Before Storms); regulatory
+  impact analysis (PB Fintech commission caps, retail options paper).
 - Finance and valuation: financial modelling (Cipla diagnostics case, Bharti
   Airtel); DCF and reverse DCF valuation (Bharti Airtel, Sellside Research
   Engine); comparable company analysis (NephroPlus, Bharti Airtel); scenario
-  and sensitivity analysis (Bharti Airtel, India Markets Monthly); equity
+  and sensitivity analysis (Bharti Airtel, India Markets Monthly, Sun Pharma
+  network review, PB Fintech commission caps); equity
   research and investment thesis (Bharti Airtel, NephroPlus).
 - Research methods: causal inference with difference-in-differences (retail
   options paper, ENSO Macro Risk Desk); backtesting (Signals Before Storms);
@@ -64,6 +67,21 @@ open first.
   manufacturing $455M, optimise $362M, defend all $302M, onshore now $88M.
   Organon's $3.5B of 2028 maturities come before the network plan. Margins,
   pass through and probabilities are labelled assumptions.
+
+- [PB Fintech: What Survives the Commission Caps](https://portfolio-five-rouge-90.vercel.app/research/pb-fintech-commission-caps):
+  26-page independent strategy case from public data on IRDAI's September 2026
+  draft caps on insurance distribution commissions and what they do to
+  Policybazaar. Health is capped at 15% of premium on a first sale and 5% on
+  renewal for distributors, against about 24% and an estimated 18% today. On a
+  Q2 FY27 run rate the draft removes about 36% of core insurance revenue (range
+  30 to 41%) and 62% of renewal revenue; renewals equal about 95% of core online
+  EBITDA. Doing nothing turns Rs 1,036 crore of core online EBITDA into a Rs 543
+  crore loss; four cost moves add Rs 527 crore and reach only break even;
+  keeping existing renewals on today's terms adds Rs 712 crore in FY28. The
+  call: resize acquisition by product now, argue for a renewal transition and a
+  disclosed customer fee, grow credit, UAE and PB Health outside the caps.
+  Product mix and take rates are labelled assumptions with a 10,000 draw Monte
+  Carlo and a market model event study. Not commissioned by PB Fintech.
 
 - [India FS Pulse](https://portfolio-five-rouge-90.vercel.app/projects/india-fs-pulse):
   Who captures the value in India's UPI when the busiest half of the network is

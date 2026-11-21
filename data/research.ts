@@ -322,6 +322,60 @@ export const research: ResearchDoc[] = [
     ],
   },
   {
+    slug: "pb-fintech-commission-caps",
+    domain: "market-structure",
+    title: "PB Fintech: What Survives the Commission Caps",
+    subtitle:
+      "Resize acquisition now, win a renewal transition, and grow what IRDAI does not price",
+    kind: "Independent strategy case · public data",
+    pages: 26,
+    sizeMB: "1.6 MB",
+    cover: "/research/covers/pb-fintech-commission-caps.png",
+    file: "/research/pb-fintech-commission-caps.pdf",
+    summary:
+      "A 26 page board-style strategy review of what IRDAI's September 2026 draft on insurance distribution commissions does to Policybazaar (PB Fintech), and what to do before the rule is final. The draft caps health commission for distributors at 15% of premium on a first sale and 5% on renewal, against about 24% and an estimated 18% today. On a run rate model of Q2 FY27, it removes about 36% of core insurance revenue (range 30 to 41%) and 62% of renewal revenue, and renewals equal about 95% of core online EBITDA. Doing nothing turns ₹1,036 Cr of run rate core online EBITDA into a ₹543 Cr loss; four controllable moves add ₹527 Cr and only reach break even, while keeping existing renewals on today's terms would add ₹712 Cr in FY28. The recommendation is to resize acquisition by product now, use the draft regulation round to argue for a renewal transition and a disclosed customer fee, and grow credit, UAE and PB Health, which sit outside the caps. Built from the IRDAI paper, company results and NSE prices; product mix and renewal take rates are labelled assumptions with low and high cases, tested with a 10,000 draw Monte Carlo and a market model event study. Not commissioned by PB Fintech and not investment advice.",
+    metrics: [
+      {
+        value: "-36%",
+        label: "core insurance revenue removed by the draft (range 30 to 41%)",
+      },
+      {
+        value: "95%",
+        label: "of core online EBITDA equalled by renewals, which the draft cuts 62%",
+      },
+      {
+        value: "+₹712 Cr",
+        label: "in FY28 if existing renewals keep today's terms, against +₹527 Cr from four cost moves",
+      },
+    ],
+    findings: [
+      "The caps take a third of insurance revenue but nearly all core profit. The draft removes about 36% of core insurance revenue and 62% of renewal revenue, and renewal contribution of about ₹980 Cr a year equals 95% of ₹1,036 Cr adjusted core online EBITDA",
+      "Per policy, health stops paying for paid acquisition. Five year health contribution falls from ₹11,674 to ₹1,063, motor turns negative and term life keeps three quarters, so health should be bought only below a ₹3,600 acquisition cost and paid motor acquisition stopped",
+      "Cost moves are necessary and not enough. Stopping paid motor acquisition, resetting health acquisition cost, automating renewal service and cutting fixed cost 20% add ₹527 Cr and leave run rate core online EBITDA near break even (-₹16 Cr), with a 37% chance of a loss across 10,000 draws",
+      "The final wording is worth more than any cut. Keeping existing renewals on today's terms adds ₹712 Cr in FY28 and ₹537 Cr in FY29, agent level caps for distributors add ₹475 Cr, and insurer paid service fees are caught by the draft's 'by whatever name called' definition",
+      "The market has already priced one rule win. The share fell 46% after the paper (₹1,886 to ₹1,023), a 53.4% abnormal fall in a market model event study, which implies ₹474 to 578 Cr of EBITDA lost for good, close to the cost moves plus one favourable clause",
+    ],
+    figures: [
+      {
+        kind: "bars",
+        caption:
+          "What Policybazaar earns per ₹100 of a health policy, today and under IRDAI's draft cap for distribution entities. The renewal take rate today is the author's estimate; the company does not disclose it. The renewal cap is the cut that reaches profit, because renewals carry about 95% of core online EBITDA.",
+        source: "Summary; the deck's cover and page 6",
+        data: [
+          { label: "First sale, today", value: 24, display: "₹24" },
+          { label: "First sale, draft cap", value: 15, display: "₹15" },
+          { label: "Renewal, today (estimate)", value: 18, display: "₹18" },
+          {
+            label: "Renewal, draft cap",
+            value: 5,
+            display: "₹5",
+            emphasis: true,
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "cipla-point-of-care-diagnostics",
     domain: "product",
     title: "Cipla: A Point of Care Diagnostics Business",

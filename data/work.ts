@@ -182,10 +182,11 @@ export const groups: Group[] = [
     key: "strategy",
     title: "Strategy cases",
     blurb:
-      "Business and public-sector decisions worked from public data: where to deploy a fleet, how a drug maker resets its US network before a tariff, who earns the value in UPI, how much announced data centre capacity exists, and whether a new business line pays back.",
+      "Business and public-sector decisions worked from public data: where to deploy a fleet, how a drug maker resets its US network before a tariff, what an insurance commission cap leaves of a distributor, who earns the value in UPI, how much announced data centre capacity exists, and whether a new business line pays back.",
     slugs: [
       "india-widebody-window",
       "sun-pharma-network-review",
+      "pb-fintech-commission-caps",
       "india-fs-pulse",
       "datacentre-capacity-audit",
       "cipla-point-of-care-diagnostics",
