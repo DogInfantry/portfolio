@@ -21,16 +21,17 @@ Site: https://portfolio-five-rouge-90.vercel.app
 - Strategy: market sizing and market entry (India's Wide-Body Window);
   industry and value chain economics (India FS Pulse, Ground Truth, Sun
   Pharma network review, PB Fintech commission caps);
-  competitive benchmarking (IndusInd Protect, Ground Truth); business case
-  development (Cipla diagnostics case, Maha Navonmesh); go-to-market strategy
-  (IndusInd Protect); hypothesis-driven problem solving (India's Wide-Body
+  competitive benchmarking (IndusInd Protect, Ground Truth, Britannia pricing
+  round); business case development (Cipla diagnostics case, Maha Navonmesh);
+  go-to-market strategy (IndusInd Protect); pricing strategy and price pack
+  architecture (Britannia pricing round); hypothesis-driven problem solving (India's Wide-Body
   Window, PB Fintech commission caps, Signals Before Storms); regulatory
   impact analysis (PB Fintech commission caps, retail options paper).
 - Finance and valuation: financial modelling (Cipla diagnostics case, Bharti
   Airtel); DCF and reverse DCF valuation (Bharti Airtel, Sellside Research
   Engine); comparable company analysis (NephroPlus, Bharti Airtel); scenario
   and sensitivity analysis (Bharti Airtel, India Markets Monthly, Sun Pharma
-  network review, PB Fintech commission caps); equity
+  network review, PB Fintech commission caps, Britannia pricing round); equity
   research and investment thesis (Bharti Airtel, NephroPlus).
 - Research methods: causal inference with difference-in-differences (retail
   options paper, ENSO Macro Risk Desk); backtesting (Signals Before Storms);
@@ -82,6 +83,22 @@ open first.
   disclosed customer fee, grow credit, UAE and PB Health outside the caps.
   Product mix and take rates are labelled assumptions with a 10,000 draw Monte
   Carlo and a market model event study. Not commissioned by PB Fintech.
+
+- [Britannia: Keep the Coin, Move the Grams](https://portfolio-five-rouge-90.vercel.app/research/britannia-price-pack-architecture):
+  15-page independent pricing committee deck from public data on Britannia's
+  next pricing round after Q2 FY27, built as a price pack architecture: which
+  biscuit packs take price, which take grams, and what it does to margin.
+  Gross margin fell to 39.6% in Q2 FY27; as sugar covers roll off at Rs 50 a
+  kg spot, cost of goods rises Rs 2.7 per Rs 100 of sales and gross margin
+  falls to 37.8% with no new round. The call: hold every Rs 5 and Rs 10 MRP,
+  cut grams only on parity packs below a 105 index on price per 100 g against
+  the named rival, take 5 to 9% on MRP above Rs 20 (37% of sales, 75% of the
+  round), add a Rs 25 Bourbon pack and cut brand funded discount online. Firm
+  moves lift gross margin to 40.1%; two tests and a Parle-G trigger reach
+  40.9% against a 40.8% target, worth Rs 45 to 59 crore of gross profit a
+  month after volume loss. Input shares and elasticities are labelled
+  assumptions with a 10,000 draw Monte Carlo. Not prepared for or endorsed by
+  Britannia, Parle or ITC.
 
 - [Maha Navonmesh: Wiring Maharashtra's Innovation Money](https://portfolio-five-rouge-90.vercel.app/research/maha-navonmesh-tgc-2026):
   53-page independent entry to The Governance Challenge 2026 (an 18-page deck

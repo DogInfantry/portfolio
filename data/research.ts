@@ -376,6 +376,60 @@ export const research: ResearchDoc[] = [
     ],
   },
   {
+    slug: "britannia-price-pack-architecture",
+    domain: "product",
+    title: "Britannia: Keep the Coin, Move the Grams",
+    subtitle:
+      "Price pack architecture for the next pricing round: hold ₹5 and ₹10, move grams where rivals leave room, take price above ₹20",
+    kind: "Independent strategy case · public data",
+    pages: 15,
+    sizeMB: "0.6 MB",
+    cover: "/research/covers/britannia-price-pack-architecture.png",
+    file: "/research/britannia-price-pack-architecture.pdf",
+    summary:
+      "A 15 page pricing committee deck on Britannia's next pricing round after Q2 FY27: which biscuit packs take price, which take grams, where a new price point earns its place, and what it does to margin. Gross margin fell to 39.6% in Q2 FY27, 203 bps below a year ago, after 3.5% of pricing, and as sugar covers roll off at ₹50 spot, cost of goods still rises ₹2.7 per ₹100 of sales, taking gross margin to 37.8% with no new round. The recommended price pack architecture holds every ₹5 and ₹10 MRP, cuts grams only on parity packs below a 105 index on ₹ per 100 g against the named rival, takes 5 to 9% on MRP above ₹20, turns Bourbon ₹20 into a ₹25 pack, and cuts brand funded discount online. Firm moves lift gross margin to 40.1%; two tests and a Parle-G trigger take it to 40.9% against a 40.8% target, worth ₹45 to 59 Cr of gross profit a month after volume loss. Built from company results and the earnings call, broker notes, commodity prices and 48 BigBasket listings; input shares, band weights and elasticities are labelled assumptions, tested with a 10,000 draw Monte Carlo and a sugar sensitivity. Not prepared for or endorsed by Britannia, Parle or ITC, and not investment advice.",
+    metrics: [
+      {
+        value: "+230 bps",
+        label: "of gross margin restored by firm moves, 37.8% to 40.1% at ₹50 sugar",
+      },
+      {
+        value: "₹45 to 59 Cr",
+        label: "of gross profit a month at stake, with the round against without, after volume loss",
+      },
+      {
+        value: "75%",
+        label: "of the round from packs above ₹20, which are 37% of sales",
+      },
+    ],
+    findings: [
+      "Keep the coin and move the grams. When Parle and regional brands sold at ₹4.50 and ₹9, Britannia lost transactions even while giving 10 to 13% more grams, so every ₹5 and ₹10 MRP holds, grams come back first as printed 'extra' offers end, and no pack loses more than one biscuit or 3% thickness in a round",
+      "The cost is still to come. Covers held Britannia's Q2 sugar near ₹42 a kg against ₹50 spot, so cost of goods rises ₹2.7 per ₹100 of sales and gross margin falls from 39.6% to 37.8% with no new round; sugar is 59% of that rise",
+      "Grams move only where a rival leaves room. On ₹ per 100 g against the named rival, Marie Gold ₹10 (index 90) and 50-50 Sweet & Salty (index 100) take grams, while Tiger (105 against Parle-G) and Good Day (116 against 20-20) hold until the rival withdraws its extra grams",
+      "Price does the heavy lifting above ₹20. Packs above ₹20 are 37% of sales but carry 75% of the round: 5 to 9% on MRP at held grams, a ₹25 Bourbon pack with 15% more grams, and 3 points less brand funded discount online and in modern trade",
+      "Firm moves are a partial recovery by design. From Q2's 39.6%, cost roll off takes -274 bps and the rest of Q2's pricing adds +93; grams (+59), price (+164) and promo (+13), less -3 bps of volume, lift gross margin to 40.1% at ₹50 sugar, 70 bps under target. Two tests (+29) take it to 40.4% and the Parle-G trigger (+48) to 40.9%. Sugar swings the plan by about 190 bps, and 23% of 10,000 draws still land below 39.6%",
+    ],
+    figures: [
+      {
+        kind: "diverging",
+        unit: " bps",
+        caption:
+          "Gross margin bridge from Q2 FY27 actual to the full plan, in bps, at ₹50 sugar. Cost roll off and Q2 price carry are what happens with no new round; grams, price and promo are the firm moves; tests and the Parle-G trigger are conditional. Input shares, band weights and elasticities are the author's assumptions with stated ranges.",
+        source: "Finding 5; the deck's page 9",
+        data: [
+          { label: "Cost roll off", value: -274, display: "-274" },
+          { label: "Rest of Q2 pricing", value: 93, display: "+93" },
+          { label: "Grams", value: 59, display: "+59" },
+          { label: "Price", value: 164, display: "+164", emphasis: true },
+          { label: "Promo", value: 13, display: "+13" },
+          { label: "Volume", value: -3, display: "-3" },
+          { label: "Tests", value: 29, display: "+29" },
+          { label: "Parle-G trigger", value: 48, display: "+48" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "cipla-point-of-care-diagnostics",
     domain: "product",
     title: "Cipla: A Point of Care Diagnostics Business",
